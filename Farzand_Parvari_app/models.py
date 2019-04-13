@@ -280,3 +280,9 @@ class general_noting(models.Model):
     id = models.AutoField(primary_key=True)
     consultant = models.ForeignKey(User, on_delete=models.CASCADE, db_column='consultant')
     txt = models.TextField()
+
+
+class Helper_file_number(models.Model):
+    id = models.AutoField(primary_key=True)
+    Helper = models.ForeignKey(User, on_delete=models.CASCADE, db_column='helper')
+    file_number = models.ForeignKey(Children, on_delete=models.CASCADE, db_column='file_number')

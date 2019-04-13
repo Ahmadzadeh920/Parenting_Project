@@ -76,13 +76,16 @@ from .View_API import (TestAuthView,
                     List_Create_noting_fileNumber,
                     Retrieve_update_noting_file_number,
                     List_Create_general_noting,
-                    Retrieve_update_general_noting
+                    Retrieve_update_general_noting,
+                    List_Create_Helper_file_number,
+                    Retrieve_delete_Helper_file_number
                        )
 urlpatterns = [
     url(r'check_member/$',views.check_member),
     url(r'^Register_Admin/$', views.Create_admin_site, name='register_Admin'),
     url(r'^Register_Parents/$', views.register_parents, name='register_Parents'),
     url(r'^Register_Psychology/$', views.register_psychology, name='register_Psychology'),
+    url(r'^Register_Helper/$', views.register_helper, name='register_helper'),
     # Profile
     url(r'^Profile_Parents_Create/$', Profile_Parents_view.as_view()),
     url(r'^Profile_Psychology_Create/$', Profile_Psychology_view.as_view()),
@@ -93,7 +96,7 @@ urlpatterns = [
     url('logout/', LogoutViewEx.as_view(), name='rest_logout', ),# that overrides the rest-auth REST logout-view (
     url('login/', LoginView.as_view(), name='rest_login', ), #  the rest-auth REST login-view
     url(r'^password/reset/$', PasswordResetView.as_view(),name='rest_password_reset'),
-    url(r'^password/reset/confirm/$', PasswordResetConfirmView.as_view(),name='rest_password_reset_confirm'),
+    url(r'^password/reset/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', PasswordResetConfirmView.as_view(),name='password_reset_confirm'),
     url(r'^user/$', UserDetailsView.as_view(), name='rest_user_details'),
     url(r'^password/change/$', PasswordChangeView.as_view(),name='rest_password_change'),
     # children
@@ -189,5 +192,10 @@ urlpatterns = [
     # general  Noting
     url(r'^List_create_general_nothing/$', List_Create_general_noting.as_view(),name='List_Create_general_noting'),
     url(r'^Retrieve_update_general_noting/(?P<id>\d+)/$', Retrieve_update_general_noting.as_view(),name='Retrieve_update_general_noting'),
+    # Helper_File_number
+    url(r'^List_create_helper_fileNumber/(?P<file_number>\d{8})/$', List_Create_Helper_file_number.as_view(),name='List_Create_Helper_file_number'),
+    url(r'^Retrieve_delete_helper_fileNumber/(?P<file_number>\d{8})/(?P<id>\d+)/$', Retrieve_delete_Helper_file_number.as_view(),name='Retrieve_update_Helper_file_number'),
+    #add role helper to request user
+    url(r'^active_role_helper/$', views.active_role_helper,name='active_role_helper'),
 
 ]

@@ -1,8 +1,12 @@
-from django.conf.urls import include, url
-from django.conf import settings
-import django.contrib.auth.views as auth_views
-from rest_framework import routers
-import Chat_app.views as views
-urlpatterns = [
+from django.conf.urls import url
+from django.contrib import admin
+from django.contrib.auth.views import login, logout
+from .views import index
 
+
+urlpatterns = [
+    url(r'^$', index, name='homepage'),  # The start point for index view
+    url(r'^accounts/login/$', login, name='login'),  # The base django login view
+    url(r'^accounts/logout/$', logout, name='logout'),  # The base django logout view
+    url(r'^admin/', admin.site.urls),  # etc :D
 ]

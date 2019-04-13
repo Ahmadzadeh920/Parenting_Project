@@ -87,7 +87,9 @@ from .Serializer import (User_serialize,
                         Update_answer_parent_serialize,
                         List_ongoing_consultant_serialize,
                         noting_fileNumber_serialize,
-                        general_noting_serialize
+                        general_noting_serialize,
+                        create_Helper_file_number_serialize,
+                        List_Helper_file_number_serialize
                         )
 # Create your views here.
 
@@ -1047,7 +1049,8 @@ class Create_Star_Table(generics.CreateAPIView):
                 Reward_obj = Rewards_behavior.objects.get(behavior=behavior_obj_get, id=id_reward)
                 if Rules_Reward.objects.filter(Reward=Reward_obj).exists():
                     Rules_obj = Rules_Reward.objects.get(Reward=Reward_obj, id=id_rules)
-                    serializer.save(reward_rule=Rules_obj,user=self.request.user)
+                    datetime_now=datetime.now()
+                    serializer.save(reward_rule=Rules_obj,user=self.request.user ,Date_Time=datetime_now)
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
                 else:
                     raise ValidationError
@@ -1828,7 +1831,6 @@ class Update_Retrieve_Answer_request(generics.RetrieveUpdateDestroyAPIView):
             raise ValidationError
 
 #________________________________Ongoing consultations
-
 class List_ongoing_request(generics.ListAPIView):
     serializer_class = List_ongoing_consultant_serialize
     permission_classes = (permissions.IsAuthenticated,)
@@ -1956,4 +1958,81 @@ class Retrieve_update_general_noting(generics.RetrieveUpdateDestroyAPIView):
             return self.destroy(request, *args, **kwargs)
         else:
             raise ValidationError
+
+
+#----------------------------Create or List helper of file_number
+
+class List_Create_Helper_file_number(generics.ListCreateAPIView):
+    serializer_class = List_Helper_file_number_serialize
+    permission_classes = (permissions.IsAuthenticated,)
+    model = serializer_class.Meta.model
+    def get_queryset(self):
+        file_number=self.kwargs['file_number']
+        if views.is_member(self.request.user,'Parents') and views.belong_FileNumber_User(self.request.user,file_number):
+            file_number_obj=Children.objects.get(Parent=self.request.user,file_number=file_number)
+            if self.model.objects.filter(file_number=file_number_obj).exists():
+
+                query_set=self.model.objects.filter(file_number=file_number_obj).all()
+            else:
+                query_set=None
+            return query_set
+        elif views.belong_FileNumber_Psy(self.request.user,file_number):
+            file_number_obj = Children.objects.get(file_number=file_number)
+            if self.model.objects.filter(file_number=file_number_obj).exists():
+                query_set = self.model.objects.filter(file_number=file_number_obj).all()
+            else:
+                query_set=None
+            return query_set
+        else:
+            raise PermissionDenied
+    def perform_create(self, serializer):
+        file_number = self.kwargs['file_number']
+        if views.is_member(self.request.user, 'Parents') and views.belong_FileNumber_User(self.request.user,file_number):
+            if views.validate_request(self.request,('email', )):
+                if User.objects.filter(email=self.request.data['email']).exists():
+                    helper_obj=User.objects.get(email=self.request.data['email'])
+                    if views.is_member(helper_obj, 'Helper'):
+                        file_number_obj = Children.objects.get(Parent=self.request.user, file_number=file_number)
+                        if not self.model.objects.filter(Helper=helper_obj,file_number=file_number_obj).exists():
+                            serializer.save(Helper=helper_obj,file_number=file_number_obj)
+                            return Response(serializer.data, status=status.HTTP_201_CREATED)
+                        else:
+                            return Response(serializer.data,status=status.HTTP_409_CONFLICT)
+                    else:
+                        raise ValidationError
+                else:
+                    raise ValidationError
+            else:
+                raise ValidationError
+        else:
+            raise PermissionDenied
+
+
+
+class Retrieve_delete_Helper_file_number(generics.RetrieveDestroyAPIView):
+    serializer_class = List_Helper_file_number_serialize
+    permission_classes = (permissions.IsAuthenticated,)
+    model = serializer_class.Meta.model
+    lookup_fields='id'
+    def get_object(self):
+        id = self.kwargs['id']
+        file_number = self.kwargs['file_number']
+        if views.belong_FileNumber_User(self.request.user,file_number) or views.belong_FileNumber_Psy(self.request.user, file_number):
+            file_number_obj = Children.objects.get(Parent=self.request.user, file_number=file_number)
+            if self.model.objects.filter(file_number=file_number_obj, id=id).exists():
+                query_set = self.model.objects.get(id=id)
+                return query_set
+            else:
+                raise ValidationError
+        else:
+            raise PermissionDenied
+
+    def delete(self, request, *args, **kwargs):
+        if self.get_object():
+            return self.destroy(request, *args, **kwargs)
+        else:
+            raise ValidationError
+
+
+
 

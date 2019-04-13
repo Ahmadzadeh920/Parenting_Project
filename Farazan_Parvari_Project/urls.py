@@ -17,11 +17,11 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 import Farzand_Parvari_app.urls as urls_App
-import Chat_app.urls as chat_url
+#import Chat_app.urls as chat_url
 from django.conf.urls import include
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'chat', include(chat_url)),
+    #url(r'chat', include(chat_url)),
     url(r'', include(urls_App)),
 ]
 admin.site.site_header = "Farzand Parvari Admin"

@@ -15,7 +15,7 @@ from rest_framework.decorators import api_view,authentication_classes
 from rest_framework import generics
 from rest_framework.exceptions import APIException,PermissionDenied,ValidationError
 from rest_framework.permissions import IsAdminUser,IsAuthenticated
-from .models import Children, request_consultant
+from .models import Children, request_consultant , Helper_file_number
 from .Serializer import (User_serialize,
                         Profile_Parents_serialize,
                         Profile_psy_serilalize,
@@ -41,6 +41,7 @@ def validate_password(password,user=None):
     if not any(char in special_characters for char in password):
         raise ValidationError(_('Password must contain at least %(min_length)d special character.') % {'min_length': min_length})
     return True
+
 
 
 
@@ -82,7 +83,7 @@ def validate_file_size(value):
     else:
         return True
 
-def _add_user(request,is_parents,is_psychology,is_admin):
+def _add_user(request,is_parents,is_psychology,is_admin,is_helper):
    if request.method=='POST':
        if validate_request(request,('username','password', 'email', 'first_name' , 'last_name' , 'password_confirm')):
            username=request.data['username']
@@ -120,7 +121,7 @@ def _add_user(request,is_parents,is_psychology,is_admin):
                            else:
                                status=422
                                massage='UnSuccessfully, Serialize is not valid'
-                       if is_parents == True or is_psychology==True:
+                       if is_parents == True or is_psychology==True or is_helper==True:
                             data_user = {
                                 'first_name': first_name,
                                 'last_name': last_name,
@@ -145,6 +146,10 @@ def _add_user(request,is_parents,is_psychology,is_admin):
                                    located = located_user_groups(User_obj, 'Psychology')
                                    status=201
                                    massage='Successsfully , register psychology is completed '
+                               if is_helper==True:
+                                   located = located_user_groups(User_obj, 'Helper')
+                                   status = 201
+                                   massage = 'Successsfully , register Helper is completed '
                    else:
                        status = 400
                        massage = 'username is exist please enter diffrent username'
@@ -175,12 +180,19 @@ def Create_admin_site(request):
 @csrf_exempt
 @api_view(['POST','GET'])
 def register_parents(request):
-   return _add_user(request, True, False , False)
+   return _add_user(request, True, False , False , False)
 
 @csrf_exempt
 @api_view(['POST',])
 def register_psychology(request):
-   return _add_user(request, False, True , False)
+   return _add_user(request, False, True , False , False)
+
+
+@csrf_exempt
+@api_view(['POST',])
+def register_helper(request):
+   return _add_user(request, False, False , False , True)
+
 
 def belong_FileNumber_User(user,file_number):
     file_number=int(file_number)
@@ -222,6 +234,10 @@ def belong_FileNumber_Psy(user,file_number):
     else:
         raise PermissionDenied
 
+
+
+
+
 def belong_FileNumber_Psy_activate(user,file_number):
     if is_member(user,'Psychology'):
         file_number=int(file_number)
@@ -234,7 +250,15 @@ def belong_FileNumber_Psy_activate(user,file_number):
         raise PermissionDenied
 
 
-
+def belong_FileNumber_helper(user,file_number):
+    if is_member(user,'Helper'):
+        file_number=int(file_number)
+        queryset=Helper_file_number.objects.filter(Helper=user,file_number=file_number)
+        if queryset.exists():
+            return True
+        else:
+            raise PermissionDenied
+    raise PermissionDenied
 
 
 
@@ -249,17 +273,35 @@ def Check_Permissions_Request_User(user,file_number,txt_permission):
             return True
         else:
             return False
+    elif belong_FileNumber_helper(user,file_number):
+        if Check_Permission_groups(user,txt_permission) or txt_permission=='Farzand_Parvari_app.List' :
+            return True
+        else:
+            return False
     else:
         return False
+
+#________________add role helper
+@csrf_exempt
+@api_view(['POST'])
+def active_role_helper(request):
+    if request.user.is_authenticated():
+        if request.method=='POST':
+            located=located_user_groups(request.user,'Helper')
+            return JsonResponse({'message':'Active Role of Helper'}, status=200)
+        else:
+            return JsonResponse({'massage':'method request must be POST'} , status=405)
+    else:
+        return JsonResponse({'massage':'user is not authenticated'} , status=405)
+
+
+
+
 
 
 
 #______________________________Chat
 
-
-import websocket
-#ws = websocket.WebSocket()
-#ws.connect("ws://http://localhost:8080/login/")
 
 
 

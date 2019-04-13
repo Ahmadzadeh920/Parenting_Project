@@ -30,7 +30,8 @@ from .models import (Profile_Parents,
                     Set_Time_Cost_filenumber,
                     Answer_question_request,
                     notting_fileNumber,
-                    general_noting
+                    general_noting,
+                    Helper_file_number
 
                      )
 # User serialize
@@ -60,7 +61,7 @@ class PasswordResetSerializer(serializers.Serializer):
             'use_https': request.is_secure(),
             'from_email': getattr(settings, 'DEFAULT_FROM_EMAIL'),
             ###### USE YOUR HTML FILE ######
-            'html_email_template_name': 'registration\password_reset_email.html',
+            'html_email_template_name': 'registration\password_reset.html',
             'request': request,
         }
         self.reset_form.save(**opts)
@@ -137,12 +138,12 @@ class Chidren_behavior_Update_Retrive_Create_serialize(serializers.ModelSerializ
 class Descript_behavior_serialize(serializers.ModelSerializer):
     class Meta:
         model = Descript_behavior
-        exclude=('Behavior',)
+        exclude=('Behavior','user')
 
 class record_behavior_Weekly_serialize(serializers.ModelSerializer):
     class Meta:
         model = record_behavior_Weekly
-        exclude=('behavior',)
+        exclude=('behavior','user')
 #______________________Step _2
 class Cause_list_serialize(serializers.ModelSerializer):
     class Meta:
@@ -317,3 +318,18 @@ class general_noting_serialize(serializers.ModelSerializer):
     class Meta:
         model =general_noting
         exclude=('consultant',)
+
+
+class create_Helper_file_number_serialize(serializers.ModelSerializer):
+    email = serializers.ReadOnlyField(source='Helper.email')
+    class Meta:
+        model = Helper_file_number
+        fields=('email','id')
+
+class List_Helper_file_number_serialize(serializers.ModelSerializer):
+    email = serializers.ReadOnlyField(source='Helper.email')
+    name=serializers.ReadOnlyField(source='Helper.first_name')
+    family=serializers.ReadOnlyField(source='Helper.last_name')
+    class Meta:
+        model = Helper_file_number
+        fields=('id','name','family','email')

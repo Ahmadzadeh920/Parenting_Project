@@ -23,9 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '43r#%&8gujs8t(6a$2tjv1fh^c!+crital2@!r7e&m+q2b*0g*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'farzand-parvari.ir',
+    'http://185.252.28.56',
+]
 
 
 # Application definition
@@ -41,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Chat_app',# for online chat
+    #'Chat_app',# for online chat
     #'channels'
 ]
 
@@ -53,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'Farazan_Parvari_Project.urls'
@@ -62,6 +66,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS':  [
             os.path.join(BASE_DIR, 'Farzand_Parvari_app/templates'),
+           # os.path.join(BASE_DIR, 'Chat_app/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -84,9 +89,9 @@ WSGI_APPLICATION = 'Farazan_Parvari_Project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Farzand_Parvar',
-        'USER': 'Farzand_Parvari',
-        'PASSWORD': '123456789',
+        'NAME': 'Farzand_Parvar', #farzand_parvari
+        'USER': 'Farzand_Parvari',# farzand_parvar
+        'PASSWORD': '123456789', # 123
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -119,11 +124,12 @@ AUTH_PASSWORD_VALIDATORS = [
 # Sending Email
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # Host for sending e-mail.
-EMAIL_HOST = 'smtp.hmdmill.com'
+EMAIL_HOST = 'smtp.farzand-parvari.ir'
 # Port for sending e-mail.
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'manager@hmdmill.com'
-EMAIL_HOST_PASSWORD = 'hej123456'
+EMAIL_HOST_USER = 'security@farzand-parvari.ir'
+DEFAULT_FROM_EMAIL=EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = 'farzand$secure5512'
 EMAIL_USE_TLS =False
 
 # Internationalization
@@ -153,6 +159,10 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.AllowAny',
     ),
+    # this render in json format not browsable
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
 }
 ACCOUNT_LOGOUT_ON_GET = False # add method get to logout
 OLD_PASSWORD_FIELD_ENABLED = True #  to use old_password in change password
@@ -166,22 +176,22 @@ CSRF_COOKIE_NAME = "csrftoken"
 
 #_______________________________Chat online
 from django.urls import reverse
-import Chat_app.routing as routing
+#import Chat_app.routing as routing
 
-ASGI_APPLICATION = "routing.channel_routing"
-
-
-redis_host = os.environ.get('REDIS_HOST', 'localhost')
+#ASGI_APPLICATION = "routing.channel_routing"
 
 
+#redis_host = os.environ.get('REDIS_HOST', 'localhost')
 
-CHANNEL_LAYERS = {
-    "default": {
+
+
+#CHANNEL_LAYERS = {
+    #"default": {
         # This example app uses the Redis channel layer implementation asgi_redis
-        "BACKEND": "asgi_redis.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [(redis_host, 6379)],
-        },
-      "ROUTING": "Chat_app.routing.channel_routing", # We will create it in a moment
-    },
-}
+     #   "BACKEND": "asgi_redis.RedisChannelLayer",
+      #  "CONFIG": {
+       #     "hosts": [(redis_host, 6379)],
+        #},
+     # "ROUTING": "Farazan_Parvari_Project.routing.channel_routing", # We will create it in a moment
+   # },
+#}
