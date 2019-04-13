@@ -20,8 +20,7 @@ msgpack-python==0.5.6
 redis==2.10.6
 websocket-client==0.55.0
 pathlib==1.0.1
-incremental==17.5.0
-asgiref==2.3.2 
+incremental==17.5.0 
 async-timeout==3.0.1 
 autobahn==19.2.1 
 channels==0.17.3 
