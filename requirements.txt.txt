@@ -31,6 +31,7 @@ daphne==2.2.5
 twisted==18.9.0 
 txaio==18.8.1
 constantly==15.1.0
+<<<<<<< HEAD
 hyperlink==18.0.0
 zope.interface==4.6.0
 gunicorn==19.9.0
@@ -47,4 +48,10 @@ daphne==1.4.2
 PyJWT==1.7.1
 djangorestframework-jwt==1.11.0
 
+=======
+hyperlink==19.0.0
+idna==2.8
+zope.interface-4.6.0
+gunicorn-19.9.0
+>>>>>>> fd389c1716c7106d220234bdb87168303f1dd216
 
