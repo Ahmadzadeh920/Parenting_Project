@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+  <!-- end post-wrapper-top -->
+
+  <section class="section1">
+    <div class="container clearfix">
+      <div class="content col-lg-12 col-md-12 col-sm-12 clearfix">
+        <div class="col-lg-4 col-md-4 col-sm-12">
+          <h4 class="title">
+                    	<span>چرا ما را انتخاب کرده اید؟؟</span>
+                    </h4>
+          <p></p>
+          <p></p>
+        </div>
+
+        <div class="col-lg-4 col-md-4 col-sm-12">
+          <h4 class="title">
+                    	<span>سودمندی های این اپلیکشن </span>
+                    </h4>
+          <ul class="check">
+                <li> کنترل رفتار های فرزند </li>
+               <li> مدیریت رفتار با  فرزند </li>
+              <li>ایجاد درخواست از مشاور برای کنترل فرزندان </li>
+          </ul>
+        </div>
+        <!-- end login -->
+
+        <div class="col-lg-4 col-md-4 col-sm-12">
+          <h4 class="title">
+                    	<span>فرم ثبت نام {{ role }}</span>
+                    </h4>
+            <h5 class="title">
+                    	<span>{{ message }}</span>
+                    </h5>
+          <form id="registerform" method="post" name="registerform">
+              {% csrf_token %}
+              <div class="form-group">
+              <input type="text" class="form-control" placeholder="نام کاربری" name="username">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="نام " name="first_name">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="نام خانوادگی" name="last_name">
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" placeholder="ایمیل" name="email">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" placeholder="پسورد" name="password">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" placeholder="پسور را مجدد وارد نمایید" name="password_confirm">
+            </div>
+            <div class="form-group">
+              <input type="submit" class="button" value="ثبت نام">
+            </div>
+          </form>
+        </div>
+        <!-- end register -->
+      </div>
+      <!-- end content -->
+    </div>
+    <!-- end container -->
+  </section>
+  <!-- end section -->
+
+  {% endblock %}

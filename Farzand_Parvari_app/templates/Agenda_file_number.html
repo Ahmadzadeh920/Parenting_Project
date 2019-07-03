@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% load custom_tags %}
+
+  <section class="section1">
+    <div class="container clearfix">
+      <div class="content col-lg-12 col-md-12 col-sm-12 clearfix">
+        <div class="col-lg-6 col-md-6 col-sm-6" style="float: right">
+        {% if request.user|has_group:"Psychology" %}
+
+          <h4 class="title">ارائه دستور کا ر جدید برای پرونده {{ file_number_obj.file_number }}   </h4>
+
+
+          <div id="message"></div>
+
+
+          <form role="form" id="form_create_agenda" method="POST" action="#">
+
+                 {%  csrf_token %}
+            <input type="hidden" id="hidden_id_file_number" value="{{file_number_obj.file_number}}">
+
+            <div class="form-group">
+               <label>نام دستور کار</label> <input type="text" id="name_agenda_form" name="name" min="1" class="form-control" placeholder="نام دستور کار جلسه "  required>
+                <div class="validate"></div>
+            </div>
+
+            <div class="form-group">
+                <label>توضیحات</label> <textarea  id="descript_agenda_form" name="descript" min="10" class="form-control" placeholder="توضیحات کلی "  required></textarea>
+                <div class="validate"></div>
+            </div>
+
+            <div class="form-send">
+              <button type="submit" class="btn btn-large btn-primary">
+                       ایجاد دستور کار جدید
+              </button>
+            </div>
+            <div class="loading"></div>
+            <div class="error-message"></div>
+            <div class="sent-message" id="result_create_agenda_file_number"><a href="#"></a> </div>
+          </form>{% endif %}
+            <div class="validate" id="result_comments_training"></div>
+        </div>
+
+                <div class="">
+
+
+                  <table class="table table-striped " >
+                   <h4 class="title">دستور کارها  </span></h4>
+                            <thead>
+                                <tr>
+                                    <td>نام  </td>
+                                    <td>توضیحات  </td>
+                                    <td>تاریخ  </td>
+                                </tr>
+                            </thead>
+                          <tbody id="list_agenda_file_number_tbody">
+                              {% for agenda in Agenda_fileNumber_obj  %}
+                                    <tr>
+                                        <td>{{ agenda.name  }}</td>
+                                        <td>{{ agenda.descript  }}</td>
+                                        <td>{{ agenda.date_Agenda  }}</td>
+
+                                    </tr>
+                              {% endfor %}
+                           </tbody>
+                    </table>
+
+
+
+
+                  <!-- contact_details -->
+                </div>
+
+
+
+      <!-- end content -->
+    </div>
+    <!-- end container -->
+  </section>
+
+  <!-- end section -->
+{% endblock %}
+

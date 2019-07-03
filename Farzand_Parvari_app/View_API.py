@@ -17,8 +17,9 @@ from rest_framework.exceptions import APIException,PermissionDenied,ValidationEr
 from rest_framework import permissions
 from rest_framework import authentication
 from rest_framework.response import Response
+from rest_framework.renderers import TemplateHTMLRenderer
 from .models import (Profile_Parents,
-                     Profile_Psy,
+                     ProfilePsy,
                     Children,
                     Steps_exercise,
                     Steps_training,
@@ -70,6 +71,7 @@ from .Serializer import (User_serialize,
                         Create_Table_surprise_serialize,
                         List_Table_surprise_serialize,
                         List_Punishment_recommend_serialize,
+                        Create_Punishment_behavior_serialize,
                         Punishment_behavior_serialize,
                         Situation_defficult_behavior_serialize,
                         List_psy_serilalize,
@@ -100,6 +102,7 @@ class TestAuthView(APIView):
     def get(self, request, format=None):
         return Response("Hello {0}!".format(request.user))
 
+
 # log out Class via rest_auth
 class LogoutViewEx(LogoutView):
     authentication_classes = (authentication.TokenAuthentication,)
@@ -109,30 +112,8 @@ class Profile_Parents_view(generics.CreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     def get_queryset(self):
         if Profile_Parents.objects.filter(user=self.request.user).exists():
-            if views.is_member(self.request.user,'Parents'):
+            if views.is_member(self.request.user, 'Parents'):
                 queryset=Profile_Parents.objects.get(user=self.request.user)
-            else:
-                raise PermissionDenied
-        queryset=None
-
-    def perform_create(self, serializer):
-        queryset = Profile_Parents.objects.filter(user=self.request.user)
-        if queryset.exists():
-            return self.get_queryset()
-        else:
-            if views.is_member(self.request.user,'Parents'):
-                serializer.save(user=self.request.user)
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            else:
-                raise PermissionDenied
-
-class Profile_Psychology_view(generics.CreateAPIView):
-    serializer_class=Profile_psy_serilalize
-    permission_classes = (permissions.IsAuthenticated,)
-    def get_queryset(self):
-        if Profile_Psy.objects.filter(user=self.request.user).exists():
-            if views.is_member(self.request.user, 'Psychology'):
-                queryset=Profile_Psy.objects.get(user=self.request.user)
             else:
                 raise PermissionDenied
         else:
@@ -140,14 +121,39 @@ class Profile_Psychology_view(generics.CreateAPIView):
         return queryset
 
     def perform_create(self, serializer):
-        queryset = Profile_Psy.objects.filter(user=self.request.user)
+        queryset = Profile_Parents.objects.filter(user=self.request.user)
+        if queryset.exists():
+            return self.get_queryset()
+        else:
+            if views.is_member(self.request.user, 'Parents'):
+                serializer.save(user=self.request.user)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                raise PermissionDenied
+                #return Response({'profiles': serializer.data}, status=status.HTTP_201_CREATED)
+
+class Profile_Psychology_view(generics.CreateAPIView):
+    serializer_class=Profile_psy_serilalize
+    permission_classes = (permissions.IsAuthenticated,)
+    def get_queryset(self):
+        if ProfilePsy.objects.filter(user=self.request.user).exists():
+            if views.is_member(self.request.user, 'Psychology'):
+                queryset=ProfilePsy.objects.get(user=self.request.user)
+            else:
+                raise PermissionDenied
+        else:
+            queryset=[]
+        return queryset
+
+    def perform_create(self, serializer):
+        queryset = ProfilePsy.objects.filter(user=self.request.user)
         if queryset.exists():
             return self.get_queryset()
         else:
             if views.is_member(self.request.user, 'Psychology'):
-                if views.validate_file_size(self.request.data['profile_image_psy']):
-                    serializer.save(user=self.request.user)
-                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+                serializer.save(user=self.request.user)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
             else:
                 raise PermissionDenied
 
@@ -177,7 +183,7 @@ class Retrive_Update_Profile_Psy(generics.RetrieveUpdateAPIView):
     def get_object(self):
         user = self.request.user
         if views.is_member(user,'Psychology'):
-            return get_object_or_404(Profile_Psy, user=user)
+            return get_object_or_404(ProfilePsy, user=user)
         else:
             raise PermissionDenied
 
@@ -250,7 +256,6 @@ class Children_Update(generics.RetrieveUpdateAPIView):
 class Steps_Training_List(generics.ListAPIView):
     serializer_class = Steps_training_serialize
     permission_classes = (permissions.IsAuthenticated,)
-
     queryset = Steps_training.objects.all()
 
 # List Steps of Execise:
@@ -261,9 +266,9 @@ class Steps_Exercise_List(generics.ListAPIView):
 
     def get_queryset(self):
         training_id= self.kwargs['training_id']
-        steps=Steps_training.objects.filter(id=training_id).exists()
-        if steps:
-            queryset = self.model.objects.filter(steps=steps)
+        exercise_obj=self.model.objects.filter(steps=training_id)
+        if exercise_obj.exists():
+            queryset = exercise_obj.all()
             return queryset.order_by('id')
         else:
             raise ValidationError
@@ -433,11 +438,8 @@ class Create_bahavior(generics.CreateAPIView):
         file_number = int(self.kwargs['file_number'])
         name_behavior= self.request.data['Behavior_name']
         file_number_obj = Children.objects.get(file_number=file_number)
-        if Children_behavior.objects.filter(Behavior_name=name_behavior, file_number=file_number_obj).exists():
-            return Response(queryset, status=status.HTTP_409_CONFLICT)
-        else:
-            serializer.save(user=self.request.user,file_number=file_number_obj)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        serializer.save(user=self.request.user,file_number=file_number_obj)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 # List all of the bahavior which is belong to file_number
 
@@ -896,19 +898,12 @@ class Create_Rule_Rewards(generics.CreateAPIView):
     def get_queryset(self):
         file_number=self.kwargs['file_number']
         id_bahavior = int(self.kwargs['behavior_id'])
-        id_reward=self.kwargs['reward_id']
         if views.Check_Permissions_Request_User(self.request.user,file_number,'add_rules_reward'):
             behavior_obj=Children_behavior.objects.filter(id=id_bahavior ,file_number=file_number)
             if behavior_obj.exists():
-                if Rewards_behavior.objects.filter(behavior=behavior_obj,id=id_reward).exists():
-                    Reward_obj=Rewards_behavior.objects.get(behavior=behavior_obj,id=id_reward)
-                    if Rules_Reward.objects.filter(Reward=Reward_obj).exists():
-                        queryset=Rules_Reward.objects.filter(Reward=Reward_obj).all()
-                        return queryset
-                    else:
-                        return None
-                else:
-                    raise ValidationError
+                queryset=Rules_Reward.objects.filter(behavior = behavior_obj).all()
+                return queryset
+
             else:
                 raise ValidationError
         else:
@@ -918,16 +913,12 @@ class Create_Rule_Rewards(generics.CreateAPIView):
         queryset=self.get_queryset()
         file_number = int(self.kwargs['file_number'])
         id_bahavior = self.kwargs['behavior_id']
-        id_reward = self.kwargs['reward_id']
         behavior_obj=Children_behavior.objects.filter(id=id_bahavior,file_number=file_number)
         if behavior_obj.exists():
             behavior_obj_get = Children_behavior.objects.get(id=id_bahavior, file_number=file_number)
-            if Rewards_behavior.objects.filter(behavior=behavior_obj_get, id=id_reward).exists():
-                Reward_obj = Rewards_behavior.objects.get(behavior=behavior_obj_get, id=id_reward)
-                serializer.save(Reward=Reward_obj,user=self.request.user)
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            else:
-                raise ValidationError
+            serializer.save(behavior =behavior_obj_get,user=self.request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
         raise ValidationError
 
 # List all of the bahavior which is belong to file_number
@@ -940,19 +931,12 @@ class List_Rule_Reward(generics.ListAPIView):
     def get_queryset(self):
         file_number=self.kwargs['file_number']
         id_bahavior = int(self.kwargs['behavior_id'])
-        id_reward=self.kwargs['reward_id']
         if views.Check_Permissions_Request_User(self.request.user,file_number,'List'):
             behavior_obj=Children_behavior.objects.filter(id=id_bahavior ,file_number=file_number)
             if behavior_obj.exists():
-                if Rewards_behavior.objects.filter(behavior=behavior_obj,id=id_reward).exists():
-                    Reward_obj=Rewards_behavior.objects.get(behavior=behavior_obj,id=id_reward)
-                    if Rules_Reward.objects.filter(Reward=Reward_obj).exists():
-                        queryset=Rules_Reward.objects.filter(Reward=Reward_obj).all()
-                        return queryset
-                    else:
-                        return None
-                else:
-                    raise ValidationError
+                queryset=Rules_Reward.objects.filter(behavior =behavior_obj).all()
+                return queryset
+
             else:
                 raise ValidationError
         else:
@@ -968,27 +952,12 @@ class Update_Retrive_Rule_Reward(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         file_number = self.kwargs['file_number']
         id_bahavior = int(self.kwargs['behavior_id'])
-        id_reward = int(self.kwargs['reward_id'])
         id_rule=int(self.kwargs['rule_id'])
-        if views.Check_Permissions_Request_User(self.request.user, file_number,
-                                                'change_rules_reward') or views.Check_Permissions_Request_User(
-                self.request.user, file_number, 'delete_rules_reward'):
+        if views.Check_Permissions_Request_User(self.request.user, file_number,'change_rules_reward') or views.Check_Permissions_Request_User(self.request.user, file_number, 'delete_rules_reward'):
             behavior_obj = Children_behavior.objects.filter(id=id_bahavior, file_number=file_number)
             if behavior_obj.exists():
-                if behavior_obj.exists():
-                    if Rewards_behavior.objects.filter(behavior=behavior_obj, id=id_reward).exists():
-                        Reward_obj = Rewards_behavior.objects.get(behavior=behavior_obj, id=id_reward)
-                        if Rules_Reward.objects.filter(Reward=Reward_obj, id=id_rule).exists():
-                            queryset = self.model.objects.get(Reward=Reward_obj, id=id_rule)
-                            return queryset
-                        else:
-                            return None
-                    else:
-                        raise ValidationError
-                else:
-                    raise ValidationError
-            else:
-                raise ValidationError
+                    queryset = self.model.objects.get(behavior=behavior_obj.get(), id=id_rule)
+                    return queryset
         else:
             raise PermissionDenied
 
@@ -1013,17 +982,17 @@ class Create_Star_Table(generics.CreateAPIView):
     def get_queryset(self):
         file_number=self.kwargs['file_number']
         id_bahavior = int(self.kwargs['behavior_id'])
-        id_reward=self.kwargs['reward_id']
-        id_rules=self.kwargs['rule_id']
+        id_reward=self.request.data['reward']
+        id_rules=self.request.data['rule']
         if views.Check_Permissions_Request_User(self.request.user,file_number,'add_star_table'):
             behavior_obj=Children_behavior.objects.filter(id=id_bahavior ,file_number=file_number)
             if behavior_obj.exists():
                 if Rewards_behavior.objects.filter(behavior=behavior_obj,id=id_reward).exists():
                     Reward_obj=Rewards_behavior.objects.get(behavior=behavior_obj,id=id_reward)
-                    if Rules_Reward.objects.filter(Reward=Reward_obj,id=id_rules).exists():
-                        Rules_obj=Rules_Reward.objects.get(Reward=Reward_obj, id=id_rules)
-                        if Star_Table.objects.filter(reward_rule=Rules_obj).exists():
-                            queryset=Star_Table.objects.filter(reward_rule=Rules_obj).all()
+                    if Rules_Reward.objects.filter(behavior=behavior_obj , id=id_rules).exists():
+                        Rules_obj=Rules_Reward.objects.get(behavior=behavior_obj, id=id_rules)
+                        if Star_Table.objects.filter(reward=Reward_obj , rule = Rules_obj).exists():
+                            queryset=Star_Table.objects.filter(reward=Reward_obj , rule = Rules_obj).all()
                             return queryset
                         else:
                             return None
@@ -1040,17 +1009,17 @@ class Create_Star_Table(generics.CreateAPIView):
         queryset=self.get_queryset()
         file_number = int(self.kwargs['file_number'])
         id_bahavior = self.kwargs['behavior_id']
-        id_reward = self.kwargs['reward_id']
-        id_rules = self.kwargs['rule_id']
+        id_reward = self.request.data['reward']
+        id_rules = self.request.data['rule']
         behavior_obj=Children_behavior.objects.filter(id=id_bahavior,file_number=file_number)
         if behavior_obj.exists():
             behavior_obj_get = Children_behavior.objects.get(id=id_bahavior, file_number=file_number)
             if Rewards_behavior.objects.filter(behavior=behavior_obj_get, id=id_reward).exists():
                 Reward_obj = Rewards_behavior.objects.get(behavior=behavior_obj_get, id=id_reward)
-                if Rules_Reward.objects.filter(Reward=Reward_obj).exists():
-                    Rules_obj = Rules_Reward.objects.get(Reward=Reward_obj, id=id_rules)
+                if Rules_Reward.objects.filter(behavior=behavior_obj_get,).exists():
+                    Rules_obj = Rules_Reward.objects.get(behavior=behavior_obj_get, id=id_rules)
                     datetime_now=datetime.now()
-                    serializer.save(reward_rule=Rules_obj,user=self.request.user ,Date_Time=datetime_now)
+                    serializer.save(reward =Reward_obj,rule=Rules_obj,user=self.request.user ,Date_Time=datetime_now , behavior = behavior_obj_get)
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
                 else:
                     raise ValidationError
@@ -1068,17 +1037,17 @@ class List_Star_Table(generics.ListAPIView):
     def get_queryset(self):
         file_number = self.kwargs['file_number']
         id_bahavior = int(self.kwargs['behavior_id'])
-        id_reward = self.kwargs['reward_id']
-        id_rules = self.kwargs['rule_id']
+        id_reward = self.request.data['reward']
+        id_rules = self.request.data['rule']
         if views.Check_Permissions_Request_User(self.request.user, file_number, 'List'):
             behavior_obj = Children_behavior.objects.filter(id=id_bahavior, file_number=file_number)
             if behavior_obj.exists():
                 if Rewards_behavior.objects.filter(behavior=behavior_obj, id=id_reward).exists():
                     Reward_obj = Rewards_behavior.objects.get(behavior=behavior_obj, id=id_reward)
-                    if Rules_Reward.objects.filter(Reward=Reward_obj,id=id_rules).exists():
-                        Rules_obj = Rules_Reward.objects.get(Reward=Reward_obj, id=id_rules)
-                        if Star_Table.objects.filter(reward_rule=Rules_obj).exists():
-                            queryset = Star_Table.objects.filter(reward_rule=Rules_obj).all()
+                    if Rules_Reward.objects.filter(behavior=behavior_obj,id=id_rules).exists():
+                        Rules_obj = Rules_Reward.objects.get(behavior=behavior_obj, id=id_rules)
+                        if Star_Table.objects.filter(reward=Reward_obj , rule= Rules_obj).exists():
+                            queryset = Star_Table.objects.filter(reward=Reward_obj , rule= Rules_obj).all()
                             return queryset
                         else:
                             return None
@@ -1100,18 +1069,18 @@ class Update_Retrive_Table_Star(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         file_number = self.kwargs['file_number']
         id_bahavior = int(self.kwargs['behavior_id'])
-        id_reward = self.kwargs['reward_id']
-        id_rules = self.kwargs['rule_id']
+        id_reward = self.request.data['reward']
+        id_rules = self.request.data['rule']
         id_star= int(self.kwargs['id'])
         if views.Check_Permissions_Request_User(self.request.user, file_number, 'change_star_table') or views.Check_Permissions_Request_User(self.request.user, file_number, 'delete_star_table'):
             behavior_obj = Children_behavior.objects.filter(id=id_bahavior, file_number=file_number)
             if behavior_obj.exists():
                 if Rewards_behavior.objects.filter(behavior=behavior_obj, id=id_reward).exists():
                     Reward_obj = Rewards_behavior.objects.get(behavior=behavior_obj, id=id_reward)
-                    if Rules_Reward.objects.filter(Reward=Reward_obj, id=id_rules).exists():
-                        Rules_obj = Rules_Reward.objects.get(Reward=Reward_obj, id=id_rules)
-                        if self.model.objects.filter(reward_rule=Rules_obj, id= id_star).exists():
-                            queryset = self.model.objects.filter(reward_rule=Rules_obj, id= id_star).all()
+                    if Rules_Reward.objects.filter(behavior=behavior_obj, id=id_rules).exists():
+                        Rules_obj = Rules_Reward.objects.get(behavior=behavior_obj, id=id_rules)
+                        if self.model.objects.filter(reward=Reward_obj,rule=Rules_obj, id= id_star).exists():
+                            queryset = self.model.objects.filter(reward=Reward_obj,rule=Rules_obj, id= id_star).all()
                             return queryset
                         else:
                             return None
@@ -1127,7 +1096,7 @@ class Update_Retrive_Table_Star(generics.RetrieveUpdateDestroyAPIView):
     def put(self, request, *args, **kwargs):
         if self.get_object():
             self.request.data['user'] = self.request.user.id
-            self.request.data['reward_rule'] = self.kwargs['rule_id']
+            self.request.data['behavior'] = int(self.kwargs['behavior_id'])
             return self.update(request, *args, **kwargs)
         else:
             raise ValidationError
@@ -1167,22 +1136,18 @@ class Create_Surprise_Table(generics.CreateAPIView):
             raise PermissionDenied
 
     def perform_create(self, serializer):
-        queryset=self.get_queryset()
-        if queryset:
-            return queryset
-        else:
-            file_number = int(self.kwargs['file_number'])
-            id_bahavior = self.kwargs['behavior_id']
-            id_reward = self.request.data['Reward']
-            behavior_obj = Children_behavior.objects.filter(id=id_bahavior, file_number=file_number)
-            if behavior_obj.exists():
-                behavior_obj_get = Children_behavior.objects.get(id=id_bahavior, file_number=file_number)
-                if Rewards_behavior.objects.filter(behavior=behavior_obj_get, id=id_reward).exists():
-                    Reward_obj = Rewards_behavior.objects.get(behavior=behavior_obj_get, id=id_reward)
-                    serializer.save(user=self.request.user,Date_Time=datetime.now(),Reward=Reward_obj)
-                    return Response(serializer.data, status=status.HTTP_201_CREATED)
-                else:
-                    raise ValidationError
+        file_number = int(self.kwargs['file_number'])
+        id_bahavior = self.kwargs['behavior_id']
+        id_reward = self.request.data['Reward']
+        behavior_obj = Children_behavior.objects.filter(id=id_bahavior, file_number=file_number)
+        if behavior_obj.exists():
+            behavior_obj_get = Children_behavior.objects.get(id=id_bahavior, file_number=file_number)
+            if Rewards_behavior.objects.filter(behavior=behavior_obj_get, id=id_reward).exists():
+                Reward_obj = Rewards_behavior.objects.get(behavior=behavior_obj_get, id=id_reward)
+                serializer.save(user=self.request.user,Date_Time=datetime.now(),Reward=Reward_obj, behavior = behavior_obj_get )
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                raise ValidationError
         raise ValidationError
 
 # List all of the bahavior which is belong to file_number
@@ -1249,7 +1214,8 @@ class Create_Punishment_behavior(generics.CreateAPIView):
         behavior_obj=Children_behavior.objects.filter(id=id_bahavior,file_number=file_number)
         if behavior_obj.exists():
             behavior_obj_get = Children_behavior.objects.get(id=id_bahavior, file_number=file_number)
-            serializer.save(behavior=behavior_obj_get,user=self.request.user)
+            date_now = datetime.now()
+            serializer.save(behavior=behavior_obj_get,user=self.request.user ,)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         raise ValidationError
 
@@ -1450,7 +1416,7 @@ class Create_request_psy(generics.CreateAPIView):
         obj_exist=self.model.objects.filter(file_number=file_number_obj, user_psy=psy).exists()
         if obj_exist:
             return self.get_queryset()
-        psy_exist=Profile_Psy.objects.filter(user=psy).exists()
+        psy_exist=ProfilePsy.objects.filter(user=psy).exists()
         if psy_exist:
             serializer.save(user_request=self.request.user, file_number=file_number_obj ,date_request=datetime.now())
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -1470,7 +1436,7 @@ class List_request_psy(generics.ListAPIView):
         if Children.objects.filter(file_number=file_number).exists():
             file_number_obj = Children.objects.get(file_number=file_number)
             if views.Check_Permissions_Request_User(self.request.user, file_number, 'List'):
-                queryset = self.model.objects.filter(file_number=file_number_obj)
+                queryset = self.model.objects.filter(file_number=file_number_obj).all()
                 return queryset
             else:
                 raise PermissionDenied
@@ -1502,7 +1468,7 @@ class Update_Retrive_request_psy(generics.RetrieveUpdateDestroyAPIView):
 
     def put(self, request, *args, **kwargs):
         if self.get_object():
-            if Profile_Psy.objects.filter(user=self.request.data['user_psy']).exists():
+            if ProfilePsy.objects.filter(user=self.request.data['user_psy']).exists():
                 return self.update(request, *args, **kwargs)
             else:
                 raise ValidationError
@@ -1632,11 +1598,10 @@ class List_new_request(generics.ListAPIView):
     model =serializer_class.Meta.model
     def get_queryset(self):
         if views.is_member(self.request.user,'Psychology'):
-            if self.model.objects.filter(user_psy=self.request.user, activ_req=1).exists():
-                queryset=self.model.objects.filter(user_psy=self.request.user, activ_req=1).all()
-                return queryset
-            else:
-                return None
+
+            queryset=self.model.objects.filter(user_psy=self.request.user, activ_req=1).all()
+            return queryset
+
         else:
             raise PermissionDenied
 
@@ -1970,23 +1935,19 @@ class List_Create_Helper_file_number(generics.ListCreateAPIView):
         file_number=self.kwargs['file_number']
         if views.is_member(self.request.user,'Parents') and views.belong_FileNumber_User(self.request.user,file_number):
             file_number_obj=Children.objects.get(Parent=self.request.user,file_number=file_number)
-            if self.model.objects.filter(file_number=file_number_obj).exists():
-
-                query_set=self.model.objects.filter(file_number=file_number_obj).all()
-            else:
-                query_set=None
+            query_set=self.model.objects.filter(file_number=file_number_obj).all()
             return query_set
         elif views.belong_FileNumber_Psy(self.request.user,file_number):
             file_number_obj = Children.objects.get(file_number=file_number)
-            if self.model.objects.filter(file_number=file_number_obj).exists():
-                query_set = self.model.objects.filter(file_number=file_number_obj).all()
-            else:
-                query_set=None
+
+            query_set = self.model.objects.filter(file_number=file_number_obj).all()
+
             return query_set
         else:
             raise PermissionDenied
     def perform_create(self, serializer):
         file_number = self.kwargs['file_number']
+
         if views.is_member(self.request.user, 'Parents') and views.belong_FileNumber_User(self.request.user,file_number):
             if views.validate_request(self.request,('email', )):
                 if User.objects.filter(email=self.request.data['email']).exists():

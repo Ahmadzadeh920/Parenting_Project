@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+  <section class="section1">
+    <div class="container clearfix">
+
+      <div class="content col-lg-12 col-md-12 col-sm-12 clearfix" >
+        <div class="col-lg-6 col-md-6 col-sm-6" style="float: right">
+          <h4 class="title">ویرایش پروفایل </h4>
+          <div id="message"></div>
+           {% if profile == None %}
+          <form role="form" id="form_create_profile_parents" method="POST" action="{% url "Profile_Parents_Create" %}">
+          {% else %}
+           <form role="form" id="form_update_profile_parents"  action="#" method="POST">
+
+           {% endif %}
+                 {%  csrf_token %}
+            <div class="form-group">
+              <input type="date" id="Birth_date_parent_form" name="Birth_date" class="form-control" id="contact-name" placeholder="تاریخ تولد" data-rule="minlen:6" data-msg="لطفا تاریخ تولد را صحیح وارد نمایید" >
+              <div class="validate"></div>
+            </div>
+            <div class="form-group">
+
+                <select name="matrial_status"  class="form-control" id="matrial_status_parent_form" placeholder="وضعیت تاهل " data-rule="select" data-msg="وضعیت تاهل ">
+                            <option value="مطلقه ">مطلقه</option>
+                            <option value="متاهل">متاهل</option>
+                            <option value="فوت">فوت </option>
+                            <option value="دیگر">دیگر </option>
+                </select>
+              <div class="validate"></div>
+            </div>
+            <div class="form-group">
+                <select name="jobs"  class="form-control" id="jobs_parent_form" placeholder="شغل " data-rule="select" data-msg="شغل را وارد نمایید  ">
+                            <option value="کارمند">کارمند</option>
+                            <option value="دانشجو">دانشجو </option>
+                            <option value="آزاد">آزاد </option>
+                            <option value="بازنشسته">بازنشسته </option>
+                            <option value="دیگر">دیگر </option>
+                </select>
+              <div class="validate"></div>
+            </div>
+
+            <div class="form-group">
+              <select name="education_degree"  class="form-control" id="education_degree_parent_form" placeholder="میزان تحصیلات " data-rule="select" data-msg="میزان تحصیلات را وارد نمایید  ">
+                            <option value="زیر دیپلم">زیر دیپلم</option>
+                            <option value="دیپلم">دیپلم </option>
+                            <option value="فوق دیپلم">فوق دیپلم </option>
+                            <option value="لیسانس">لیسانس </option>
+                            <option value="فوق لیسانس">فوق لیسانس </option>
+                            <option value="دکترا">دکترا و فوق دکترا </option>
+              </select>
+              <div class="validate"></div>
+            </div>
+
+            <div class="loading"></div>
+            <div class="error-message"></div>
+            <div class="sent-message" id="result_create_profile_parents"><a href="#"></a> </div>
+
+            <div class="form-send">
+              <button type="submit" class="btn btn-large btn-primary">ارسال</button>
+            </div>
+
+          </form>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <h4 class="title">پروفایل {{ user.username }}<span style="padding-left: 290px"><a href="#" >ویرایش پروفایل </a></span></h4>
+
+          <ul class="contact_details">
+            <li><i class="fa fa-birthday-cake"></i>تاریخ تولد:<span id="birth_data_Parents">{{ profile.Birth_date }}</span> </li>
+              <li><i class="fa fa-star"></i> وضعیت تاهل :<span id="material_status_Parents">{{ profile.matrial_status }}</span></li>
+              <li><i class="fa fa-address-card-o"></i>  شغل :<span id="jobs_Parents">{{ profile.jobs }}</span></li>
+              <li><i class="fa fa-address-book-o"></i>:  وضعیت تحصیلی<span id="graduate_Parents">{{ profile.education_degree }}</span></li>
+
+          </ul>
+          <!-- contact_details -->
+        </div>
+
+
+
+      <!-- end content -->
+    </div>
+    <!-- end container -->
+  </section>
+  <!-- end section -->
+{% endblock %}
+

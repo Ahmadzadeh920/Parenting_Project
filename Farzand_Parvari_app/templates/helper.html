@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+        <div class="tabbable servicetab tabs-left">
+          <ul class="nav nav-tabs">
+              <li><a href="#chat_online_tab" data-toggle="tab"><i class="fa fa-steam-square"></i> چت آنلاین </a></li>
+            <li  class="active"><a  href="#active_file_number_helper_tab" data-toggle="tab"><i class="fa fa-bell-o"></i> پرونده های فعال  </a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="active_file_number_helper_tab"><br/>
+                <h5 class="title"><i class="fa fa-laptop"></i> پرونده های فعال </h5>
+            {% if Helper_file_number_obj %}
+                <table class="table table-striped " >
+                            <thead>
+                                <tr>
+
+                                    <td>شماره پرونده  </td>
+                                    <td>نام فرزند </td>
+                                     <td>مشاهده پرونده و درج رفتارهای جدید از فرزند</td>
+
+                                </tr>
+                            </thead>
+                          <tbody id="list_request_tbody">
+                          {% for helper in Helper_file_number_obj %}
+                                <tr>
+
+                                    <td>{{ helper.file_number.file_number}}</td>
+                                    <td>{{ helper.file_number.name }} {{ helper.file_number.family }}</td>
+                                    <td><a href="{% url 'render_file_number' file_number=helper.file_number.file_number %}" >مشاهده پرونده و درج رفتار جدید</a></td>
+
+                                </tr>
+                          {% endfor %}
+                                 </tbody>
+            </table>
+            {% endif %}
+            </div>
+              <!-- end of tab-pan-->
+              <div class="tab-pane" id="active_request"><br/>
+                  <h5 class="title"><i class="fa fa-laptop"></i> درخواست های در حال انجام </h5>
+            {% if active_request_obj %}
+                <table class="table table-striped " >
+                            <thead>
+                                <tr>
+
+                                    <td>شماره پرونده  </td>
+                                    <td>نام فرزند  </td>
+                                    <td>مشاهده پرونده </td>
+                                     <td>دستور کار </td>
+                                     <td>یادداشت برداری برای پرونده</td>
+
+                                </tr>
+                            </thead>
+                          <tbody id="list_request_tbody">
+                          {% for active in active_request_obj  %}
+                                <tr>
+
+                                    <td>{{ active.file_number.file_number }}</td>
+                                    <td>{{ active.file_number.name }} {{ active.file_number.family }}</td>
+                                    <td><a href="{% url 'render_file_number' file_number=active.file_number.file_number %}" >مشاهده پرونده </a></td>
+                                    <td><a href="{% url 'render_agenda_file_number' file_number=active.file_number.file_number %}" >دستور کار  </a></td>
+                                    <td><a href="{% url 'render_noting_file_number' file_number=active.file_number.file_number %}"  data-id-request="{{ active.id }}" >یادداشت برداری </a></td>
+                                </tr>
+                          {% endfor %}
+                                 </tbody>
+            </table>
+            {% endif %}
+            </div>
+        <!-- end of active request -->
+          <div class="tab-pane" id="total_noting" ><br/>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+              <h5 class="title"><i class="fa fa-laptop"></i> ایجاد یادداشت جدید </h5>
+          <form role="form" id="form_create_total_noting" method="POST" >
+                 {%  csrf_token %}
+                    <div class="form-group">
+                        <label>یادداشت جدید </label> <textarea  id="txt_total_noting_form" name="ٍtxt" class="form-control text-justify text-right"   placeholder="یادداشت جدید" data-rule="minlen:5" ></textarea>
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                     <div class="sent-message" id="result_total_noting_create"><a href="#"></a> </div>
+                    <div class="form-send">
+                        <button type="submit" class="btn btn-large btn-primary">ایجاد یادداشت جدید</button>
+                     </div>
+          </form></div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+                  <h5 class="title"><i class="fa fa-laptop"></i> یادداشت برداری از کل پرونده ها  </h5>
+            {% if general_noting_obj %}
+                <table class="table table-striped " >
+                            <thead>
+                                <tr>
+                                    <td> یادداشت های قبلی </td>
+
+                                </tr>
+                            </thead>
+                          <tbody id="list_total_noting_tbody">
+                          {% for note in general_noting_obj  %}
+                                <tr>
+                                    <td>{{ note.txt }}</td>
+
+                                </tr>
+                          {% endfor %}
+                                 </tbody>
+            </table>
+            {% endif %}
+          </div></div>
+        <!-- end of total noting -->
+        <div class="tab-pane" id="chat_online_tab"><br/>
+                  <h5 class="title"><i class="fa fa-laptop"></i> چت آنلاین </h5>
+                    {% include "errors_and_messages.html" %}
+
+                <div class="col-xs-9 col-sm-8 text-left pre-scrollable" id="all_messages">
+                <div class="hidden" id="last_message_id">{{ massage_chat.content.first_message_id }}</div>
+                    {% if first_message_id > 0 %}
+                        <div class="text-center"><button id="load_old_messages" class="btn btn-success">بارگذاری متون </button></div>
+                    {% endif %}
+                <ul class="list-group" id="chat">
+
+                    {% for message in chat_messages %}
+                        <li class="list-group-item">
+                        <strong>{{ message.user.get_full_name }} : </strong>
+                        {{ message.message_html|safe }}
+                        </li>
+                    {% empty %}
+                    <div id="no_messages">هنوز هیچ پیامی ارسال نشده است</div>
+                    {% endfor %}
+                </ul>
+                </div>
+                    <div class="row">
+                <form id="chatform" autocomplete="off" method="post" role="form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-text-width"></i></span>
+                        <textarea id="message"  class="form-control" placeholder="پیام خود را وارد نمایید" required> </textarea>
+                    </div>
+                    </div>
+                <div class="form-group">
+                    <div class="input-group">
+                <div class="col-xs-2 col-sm-1">
+                    <button id="go" type="submit" class="btn btn-primary input-lg btn-large" >ارسال پیام </button>
+                </div></div></div>
+            </form>
+        </div>
+
+
+
+          <!-- contact_details -->
+
+            </div>
+          <!-- end of chat online -->
+
+
+
+
+
+        </div>
+
+        <div class="clearfix"></div>
+
+
+
+
+      </div>
+      <!-- end content -->
+    </div>
+    <!-- end container -->
+  </section>
+  <!-- end section -->
+
+  <section class="section3">
+    <div class="container withpadding">
+      <div class="message">
+        <div class="col-lg-9 col-md-9 col-sm-9">
+          <h3>Grab the attention of your customers!</h3>
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry"s standard dummy text ever since the 1500s..</p>
+        </div>
+
+      </div>
+      <!-- end message -->
+    </div>
+    <!-- end container -->
+  </section>
+  <!-- end section3 -->
+
+
+  <!-- Template Main Javascript File -->
+
+
+{% endblock %}

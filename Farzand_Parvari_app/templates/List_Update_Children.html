@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+  <section class="section1">
+    <div class="container clearfix">
+      <div class="content col-lg-12 col-md-12 col-sm-12 clearfix">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+             {% if child %}
+          <h4 class="title">بروز رسانی پروفایل فرزند {{ child.name }}  </h4>
+          <div id="message"></div>
+
+          <form role="form" id="form_update_child" method="POST" action="{% url "Create_Chidren" %}">
+                 {%  csrf_token %}
+
+            <div class="form-group">
+             <label>تاریخ تولد</label> <input type="date" id="Birth_date_child_form_update" name="Birth_date" class="form-control" id="contact-name" placeholder="تاریخ تولد" data-rule="minlen:6" data-msg="لطفا تاریخ تولد فرزند را صحیح وارد نمایید" >
+              <div class="validate"></div>
+            </div>
+
+            <div class="form-group">
+                <label>سطح آموزشی فرزند</label><select name="education_degree"  class="form-control" id="education_degree_child_form_update" placeholder="سطح آموزشی فرزند " data-rule="select" data-msg="">
+                           <option value="'هیچ کدام  ">هیچ کدام</option>
+                            <option value="'پیش دبستانی ">پیش دبستانی</option>
+                            <option value="ابتدایی">ابتدایی  </option>
+                            <option value="راهنمایی">راهنمایی </option>
+
+              </select>
+              <div class="validate"></div>
+               <div class="form-group">
+                <strong>آیا فرزند شما دارای معلولیت است</strong><input type="checkbox" id="disability_child_form_update" name="disability" class="form-group" id="contact-name" placeholder="معلولیت " data-rule="minlen:6" data-msg="" >
+              <div class="validate"></div>
+               </div>
+            <div class="form-group">
+                <strong>مشکلات ذهنی</strong><textarea id="mental_problems_child_form_update" name="mental_problems" class="form-control" placeholder="اگر دارای معلولیت ذهنی خاصی است اینجا لیست شود"></textarea>
+              <div class="validate"></div>
+               </div>
+                <div class="form-group">
+                <strong>مشکلات جسمی </strong><textarea id="Physical_problems_child_form_update" name="Physical_problems" class="form-control" placeholder="اگر دارای معلولیت جسمی خاصی است اینجا لیست شود"></textarea>
+              <div class="validate"></div>
+               </div>
+            <div class="loading"></div>
+            <div class="error-message"></div>
+            <div class="sent-message" id="result_create_profile_parents"><a href="#"></a> </div>
+
+            <div class="form-send">
+              <button type="submit" class="btn btn-large btn-primary">بروزرسانی پرونده فرزند</button>
+            </div>
+
+          </form>
+        </div></div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <h4 class="title"> جزئیات پروفایل {{ child.name }} {{ child.family }}<span style="padding-left: 290px"></span></h4>
+             <input type="hidden" value="{{ child.file_number }}" id="hidden_file_number">
+            <input type="hidden" value="{{ child.name }}" id="hidden_name_child">
+            <input type="hidden" value="{{ child.family }}" id="hidden_family_child">
+          <ul class="contact_details">
+              <li><i class="fa fa-birthday-cake"></i> <strong>تاریخ تولد </strong><span id="date_birthday_child_update">{{ child.date_birthday }}</span></li>
+              <li><i class="fa fa-address-book-o"></i><strong>مقطع تحصیلی </strong><span id="grade_Educations">{{ child.grade_Educations }}</span></li>
+              <li><i class="fa fa-hand-o-up"></i><strong>معلولیت ذهنی </strong><span id="mental_problems">{{ child.mental_problems }}</span></li>
+              <li><i class="fa fa-address-book"></i><strong>معلولیت جسمی </strong><span id="Physical_problems">{{ child.Physical_problems }}</span></li>
+          </ul>
+          <!-- contact_details -->
+        </div>
+
+    {% endif %}
+
+
+
+      <!-- end content -->
+    </div>
+    <!-- end container -->
+  </section>
+  <!-- end section -->
+{% endblock %}
+

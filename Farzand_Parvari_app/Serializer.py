@@ -5,7 +5,7 @@ from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordResetForm
 from .models import (Profile_Parents,
-                     Profile_Psy,
+                     ProfilePsy,
                     Children,
                     Steps_training,
                     Steps_exercise,
@@ -76,7 +76,7 @@ class Profile_Parents_serialize(serializers.ModelSerializer):
 class Profile_psy_serilalize(serializers.ModelSerializer):
     psychology = serializers.PrimaryKeyRelatedField(read_only=True)
     class Meta:
-        model =Profile_Psy
+        model =ProfilePsy
         exclude = ('user',)
 
 
@@ -85,7 +85,7 @@ class List_psy_serilalize(serializers.ModelSerializer):
     first_name = serializers.ReadOnlyField(source='user.first_name')
     last_name =serializers.ReadOnlyField(source='user.last_name')
     class Meta:
-        model =Profile_Psy
+        model =ProfilePsy
         fields='__all__'
 
 
@@ -107,22 +107,22 @@ class Steps_training_serialize (serializers.ModelSerializer):
 class Steps_excercise_serialize(serializers.ModelSerializer):
     class Meta:
         model =Steps_exercise
-        exclude=('id','steps')
+        exclude=('steps',)
 #_________________________________________Training
 class Comments_FileNumber_serialize(serializers.ModelSerializer):
     class Meta:
         model =Comments_FileNumber_Training
-        fields = ('Comments',)
+        fields = ('Comments','id',)
 
 class Answer_Exercise_serialize(serializers.ModelSerializer):
     class Meta:
         model =Answer_Exercise
-        fields = ('Answer',)
+        fields = ('Answer','id')
 
 class List_Answer_Exercise_serialize(serializers.ModelSerializer):
     class Meta:
         model =Answer_Exercise
-        fields = ('Answer','Exercise')
+        fields = ('Answer','Exercise','id')
 # ________________________________Behavior
 
 class Chidren_behavior_list_serialize(serializers.ModelSerializer):
@@ -133,7 +133,7 @@ class Chidren_behavior_list_serialize(serializers.ModelSerializer):
 class Chidren_behavior_Update_Retrive_Create_serialize(serializers.ModelSerializer):
     class Meta:
         model=Children_behavior
-        fields = ('Behavior_name',)
+        fields = ('Behavior_name','id',)
 #__________________________________________Description of behaviors
 class Descript_behavior_serialize(serializers.ModelSerializer):
     class Meta:
@@ -180,19 +180,19 @@ class Reward_behavior_serialize(serializers.ModelSerializer):
 class Rules_Reward_serialize(serializers.ModelSerializer):
     class Meta:
         model =Rules_Reward
-        exclude =('user','Reward')
+        exclude =('user','behavior' , )
 
 
 class Create_Table_star_serialize(serializers.ModelSerializer):
     class Meta:
         model =Star_Table
-        exclude =('user','reward_rule','Date_Time')
+        exclude =('user','Date_Time','behavior',)
 
 
 class List_Table_star_serialize(serializers.ModelSerializer):
     class Meta:
         model =Star_Table
-        fields='__all__'
+        exclude = ('behavior','Date_Time',)
 
 
 class Create_Table_surprise_serialize(serializers.ModelSerializer):
@@ -213,6 +213,12 @@ class List_Punishment_recommend_serialize(serializers.ModelSerializer):
         fields='__all__'
 
 
+class Create_Punishment_behavior_serialize(serializers.ModelSerializer):
+    class Meta:
+        model =Punishment_behavior
+        exclude=('user','behavior','Date_Time')
+
+
 class Punishment_behavior_serialize(serializers.ModelSerializer):
     class Meta:
         model =Punishment_behavior
@@ -229,6 +235,8 @@ class Situation_defficult_behavior_serialize(serializers.ModelSerializer):
 #________________________________
 
 class Create_Request_psy_serialize(serializers.ModelSerializer):
+    first_name_psy = serializers.ReadOnlyField(source='user_psy.first_name')
+    last_name_psy = serializers.ReadOnlyField(source='user_psy.last_name')
     class Meta:
         model =request_consultant
         exclude = ('user_request','file_number','date_request')
@@ -236,6 +244,8 @@ class Create_Request_psy_serialize(serializers.ModelSerializer):
 
 
 class List_Request_psy_serialize(serializers.ModelSerializer):
+    first_name_psy = serializers.ReadOnlyField(source='user_psy.first_name')
+    last_name_psy = serializers.ReadOnlyField(source='user_psy.last_name')
     class Meta:
         model =request_consultant
         fields = '__all__'

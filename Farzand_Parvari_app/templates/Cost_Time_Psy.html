@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% load custom_tags %}
+
+  <section class="section1">
+    <div class="container clearfix">
+      <div class="content col-lg-12 col-md-12 col-sm-12 clearfix">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+        {% if request.user|has_group:"Psychology" %}
+            {% if set_time_obj == None %}
+          <h4 class="title">ثبت هزینه و زمان موزد نیاز برای پرونده به شماره پرونده {{ request_obj.file_number.file_number }}  </h4>
+
+
+          <div id="message"></div>
+
+
+          <form role="form" id="form_create_cost_time_request" method="POST" action="#">
+          {% else %}
+           <h4 class="title">ویرایش ثبت هزینه و زمان موزد نیاز برای پرونده به شماره پرونده{{ request_obj.file_number.file_number }}  </h4>
+
+
+            <div id="message"></div>
+           <form role="form" id="form_update_cost_time_request"  method="POST" action="#">
+           {% endif %}
+                 {%  csrf_token %}
+            <input type="hidden" id="hidden_id_request" value="{{request_obj.id}}">
+
+            <div class="form-group">
+               <label>مدت زمان براساس ساعت جهت در مان</label> <input type="number" id="duration_cost_time_form" name="duration" min="1" class="form-control" placeholder="مدت زمان جهت در مان "  required>
+                <div class="validate"></div>
+            </div>
+            <div class="form-group">
+               <label>هزینه کل براساس تومان جهت در مان</label> <input type="number" id="cost_time_form" name="cost" min="1000" class="form-control" placeholder="هزینه کل جهت در مان "  required>
+                <div class="validate"></div>
+            </div>
+            <div class="form-group">
+                <label>توضیحات</label> <textarea type="number" id="comments_time_form" name="comments" min="1000" class="form-control" placeholder="توضیحات کلی "  required></textarea>
+                <div class="validate"></div>
+            </div>
+
+            <div class="form-send">
+              <button type="submit" class="btn btn-large btn-primary">
+                        ارسال زمان و هزینه
+              </button>
+            </div>
+            <div class="loading"></div>
+            <div class="error-message"></div>
+            <div class="sent-message" id="result_create_cost_time"><a href="#"></a> </div>
+          </form>{% endif %}
+            <div class="validate" id="result_comments_training"></div>
+        </div>
+
+            {% if request.user|has_group:"Parents" and set_time_obj == None %}
+                <h4 class="title">هزینه و زمان اعلام نشده است  </span></h4>
+            {% else %}
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <h4 class="title">هزینه و زمان برای درمان  </span></h4>
+
+                  <ul class="contact_details">
+                      <li><strong class="fa fa-money">هزینه براساس تومان</strong><p class="text" id="cost">{{ set_time_obj.Cost }}</p></li>
+                      <li><strong class="fa fa-money">زمان  براساس ساعت</strong><p class="text" id="duration">{{ set_time_obj.duration }}</p></li>
+                     <li><strong class="fa fa-money">توضیحات</strong><p class="text" id="comments_cost">{{ set_time_obj.comment }}</p></li>
+                  </ul>
+
+
+
+
+                  <!-- contact_details -->
+                </div>
+             {% endif %}
+
+
+      <!-- end content -->
+    </div>
+    <!-- end container -->
+  </section>
+
+  <!-- end section -->
+{% endblock %}
+

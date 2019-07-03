@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+  <section class="section1">
+    <div class="container clearfix">
+      <div class="content col-lg-12 col-md-12 col-sm-12 clearfix">
+        <div class="col-lg-6 col-md-6 col-sm-6" style="float: right">
+          <h4 class="title">ایجاد فرزند جدید  </h4>
+          <div id="message"></div>
+
+          <form role="form" id="form_create_child" method="POST" action="{% url "Create_Chidren" %}">
+                 {%  csrf_token %}
+            <div class="form-group">
+              <input type="text" id="name_child_form" name="name" class="form-control" id="contact-name" placeholder=" نام فرزند" data-rule="minlen:2" data-msg=" نام فرزند را وارد نمایید " >
+              <div class="validate"></div>
+            </div>
+              <div class="form-group">
+              <input type="text" id="family_child_form" name="family" class="form-control" id="contact-name" placeholder="نام خانوادگی" data-rule="minlen:3" data-msg="نام خانوادگی فرزند را واد نمایید" >
+              <div class="validate"></div>
+            </div>
+            <div class="form-group">
+             <label>تاریخ تولد</label> <input type="date" id="Birth_date_child_form" name="Birth_date" class="form-control" id="contact-name" placeholder="تاریخ تولد" data-rule="minlen:6" data-msg="لطفا تاریخ تولد فرزند را صحیح وارد نمایید" >
+              <div class="validate"></div>
+            </div>
+
+            <div class="form-group">
+                <label>سطح آموزشی فرزند</label><select name="education_degree"  class="form-control" id="education_degree_child_form" placeholder="سطح آموزشی فرزند " data-rule="select" data-msg="">
+                           <option value="'هیچ کدام  ">هیچ کدام</option>
+                            <option value="'پیش دبستانی ">پیش دبستانی</option>
+                            <option value="ابتدایی">ابتدایی  </option>
+                            <option value="راهنمایی">راهنمایی </option>
+
+              </select>
+              <div class="validate"></div>
+               <div class="form-group">
+                <strong>آیا فرزند شما دارای معلولیت است</strong><input type="checkbox" id="disability_child_form" name="disability" class="form-group" id="contact-name" placeholder="معلولیت " data-rule="minlen:6" data-msg="" >
+              <div class="validate"></div>
+               </div>
+            <div class="form-group">
+                <strong>مشکلات ذهنی</strong><textarea id="mental_problems_child_form" name="mental_problems" class="form-control" placeholder="اگر دارای معلولیت ذهنی خاصی است اینجا لیست شود"></textarea>
+              <div class="validate"></div>
+               </div>
+                <div class="form-group">
+                <strong>مشکلات جسمی </strong><textarea id="Physical_problems_child_form" name="Physical_problems" class="form-control" placeholder="اگر دارای معلولیت جسمی خاصی است اینجا لیست شود"></textarea>
+              <div class="validate"></div>
+               </div>
+            <div class="loading"></div>
+            <div class="error-message"></div>
+            <div class="sent-message" id="result_create_profile_parents"><a href="#"></a> </div>
+
+            <div class="form-send">
+              <button type="submit" class="btn btn-large btn-primary">ایجاد فرزند جدید</button>
+            </div>
+
+          </form>
+        </div></div>
+        {% if childrens   %}
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <table class="table table-striped checkout" data-effect="fade">
+          <thead>
+            <tr>
+              <th>شمار پرونده </th>
+              <th>نام فرزند </th>
+              <th>ویرایش پروفایل فرزند </th>
+              <th>انتخاب فزرند </th>
+            </tr>
+          </thead>
+          <tbody id="list_children_tbody">
+                {% for child in childrens %}
+                    <tr>
+                       <td id="file_number_child">{{ child.file_number }}</td>
+                        <td id="name_child">{{ child.name }}</td>
+                      <td> <a href="{{ child.file_number }}"> بروز رسانی پروفایل فرزند</a></td>
+                      <td> <a href="{% url 'render_file_number' file_number=child.file_number %}"> انتخاب پرونده</a></td>
+                    </tr>
+            {% endfor %}
+                 </tbody>
+        </table>
+          <!-- contact_details -->
+        </div>
+    {% endif %}
+
+
+
+      <!-- end content -->
+    </div>
+    <!-- end container -->
+  </section>
+  <!-- end section -->
+{% endblock %}
+

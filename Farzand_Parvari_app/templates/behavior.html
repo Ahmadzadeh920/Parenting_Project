@@ -1,0 +1,689 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% load custom_tags %}
+
+
+        <input type="hidden" value="{{ file_number_obj.file_number }}" id="hidden_file_number_html">
+        <input type="hidden" value="{{ behavior_obj.id }}" id="hidden_behavior_id_html">
+        <div class="tabbable servicetab tabs-left">
+          <ul class="nav nav-tabs">
+
+              <li><a href="#difficult_situation_tab" data-toggle="tab"><i class="fa fa-warning"></i> جدول موقعیت های دشوار  </a></li>
+              <li><a href="#punish_tab" data-toggle="tab"><i class="fa fa-table"></i> جدول جریمه</a></li>
+              <li><a href="#suprice_table_tab" data-toggle="tab"><i class="fa  fa-superpowers"></i> جدول سوپرایز </a></li>
+              <li><a href="#Star_table_tab" data-toggle="tab"><i class="fa fa-star"></i> جدول ستاره</a></li>
+              <li><a href="#Rules_tab" data-toggle="tab"><i class="fa fa-star"></i> مجموعه قوانین   </a></li>
+              <li><a href="#Rewards_tab" data-toggle="tab"><i class="fa fa-star"></i> مجموعه پاداش    </a></li>
+              <li ><a href="#cause_bahavior" data-toggle="tab"><i class="fa fa-comment"></i> جدول دلایل  </a></li>
+             <li><a  href="#weekly_descript_bahavior" data-toggle="tab"><i class="fa fa-calendar-times-o"></i>جدول هفتگی ثبت رفتار </a></li>
+            <li  class="active"><a id="training_tab" href="#descript_bahavior" data-toggle="tab"><i class="fa fa-book"></i> جدول توصیف رفتار </a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="descript_bahavior"><br/>
+                  <h5 class="title"><i class="fa fa-laptop"></i> جدول توصیف رفتار {{ behavior_obj.Behavior_name  }} </h5>
+                  <div class="col-lg-6" style="float: right">
+                      {% if request.user|has_group:"Parents" or request.user|has_group:"Helper" %}
+
+                   <form role="form" id="form_create_description" method="POST" >
+                 {%  csrf_token %}
+                    <div class="form-group">
+                     <label>توصیف رفتار </label> <input type="text" id="descript_descript_behavior_form" name="descript" class="form-control"   placeholder="توصیف رفتار" data-rule="minlen:3" >
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                    <div class="form-group">
+                     <label>زمان رفتار </label> <input type="date" id="time_descript_behavior_form" name="time" class="form-control"   placeholder="تاریخ رفتار" data-rule="minlen:3" data-msg="لطفازمان رفتار  را صحیح وارد نمایید" >
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                       <div class="form-group">
+                     <label>مکان رفتار </label> <input type="text" id="place_descript_behavior_form" name="place" class="form-control"   placeholder="مکان رفتار" data-rule="minlen:3" data-msg="لطفا مکان رفتار  را صحیح وارد نمایید" >
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                       <div class="form-group">
+                           <label>موقعیت های قبل از رفتار </label> <textarea id="Status_before_bahavior_descript_behavior_form" name="Status_before_bahavior" class="form-control"   placeholder="موقعیت قبل از رفتار" data-rule="minlen:3" data-msg="لطفا موقعیت پیش آمده قبل از رفتار را وارد نمایید" ></textarea>
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                      <div class="form-group">
+                           <label>نتیجه بعد از رفتار </label> <textarea id="Result_behavior_descript_behavior_form" name="Result_behavior" class="form-control"   placeholder="نتیجه بعد از رفتار" data-rule="minlen:3" data-msg="لطفا نتیجه بعد از رفتار را وارد نمایید" ></textarea>
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                       <div class="form-group">
+                           <label>توضیحات رفتار </label> <textarea id="Comments_descript_behavior_form" name="Comments" class="form-control"   placeholder="توضیحات رفتار" ></textarea>
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+
+
+
+                    <div class="sent-message" id="result_create_descript"><a href="#"></a> </div>
+
+                    <div class="form-send">
+                        <button type="submit" class="btn btn-large btn-primary">ایجاد سطر جدید برای جدول توصیف رفتار</button>
+                     </div>
+
+                   </form>{% endif %}</div>
+
+                   <div class="">
+                        <table class="table table-striped " >
+                            <thead>
+                                <tr>
+                                    <td>کاربر </td>
+                                     <td>توصیف رفتار </td>
+                                    <td>تاریخ</td>
+                                    <td>مکان </td>
+                                    <td>موقعیت های قبل از رفتار</td>
+                                    <td>نتایج بعد از رفتار</td>
+                                    <td>توضیحات</td>
+                                    {% if request.user|has_group:"Parents" or request.user|has_group:"Helper" %}
+                                        <td>بروزرسانی</td>
+                                    {% endif %}
+
+                                </tr>
+                            </thead>
+
+                          <tbody id="list_descript_bahavior_tbody">
+                          {% for descript in descript_behavior_obj %}
+                                <tr>
+                                    <td>{{ descript.user.get_full_name  }} </td>
+                                    <td>{{ descript.discrip  }} </td>
+                                    <td>{{ descript.date_time  }} </td>
+                                    <td>{{ descript.place  }} </td>
+                                    <td>{{ descript.Status_before_bahavior  }} </td>
+                                    <td>{{ descript.Result_behavior  }} </td>
+                                    <td>{{ descript.Comments  }} </td>
+                                    {% if request.user|has_group:"Parents" or request.user|has_group:"Helper" %}
+                                        <td><a href="{% url 'render_Update_descript_behaviors_step_1' file_number=file_number_obj.file_number behavior_id=behavior_obj.id descript_id=descript.id %}" class="update_descript_bahavior"> بروزرسانی </a></td>
+                                    {% endif %}
+
+                                </tr>
+                           {% endfor %}
+                          </tbody>
+
+            </table></div>
+          <!-- contact_details -->
+
+            </div>
+        <!-- end of descript -->
+
+          <div class="tab-pane" id="weekly_descript_bahavior"><br/>
+                  <h5 class="title"><i class="fa fa-laptop"></i> جدول توصیف هفتگی رفتار {{ behavior_obj.Behavior_name  }} </h5>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                      {% if request.user|has_group:"Parents" or request.user|has_group:"Helper" %}
+                   <form role="form" id="form_create_weekly_description" method="POST" >
+                 {%  csrf_token %}
+
+                    <div class="form-group">
+                     <label>تاریخ  تکرار رفتار  </label> <input type="date" id="time_weekly_descript_behavior_form" name="date" class="form-control"   placeholder=" تاریخ رفتار تکرار شد" data-rule="minlen:3" >
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                      <div class="form-group">
+                     <label>تعداد دفعات تکرار رفتار </label> <input type="number" id="Times_weekly_descript_behavior_form" name="Times" class="form-control"   placeholder=" تعداد دفعات تکرار رفتار"  >
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+
+
+
+                    <div class="sent-message" id="result_create_weekly_descript"><a href="#"></a> </div>
+
+                    <div class="form-send">
+                        <button type="submit" class="btn btn-large btn-primary">ایجاد سطر جدید برای جدول هفتگی توصیف رفتار</button>
+                     </div>
+
+                   </form>{% endif %}</div>
+
+                   <div class="col-lg-6 col-md-6 col-sm-6">
+                        <table class="table table-striped " >
+                            <thead>
+                                <tr>
+                                    <td>کاربر </td>
+                                    <td>تاریخ</td>
+                                    <td>تعداد دفعات تکرار </td>
+                                </tr>
+                            </thead>
+
+                          <tbody id="list_weekly_descript_bahavior_tbody">
+                          {% for weekly_descript in record_behavior_Weekly_obj %}
+                                <tr>
+                                    <td>{{ weekly_descript.user.get_full_name  }} </td>
+                                    <td>{{ weekly_descript.date  }} </td>
+                                    <td>{{ weekly_descript.Times  }} </td>
+
+                                </tr>
+                           {% endfor %}
+                          </tbody>
+
+            </table></div>
+          <!-- contact_details -->
+
+            </div>
+        <!-- end of weekly descript -->
+
+          <div class="tab-pane" id="cause_bahavior"><br/>
+                  <h5 class="title"><i class="fa fa-laptop"></i> جدول دلایل  رفتار {{ behavior_obj.Behavior_name  }} </h5>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                  {% if request.user|has_group:"Parents" or request.user|has_group:"Helper" %}
+                   <form role="form" id="form_cause_behavior" method="POST" >
+                 {%  csrf_token %}
+
+                    <div class="form-group">
+                        {%  if Cause_list_admin_obj  %}
+                     <label>دلایل که رفتار شکل گرفت  </label><br/>
+                        {% for cause in Cause_list_admin_obj %}
+                        <input type="radio" name="cause" value="{{ cause.id }}" alt="{{ cause.Cause_descript }}"> <label>{{ cause.Cause_txt }}</label> <br/>
+                       {% endfor %}
+
+                      <div class="validate"></div>
+                    </div>
+                   {% endif %}
+
+                    <div class="sent-message" id="result_cuase_create"><a href="#"></a> </div>
+
+                    <div class="form-send">
+                        <button type="submit" class="btn btn-large btn-primary">ایجاد سطر جدید برای جدول هفتگی توصیف رفتار</button>
+                     </div>
+
+                   </form>{% endif %}</div>
+
+                   <div class="col-lg-6 col-md-6 col-sm-6">
+                        <table class="table table-striped " >
+                            <thead>
+                                <tr>
+                                    <td>کاربر </td>
+                                    <td>دلیل</td>
+                                    <td>شرح دلیل </td>
+                                </tr>
+                            </thead>
+
+                          <tbody id="list_cause_bahavior_tbody">
+                          {% for cause_file_number in Cause_file_number_obj %}
+                                <tr>
+                                    <td>{{ cause_file_number.user.get_full_name  }} </td>
+                                    <td>{{ cause_file_number.Cause.Cause_txt }} </td>
+                                    <td>{{ cause_file_number.Cause.Cause_descript }} </td>
+
+                                </tr>
+                           {% endfor %}
+                          </tbody>
+
+            </table></div>
+          <!-- contact_details -->
+
+            </div>
+        <!-- end of Cause -->
+
+          <div class="tab-pane" id="Rewards_tab"><br/>
+                  <h5 class="title"><i class="fa fa-laptop"></i> مجموعه پاداش ها برای  رفتار {{ behavior_obj.Behavior_name  }} </h5>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                  {% if request.user|has_group:"Parents" or request.user|has_group:"Helper" %}
+                   <form role="form" id="form_create_reward" method="POST" >
+                 {%  csrf_token %}
+                    <div class="form-group">
+                     <label>نام پاداش  </label> <input type="text" id="Reward_txt_behavior_form" name="ٍReward_txt" class="form-control"   placeholder="توصیف رفتار" data-rule="minlen:3" >
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                       <div class="form-group">
+                           <label> شرح پاداش  </label> <textarea id="Reward_descript_behavior_form" name="Reward_descript" class="form-control"   placeholder="شرح پاداش" data-rule="minlen:3" ></textarea>
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                      <label>نوع پاداش   </label><br/>
+                        {% for type_reward in type_of_Rewrard_obj %}
+                        <input type="radio" name="type_reward" value="{{ type_reward.id }}" alt="{{ type_reward.descript }}"> <label>{{ type_reward.txt }}</label> <br/>
+                       {% endfor %}
+                   <div class="sent-message" id="result_reward_create"><a href="#"></a> </div>
+                    <div class="form-send">
+                        <button type="submit" class="btn btn-large btn-primary">ایجاد پاداش جدید</button>
+                     </div>
+
+                   </form>{% endif %}</div>
+
+                   <div class="col-lg-6 col-md-6 col-sm-6">
+                        <table class="table table-striped " >
+                            <thead>
+                                <tr>
+                                    <td>پاداش </td>
+                                    <td>شرح پاداش </td>
+                                    <td>نوع پاداش </td>
+                                </tr>
+                            </thead>
+
+                          <tbody id="list_reward_bahavior_tbody">
+                          {% for Reward in Rewards_behavior_obj %}
+                                <tr>
+                                    <input type="hidden" value="{{ Reward.id }}" />
+                                    <td>{{ Reward.Reward_txt  }} </td>
+                                    <td>{{ Reward.Reward_descript}} </td>
+                                    <td>{{ Reward.type_of_Reward.txt }} </td>
+
+                                </tr>
+                           {% endfor %}
+                          </tbody>
+
+            </table></div>
+          <!-- contact_details -->
+
+            </div>
+        <!-- end of Rewards -->
+
+          <div class="tab-pane" id="Rules_tab"><br/>
+                  <h5 class="title"><i class="fa fa-laptop"></i> مجموعه قوانین برای  رفتار {{ behavior_obj.Behavior_name  }} </h5>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                 {% if request.user|has_group:"Parents" or request.user|has_group:"Helper" %}
+                   <form role="form" id="form_create_rule" method="POST" >
+                 {%  csrf_token %}
+                    <div class="form-group">
+                     <label>نام قانون   </label> <input type="text" id="Rule_txt_behavior_form" name="ٍRule_txt" class="form-control"   placeholder="نام قانون " data-rule="minlen:3" >
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                       <div class="form-group">
+                           <label> شرح قانون   </label> <textarea id="Rule_descript_behavior_form" name="Reward_descript" class="form-control"   placeholder="شرح پاداش" data-rule="minlen:3" ></textarea>
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                   <div class="sent-message" id="result_rule_create"><a href="#"></a> </div>
+                    <div class="form-send">
+                        <button type="submit" class="btn btn-large btn-primary">ایجاد قانون جدید</button>
+                     </div>
+
+                   </form>{% endif %}</div>
+
+                   <div class="col-lg-6 col-md-6 col-sm-6">
+                        <table class="table table-striped " >
+                            <thead>
+                                <tr>
+                                    <td>قانون  </td>
+                                    <td>شرح قانون </td>
+
+                                </tr>
+                            </thead>
+
+                          <tbody id="list_rule_bahavior_tbody">
+                          {% for rule in Rules_behavior_obj %}
+                                <tr>
+                                    <td>{{ rule.Rule_txt  }} </td>
+                                     <td>{{ rule.Rule_descript  }} </td>
+                                </tr>
+                           {% endfor %}
+                          </tbody>
+
+            </table></div>
+          <!-- contact_details -->
+
+            </div>
+        <!-- end of Rules -->
+
+          <div class="tab-pane" id="Star_table_tab"><br/>
+                  <h5 class="title"><i class="fa fa-laptop"></i> جدول ستاره  {{ behavior_obj.Behavior_name  }} </h5>
+                  <div class="col-lg-6" style="float: right">
+                  {% if request.user|has_group:"Parents" or request.user|has_group:"Helper" %}
+                  <p>به منطور بارگذاری کامل پاداش و قوانین لطفا صفحه را یکبار refresh فرمایید</p>
+
+                   <form role="form" id="form_create_rows_star_table" method="POST" >
+                 {%  csrf_token %}
+                    <div class="form-group">
+                     <label>کدام پاداش  </label>
+                        <select id="select_reward_in_star_table" class="form-control selector-available">
+                            {% for reward in Rewards_behavior_obj %}
+                              <option value="{{ reward.id}}">{{ reward.Reward_txt }}</option>
+                            {% endfor %}
+                        </select>
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                       <div class="form-group">
+                     <label>کدام قانون  </label>
+                        <select id="select_rule_in_star_table" class="form-control selector-available">
+                            {% for Rule in Rules_behavior_obj %}
+                              <option value="{{ Rule.id}}">{{ Rule.Rule_txt }}</option>
+                            {% endfor %}
+                        </select>
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                   <div class="sent-message" id="result_rows_star_table_create"><a href="#"></a> </div>
+                    <div class="form-send">
+                        <button type="submit" class="btn btn-large btn-primary">ایجاد سطر جدید برای جدول ستاره </button>
+                     </div>
+
+                   </form>{% endif %}</div>
+
+                   <div class="">
+                        <table class="table table-striped " >
+                            <thead>
+                                <tr>
+                                    <td>پاداش   </td>
+                                    <td>قانون </td>
+                                    <td>تعداد ستاره ها  </td>
+                                     {% if request.user|has_group:"Parents" or request.user|has_group:"Helper" %} <td> لینک افزودن ستاره </td>{% endif %}
+                                </tr>
+                            </thead>
+
+                          <tbody id="list_star_table_tbody">
+                          {% for star in Star_table_obj %}
+                                <tr>
+                                    <td>{{ star.reward.Reward_txt  }} </td>
+                                     <td>{{ star.rule.Rule_txt  }} </td>
+
+                                      <td class="count_star_td">
+                                      {% with ''|center:star.times as range %}
+                                            {% for _ in range %}
+                                                 <i class="fa fa-star-half-full"></i>
+                                            {% endfor %}
+                                            {% endwith %}
+
+                                        </td>
+                                {% if request.user|has_group:"Parents" or request.user|has_group:"Helper" %}
+                                    <td><a href="#" class="add_star_link fa-link" data-model-name="{{ star.id }}" data-reward-id = "{{ star.reward.id }}" data-rule-id="{{ star.rule.id }}" data-times = "{{ star.times }}" >افزودن ستاره</a></td>
+                                {% endif %}
+                                </tr>
+                           {% endfor %}
+                          </tbody>
+
+            </table></div>
+          <!-- contact_details -->
+
+            </div>
+        <!-- end of star table  -->
+
+        <div class="tab-pane" id="Rewards_tab"><br/>
+                  <h5 class="title"><i class="fa fa-laptop"></i> مجموعه پاداش ها برای  رفتار {{ behavior_obj.Behavior_name  }} </h5>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    {% if request.user|has_group:"Parents" or request.user|has_group:"Helper" %}
+                   <form role="form" id="form_create_reward" method="POST" >
+                 {%  csrf_token %}
+                    <div class="form-group">
+                     <label>نام پاداش  </label> <input type="text" id="Reward_txt_behavior_form" name="ٍReward_txt" class="form-control"   placeholder="توصیف رفتار" data-rule="minlen:3" >
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                       <div class="form-group">
+                           <label> شرح پاداش  </label> <textarea id="Reward_descript_behavior_form" name="Reward_descript" class="form-control"   placeholder="شرح پاداش" data-rule="minlen:3" ></textarea>
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                      <label>نوع پاداش   </label><br/>
+                        {% for type_reward in type_of_Rewrard_obj %}
+                        <input type="radio" name="type_reward" value="{{ type_reward.id }}" alt="{{ type_reward.descript }}"> <label>{{ type_reward.txt }}</label> <br/>
+                       {% endfor %}
+                   <div class="sent-message" id="result_reward_create"><a href="#"></a> </div>
+                    <div class="form-send">
+                        <button type="submit" class="btn btn-large btn-primary">ایجاد پاداش جدید</button>
+                     </div>
+
+                   </form>{% endif %}</div>
+
+                   <div class="col-lg-6 col-md-6 col-sm-6">
+                        <table class="table table-striped " >
+                            <thead>
+                                <tr>
+                                    <td>پاداش </td>
+                                    <td>شرح پاداش </td>
+                                    <td>نوع پاداش </td>
+                                </tr>
+                            </thead>
+
+                          <tbody id="list_reward_bahavior_tbody">
+                          {% for Reward in Rewards_behavior_obj %}
+                                <tr>
+                                    <td>{{ Reward.Reward_txt  }} </td>
+                                    <td>{{ Reward.Reward_descript}} </td>
+                                    <td>{{ Reward.type_of_Reward.txt }} </td>
+
+                                </tr>
+                           {% endfor %}
+                          </tbody>
+
+            </table></div>
+          <!-- contact_details -->
+
+            </div>
+        <!-- end of Rewards -->
+
+
+          <div class="tab-pane" id="suprice_table_tab"><br/>
+                  <h5 class="title"><i class="fa fa-laptop"></i> مجموعه جدول سوپرایز برای رفتار  {{ behavior_obj.Behavior_name  }} </h5>
+                  <div class="col-lg-6 col-md-6 col-sm-6" style="float: right">
+                      {% if request.user|has_group:"Parents" or request.user|has_group:"Helper" %}
+                       <p>به منطور بارگذاری کامل پاداش لطفا صفحه را یکبار refresh فرمایید</p>
+                   <form role="form" id="form_create_suprise" method="POST" >
+                 {%  csrf_token %}
+                    <div class="form-group">
+                      <input type="hidden" id="suprise_hidden_form" name="ٍreward" class="form-control"  value="{{ Rewards_behavior_obj.count }}" >
+                      <div class="validate"></div>
+                    </div>
+
+                   <div class="sent-message" id="result_suprise_create"><a href="#"></a> </div>
+                    <div class="form-send">
+                        <button type="submit" class="btn btn-large btn-primary">کلیک کن تا با جایزه ای سوپرایز شوی</button>
+                     </div>
+
+                   </form>{% endif %}</div>
+
+                   <div class="">
+                        <table class="table table-striped " >
+                            <thead>
+                                <tr>
+                                    <td>پاداش  </td>
+                                    <td>تاریخ </td>
+                                </tr>
+                            </thead>
+
+                          <tbody id="list_suprise_tbody">
+                          {% for suprise in Suprice_table_obj %}
+                                <tr>
+                                    <td>{{ suprise.Reward.Reward_txt }}</td>
+                                     <td>{{ suprise.Date_Time }}</td>
+
+                                </tr>
+                          {% endfor %}
+                          </tbody>
+
+            </table></div>
+          <!-- contact_details -->
+
+            </div>
+        <!-- end of Suprise tab  -->
+
+
+          <div class="tab-pane" id="punish_tab"><br/>
+                  <h5 class="title"><i class="fa fa-laptop"></i> مجموعه جریمه های در نظر گرفته شده  برای  رفتار {{ behavior_obj.Behavior_name  }} </h5>
+                  <div class="col-lg-6" style="float: right">
+                      {% if request.user|has_group:"Parents" or request.user|has_group:"Helper" %}
+                   <form role="form" id="form_create_punish" method="POST" >
+                 {%  csrf_token %}
+                    <div class="form-group">
+                     <label>نام جریمه   </label> <input type="text" id="name_punish_behavior_form" name="ٍname" class="form-control"   placeholder="نام جریمه  " data-rule="minlen:3" >
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                       <div class="form-group">
+                           <label> شرح جریمه   </label> <textarea id="descript_punish_behavior_form" name="descript" class="form-control"  placeholder="شرح جریمه " data-rule="minlen:3" ></textarea>
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                        <div class="form-group">
+                           <label> تاریخ جریمه   </label> <input type="date" id="date_punish_behavior_form" name="Date_Time" class="form-control"  placeholder="تاریخ جریمه " data-rule="minlen:3"  />
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                       <div class="form-group">
+                           <label> نتیجه جریمه   </label> <textarea id="result_punish_behavior_form" name="result" class="form-control"   placeholder="نتیجه جریمه " data-rule="minlen:3" ></textarea>
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                       
+                   <div class="sent-message" id="result_punish_create"><a href="#"></a> </div>
+                    <div class="form-send">
+                        <button type="submit" class="btn btn-large btn-primary">ایجاد جریمه جدید</button>
+                     </div>
+
+                   </form>{% endif %}</div>
+
+                   <div class="">
+                        <table class="table table-striped " >
+                            <thead>
+                                <tr>
+                                    <td>نام جریمه  </td>
+                                    <td>شرح جریمه </td>
+                                    <td>نتایج بعد از جریمه </td>
+                                      <td>تاریخ  جریمه کردن</td>
+                                </tr>
+                            </thead>
+
+                          <tbody id="list_punish_bahavior_tbody">
+                          {% for punish in Punishment_behavior_obj %}
+                                <tr>
+                                    <td>{{ punish.name  }} </td>
+                                     <td>{{ punish.descript  }} </td>
+                                    <td>{{ punish.result  }} </td>
+                                    <td>{{ punish.Date_Time  }} </td>
+                                </tr>
+                           {% endfor %}
+                          </tbody>
+
+            </table></div>
+          <!-- contact_details -->
+
+            </div>
+        <!-- end of Punishment  -->
+
+          <div class="tab-pane" id="difficult_situation_tab"><br/>
+                  <h5 class="title"><i class="fa fa-laptop"></i> مجموعه موقعیت های دشوار   برای  رفتار {{ behavior_obj.Behavior_name  }} </h5>
+                  <div class="col-lg-6" style="float: right">
+                      {% if request.user|has_group:"Parents" or request.user|has_group:"Helper" %}
+                   <form role="form" id="form_create_difficult_situation" method="POST" >
+                 {%  csrf_token %}
+                    <div class="form-group">
+                     <label>نام وضعیت دشوار   </label> <input type="text" id="name_difficult_situation_form" name="ٍname" class="form-control"   placeholder="نام وضعیت دشوار  " data-rule="minlen:3" >
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                       <div class="form-group">
+                           <label> شرح وضعیت دشوار   </label> <textarea id="comments_difficult_situation_behavior_form" name="comments" class="form-control"  placeholder="شرح وضعیت دشوار " data-rule="minlen:3" ></textarea>
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                        <div class="form-group">
+                           <label> تاریخ    </label> <input type="date" id="date_difficult_situation_behavior_form" name="Date_Time" class="form-control"  placeholder="تاریخ جریمه " data-rule="minlen:3"  />
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                       <div class="form-group">
+                           <label> درجه اذیت کردن   </label>
+                            <select id="select_grade_difficult_situation" class="form-control selector-available">
+                              <option value=1>در حد کم اذیت کرد (درجه 1)</option>
+                                <option value=2>در حد متوسط اذیت کرد (درجه 2)</option>
+                                 <option value=3>در حد زیاد اذیت کر(درجه 3)</option>
+                                 <option value=4>اصلا انتظار نداشتم(درجه 4) </option>
+                        </select>
+
+
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+
+                   <div class="sent-message" id="result_difficult_create"><a href="#"></a> </div>
+                    <div class="form-send">
+                        <button type="submit" class="btn btn-large btn-primary">ایجاد سطر جدیدبرای جدول وضعیت دشوار</button>
+                     </div>
+
+                   </form>{% endif %}</div>
+
+                   <div class="">
+                        <table class="table table-striped " >
+                            <thead>
+                                <tr>
+                                    <td>نام وضعیت دشوار  </td>
+                                    <td>شرح وضعیت دشوار </td>
+                                    <td>تاریخ </td>
+                                      <td>درجه اذیت کردن</td>
+                                </tr>
+                            </thead>
+
+                          <tbody id="list_difficult_bahavior_tbody">
+                          {% for situation in Situation_defficult_behavior_obj %}
+                                <tr>
+                                    <td>{{ situation.name  }} </td>
+                                     <td>{{ situation.comments  }} </td>
+                                    <td>{{ situation.Date_Time  }} </td>
+                                    <td>{{ situation.grade  }} </td>
+                                </tr>
+                          {% endfor %}
+                          </tbody>
+
+            </table></div>
+          <!-- contact_details -->
+
+            </div>
+        <!-- end of Difficult situations  -->
+
+
+
+
+        </div>
+
+        <div class="clearfix"></div>
+
+
+
+
+      </div>
+      <!-- end content -->
+    </div>
+    <!-- end container -->
+  </section>
+  <!-- end section -->
+
+  <section class="section3">
+    <div class="container withpadding">
+      <div class="message">
+        <div class="col-lg-9 col-md-9 col-sm-9">
+          <h3>Grab the attention of your customers!</h3>
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry"s standard dummy text ever since the 1500s..</p>
+        </div>
+
+      </div>
+      <!-- end message -->
+    </div>
+    <!-- end container -->
+  </section>
+  <!-- end section3 -->
+
+
+  <!-- Template Main Javascript File -->
+
+
+{% endblock %}

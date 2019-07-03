@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+  <section class="section1">
+    <div class="container clearfix">
+      <div class="content col-lg-12 col-md-12 col-sm-12 clearfix">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <h4 class="title">ویرایش سطری از جدول توصیف رفتار </h4>
+            <input type="hidden" value="{{ file_number_obj.file_number }}" id="hidden_file_number_update_descript_html">
+            <input type="hidden" value="{{ behavior_obj.id }}" id="hidden_behavior_id_update_descript_html">
+            <input type="hidden" value="{{ descript_behavior_obj.id }}" id="hidden_descript_id_update_descript_html">
+
+          <div id="message"></div>
+           <form role="form" id="form_update_descript_behavior"  method="POST" action="#">
+
+                 {%  csrf_token %}
+             <div class="form-group">
+                     <label>توصیف رفتار </label> <input type="text" id="descript_descript_behavior_update_form" name="descript" class="form-control" id="contact-name" placeholder="توصیف رفتار" data-rule="minlen:3" >
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                    <div class="form-group">
+                     <label>زمان رفتار </label> <input type="date" id="time_descript_behavior_update_form" name="time" class="form-control" id="contact-name" placeholder="تاریخ رفتار" data-rule="minlen:3" data-msg="لطفازمان رفتار  را صحیح وارد نمایید" >
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                       <div class="form-group">
+                     <label>مکان رفتار </label> <input type="text" id="place_descript_behavior_update_form" name="place" class="form-control" id="contact-name" placeholder="مکان رفتار" data-rule="minlen:3" data-msg="لطفا مکان رفتار  را صحیح وارد نمایید" >
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                       <div class="form-group">
+                           <label>موقعیت های قبل از رفتار </label> <textarea id="Status_before_bahavior_descript_behavior_update_form" name="Status_before_bahavior" class="form-control" id="contact-name" placeholder="موقعیت قبل از رفتار" data-rule="minlen:3" data-msg="لطفا موقعیت پیش آمده قبل از رفتار را وارد نمایید" ></textarea>
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                      <div class="form-group">
+                           <label>نتیجه بعد از رفتار </label> <textarea id="Result_behavior_descript_behavior_update_form" name="Result_behavior" class="form-control" id="contact-name" placeholder="نتیجه بعد از رفتار" data-rule="minlen:3" data-msg="لطفا نتیجه بعد از رفتار را وارد نمایید" ></textarea>
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                       <div class="form-group">
+                           <label>توضیحات رفتار </label> <textarea id="Comments_descript_behavior_update_form" name="Comments" class="form-control" id="contact-name" placeholder="توضیحات رفتار" ></textarea>
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+
+
+
+                    <div class="sent-message" id="result_update_descript"></div>
+
+                    <div class="form-send">
+                        <button type="submit" class="btn btn-large btn-primary">ویرایش جدید برای جدول توصیف رفتار</button>
+                     </div>
+                    <div class="validate" id="result_comments_training"></div>
+                   </form>
+            <div class="validate" id="result_comments_training"></div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <h4 class="title">سطر توصیف رفتار اتتخاب شده </span></h4>
+          <ul class="contact_details">
+              <li><strong class="fa fa-text-width">توصیف </strong><span class="text" id="descript_update_descript">{{ descript_behavior_obj.discrip }}</span></li>
+              <li><strong class="fa fa-calendar">زمان</strong><span class="text" id="date_time_update_descript">{{ descript_behavior_obj.date_time }}</span></li>
+              <li><strong class="fa fa-location-arrow">مکان</strong><span class="text" id="place_update_descript">{{ descript_behavior_obj.place }}</span></li>
+              <li><strong class="fa fa-text">موقعیت قبل از رفتار</strong><p class="text" id="Status_before_bahavior_update_descript">{{ descript_behavior_obj.Status_before_bahavior }}</p></li>
+              <li><strong class="fa fa-text">نتایج رفتاری</strong><p class="text" id="Result_behavior_update_descript">{{ descript_behavior_obj.Result_behavior }}</p></li>
+              <li><strong class="fa fa-comment">توضیحات</strong><p class="text" id="Comments_update_descript">{{ descript_behavior_obj.Comments }}</p></li>
+
+          </ul>
+          <!-- contact_details -->
+        </div>
+
+
+
+      <!-- end content -->
+    </div>
+    <!-- end container -->
+  </section>
+
+  <!-- end section -->
+{% endblock %}
+

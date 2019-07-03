@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib import admin
 from django.contrib.auth.models import User,Permission
-
+from django.core.validators import RegexValidator
 
 
 # Create your models here.
@@ -25,26 +25,28 @@ class Profile_Parents(models.Model):
     Birth_date=models.DateField()
     matrial_status=models.CharField(max_length=250)
     jobs=models.CharField(max_length=250)
-    education_degree=models.IntegerField()
+    education_degree=models.CharField(max_length=250)
 
 # for complete profile of psycology
-class Profile_Psy(models.Model): # Psy is abbreviation of psychology
+class ProfilePsy(models.Model): # Psy is abbreviation of psychology
     user= models.ForeignKey(User, on_delete=models.CASCADE ,related_name='psychology', db_column='user')
-    education_degree=models.IntegerField() # code of educations
-    profile_image_psy=models.ImageField(upload_to='pic_profile_psy_folder/')
+    education_degree=models.CharField(max_length=250) # code of educations
+    #profile_image_psy=models.ImageField(upload_to='pic_profile_psy_folder/')
     Specialist_in_Field_work=models.TextField()
     biography=models.TextField()
     price=models.DecimalField(max_digits=10, decimal_places=2) #
     during_session=models.DurationField() # is accoriding to minutes
-    Code_organization=models.IntegerField()
+    Code_organization=models.CharField(max_length=50)
+
+
 # prifile of childern of parents
 class Children(models.Model):
     Parent=models.ForeignKey(User, on_delete=models.CASCADE , db_column='parent')
-    file_number=models.AutoField(primary_key=True)
+    file_number=models.AutoField(primary_key=True , validators=[RegexValidator(regex='^.{8}$', message='Length has to be 8', code='nomatch')])
     name=models.CharField(max_length=250 , null=False)
-    family = models.CharField(max_length=250, null=False)
+    family = models.CharField(max_length=250, null=False , )
     date_birthday=models.DateField()
-    grade_Educations=models.IntegerField()
+    grade_Educations=models.CharField(max_length=250)
     disability= models.BooleanField(default=False,)
     mental_problems= models.TextField(null=True, blank=True)
     Physical_problems = models.TextField(null=True, blank=True)
@@ -105,7 +107,7 @@ class Descript_behavior(models.Model):
     id = models.AutoField(primary_key=True)
     Behavior=models.ForeignKey(Children_behavior,on_delete=models.CASCADE,db_column='behavior')
     discrip=models.TextField(null=True)
-    date_time= models.DateTimeField()
+    date_time= models.DateField()
     place=models.CharField(max_length=255)
     Status_before_bahavior=models.TextField()
     Result_behavior=models.TextField()
@@ -116,7 +118,7 @@ class Descript_behavior(models.Model):
 class record_behavior_Weekly(models.Model):
     id = models.AutoField(primary_key=True)
     behavior=models.ForeignKey(Children_behavior,on_delete=models.CASCADE,db_column='behavior')
-    date=models.DateTimeField()
+    date=models.DateField()
     Times=models.IntegerField() # this times of behavior
     user = models.ForeignKey(User, on_delete=models.CASCADE, db_column='User')
 #____________________________________________Stpe_2
@@ -138,11 +140,10 @@ class Cause_file_number(models.Model):
     Cause= models.ForeignKey(Cause_list,on_delete=models.CASCADE,db_column='Cause')
     user = models.ForeignKey(User, on_delete=models.CASCADE, db_column='User')
 #_____________________________________Step 3 and 4
-
 class type_of_Rewrard(models.Model):
     id = models.AutoField(primary_key=True)
     txt = models.CharField(max_length=255, verbose_name='نوع پاداش ')
-    descript = models.TextField(verbose_name='شرح مختصری ار نوع پاداش مورد نظر', null=True , )
+    descript = models.TextField(verbose_name='شرح مختصری ار نوع پاداش مورد نظر', null=True, )
     def __str__(self):
         return format(self.txt)
 
@@ -176,14 +177,17 @@ class Rules_Reward(models.Model):
     id = models.AutoField(primary_key=True)
     Rule_txt = models.CharField(max_length=255,)
     Rule_descript = models.TextField()
-    Reward = models.ForeignKey(Rewards_behavior, on_delete=models.CASCADE, db_column='Reward')
+    behavior = models.ForeignKey(Children_behavior,on_delete=models.CASCADE,db_column='behavior')
     user = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user')
 
 class Star_Table(models.Model):
     id = models.AutoField(primary_key=True)
-    reward_rule=models.ForeignKey(Rules_Reward,on_delete=models.CASCADE , db_column='reward_rule')
+    reward=models.ForeignKey(Rewards_behavior,on_delete=models.CASCADE , db_column='reward')
+    rule = models.ForeignKey(Rules_Reward,on_delete=models.CASCADE , db_column='rule')
+    behavior = models.ForeignKey(Children_behavior, on_delete=models.CASCADE, db_column='behavior')
     user = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user')
-    Date_Time=models.DateTimeField()
+    Date_Time=models.DateField()
+    times = models.IntegerField(db_column='times' , default=0 )
 
 
 class Surprice_Table(models.Model):
@@ -191,7 +195,7 @@ class Surprice_Table(models.Model):
     Reward=models.ForeignKey(Rewards_behavior,on_delete=models.CASCADE ,db_column='bahavior_reward')
     behavior=models.ForeignKey(Children_behavior,on_delete=models.CASCADE ,db_column='behavior')
     user = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user')
-    Date_Time=models.DateTimeField()
+    Date_Time=models.DateField()
 
 
 class punishment_recommend(models.Model):
@@ -215,7 +219,7 @@ class Punishment_behavior(models.Model):
     descript = models.TextField(null=True)
     result=models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user')
-    Date_Time=models.DateTimeField()
+    Date_Time=models.DateField()
 
 class Situation_defficult_behavior(models.Model):
     id=models.AutoField(primary_key=True)
@@ -224,7 +228,7 @@ class Situation_defficult_behavior(models.Model):
     comments = models.TextField(null=True)
     grade=models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user')
-    Date_Time = models.DateTimeField()
+    Date_Time = models.DateField()
 
 
 class request_consultant(models.Model):
@@ -259,7 +263,7 @@ class Agenda_fileNumber(models.Model):
 class Set_Time_Cost_filenumber(models.Model):
     id = models.AutoField(primary_key=True)
     request=models.ForeignKey(request_consultant,on_delete=models.CASCADE,db_column='request')
-    duration=models.DurationField()
+    duration=models.IntegerField()
     Cost=models.IntegerField()
     comment=models.TextField()
 

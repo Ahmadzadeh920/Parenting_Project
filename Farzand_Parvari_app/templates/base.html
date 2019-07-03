@@ -1,0 +1,212 @@
+{% load static %}
+{% load custom_tags %}
+<!DOCTYPE html>
+<html lang="ar" >
+<head>
+  <meta charset="utf-8">
+  <title>MaxiBiz Bootstrap Business Template</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="{% static "img/favicon.png" %}" rel="icon">
+  <link href="{% static "img/apple-touch-icon.png" %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Ruda:400,900,700" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="{% static "lib/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="{% static "lib/font-awesome/css/font-awesome.min.css" %}" rel="stylesheet">
+  <link href="{% static "lib/prettyphoto/css/prettyphoto.css" %}" rel="stylesheet">
+  <link href="{% static "lib/hover/hoverex-all.css" %}" rel="stylesheet">
+  <link href="{% static "lib/jetmenu/jetmenu.css" %}" rel="stylesheet">
+  <link href="{% static "lib/owl-carousel/owl-carousel.css" %}" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="{% static "css/style.css" %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static "css/colors/blue.css" %}">
+     <!-- Template Main Javascript File -->
+   <script src="{% static "lib/jquery/jquery.min.js" %}"></script>
+  <script src="{% static "lib/bootstrap/js/bootstrap.min.js" %}"></script>
+  <script src="{% static "lib/php-mail-form/validate.js" %}"></script>
+  <script src="{% static "lib/prettyphoto/js/prettyphoto.js" %}"></script>
+  <script src="{% static "lib/isotope/isotope.min.js" %}"></script>
+  <script src="{% static "lib/hover/hoverdir.js" %}"></script>
+  <script src="{% static "lib/hover/hoverex.min.js" %}"></script>
+  <script src="{% static "lib/unveil-effects/unveil-effects.js" %}"></script>
+  <script src="{% static "lib/owl-carousel/owl-carousel.js" %}"></script>
+  <script src="{% static "lib/jetmenu/jetmenu.js" %}"></script>
+  <script src="{% static "lib/animate-enhanced/animate-enhanced.min.js" %}"></script>
+  <script src="{% static "lib/jigowatt/jigowatt.js" %}"></script>
+  <script src="{% static "lib/easypiechart/easypiechart.min.js" %}"></script>
+  <script type="text/javascript" src='{% static "chatdemo/reconnecting-websocket.min.js" %}'></script>
+  <script type="text/javascript" src='{% static "chatdemo/realtime.js" %}'></script>
+  <script type="text/javascript" src='{% static "chatdemo/loadhistory.js" %}'></script>
+  <!-- Template Main Javascript File -->
+  <script src="{% static "js/main.js" %}"></script>
+    <!-- Manage Request  -->
+    <script src="{% static "request/Ajax.js" %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+
+
+  <!-- =======================================================
+    Template Name: MaxiBiz
+    Template URL: https://templatemag.com/maxibiz-bootstrap-business-template/
+    Author: TemplateMag.com
+    License: https://templatemag.com/license/
+  ======================================================= -->
+</head>
+
+<body>
+  <div class="topbar clearfix">
+    <div class="container" >
+      <div class="col-lg-12 text-right">
+        <div class="social_buttons">
+            {% if user.is_authenticated %}
+                <a href="#" style="width: 200px"  id="user"  >{{ user.get_full_name  }} </a>
+                <a href="#" style="width: 200px"  id="logout" data-href-template="{% url 'rest_logout' %}" >خروج از حساب کاربری </a>
+                <a href="#" style="width: 200px"  id="user"> </a>
+            {% else %}
+                    <a href="{% url 'login' %}" style="width: 200px" >ورود به حساب کاربری </a>
+            {% endif %}
+        </div>
+
+      </div>
+    </div>
+    <!-- end container -->
+  </div>
+  <!-- end topbar -->
+
+  <header class="header">
+    <div class="container">
+      <div class="site-header clearfix">
+        <div class="col-lg-3 col-md-3 col-sm-12 title-area">
+          <div class="site-title" id="title">
+            <a href="{% url 'Index' %}" title="" >
+              <span><img src="{% static "img/logo.jpg" %}" width="70px" /></span>
+            </a>
+          </div>
+        </div>
+        <!-- title area -->
+        <div class="col-lg-9 col-md-12 col-sm-12">
+          <div id="nav" class="right">
+            <div class="container clearfix" >
+              <ul id="jetmenu" class="jetmenu blue">
+                {% if user.is_authenticated %}
+                    {% if request.user|has_group:"Parents" %}
+                        <li><a href="{% url 'Chidren' %}">انتخاب فرزند </a></li>
+                        <li><a href="{% url 'render_Profile_Parents' %}">مدیریت پروفایل </a></li>
+                     {% endif %}
+                    {% if request.user|has_group:"Psychology" %}
+                        <li><a href="{% url 'render_psy' %}">ورود به مدیریت پرونده ها  </a></li>
+                         <li><a href="{% url 'render_Profile_Psy' %}">مدیریت پروفایل </a></li>
+                     {% endif %}
+                    {% if request.user|has_group:"Helper" %}
+                        <li><a href="{% url 'render_helper' %}">ورود به مدیریت پرونده ها   </a></li>
+
+                     {% endif %}
+                 {% endif %}
+                <li><a href="#">درباره ما </a>
+                <li><a href="#">معرفی اپلیکشن</a>
+                <li ><a href="#">تماس با ما  </a>
+                <li ><a href="{% url 'Index' %}">صفحه اصلی </a>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+          <!-- nav -->
+        </div>
+        <!-- title area -->
+      </div>
+      <!-- site header -->
+    </div>
+    <!-- end container -->
+  </header>
+  <!-- end header -->
+
+        {% block content %}{% endblock content %}
+
+<footer class="footer">
+    <div class="container">
+      <div class="widget col-lg-3 col-md-3 col-sm-12">
+        <h4 class="title">درباره ما </h4>
+        <p></p>
+
+      </div>
+      <!-- end widget -->
+      <div class="widget col-lg-3 col-md-3 col-sm-12">
+        <h4 class="title">پروژهای اخیر </h4>
+        <ul class="recent_posts">
+          <li></li>
+        </ul>
+        <!-- recent posts -->
+      </div>
+      <!-- end widget -->
+      <div class="widget col-lg-3 col-md-3 col-sm-12">
+        <h4 class="title">تماس با ما </h4>
+        <ul class="contact_details">
+          <li><i class="fa fa-envelope-o"></i> info@farzand-parvari.ir</li>
+          <li><i class="fa fa-phone-square"></i> +98 000 000 00</li>
+          <li><i class="fa fa-home"></i> مشهد - سناباد ... </li>
+
+        </ul>
+        <!-- contact_details -->
+      </div>
+      <!-- end widget -->
+      <div class="widget col-lg-3 col-md-3 col-sm-12">
+        <h4 class="title">لینک های مرتبط</h4>
+        <ul class="fa-link">
+          <li><a href="#">دانشگاه علوم پزشکی مشهد</a></li>
+          <li><a href="#">وزارت بهداشت </a></li>
+        </ul>
+      </div>
+      <!-- end widget -->
+    </div>
+    <!-- end container -->
+
+    <div class="copyrights">
+      <div class="container">
+        <div class="col-lg-6 col-md-6 col-sm-12 columns footer-left">
+
+
+        </div>
+        <!-- end widget -->
+        <div class="col-lg-6 col-md-6 col-sm-12 columns text-right">
+          <div class="footer-menu right">
+            <ul class="menu">
+              <li><a href="{% url 'Index' %}">Home</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Sitemap</a></li>
+              <li><a href="#">Site Terms</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- end large-6 -->
+      </div>
+      <!-- end container -->
+    </div>
+    <!-- end copyrights -->
+  </footer>
+  <!-- end footer -->
+  <div class="dmtop">Scroll to Top</div>
+
+  <!-- JavaScript Libraries -->
+
+</body>
+</html>
+
+
+
+
+
+
+
+</body>
+</html>

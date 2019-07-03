@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <section id="intro">
+    <div class="container">
+      <div class="ror">
+        <div class="col-md-8 col-md-offset-2">
+          <h1>اپلیکشن فرزند پروری </h1>
+          <p>مدیریت عملکرد و رفتار فرزند براساس الگو PMT</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section1">
+    <div class="container">
+
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="servicebox text-center">
+          <div class="service-icon">
+
+            <div class="dm-icon-effect-1" data-effect="slide-left">
+
+              <a href="#" class=""> <i class="active dm-icon fa fa-key fa-3x"></i> </a>
+            </div>
+
+            <div class="servicetitle">
+              <h4> <a href="{% url 'register_helper' %}"> ثبت نام همیار </a> </h4>
+              <hr>
+            </div>
+            <p>همیار در این اپلیکشن می تواند به تکمیل پرونده های فعال شده  برای رفتارهای فرزند کمک کنند</p>
+          </div>
+          <!-- service-icon -->
+        </div>
+        <!-- servicebox -->
+      </div>
+      <!-- large-4 -->
+
+      <div class="col-lg-4 col-md-4 col-sm-4">
+
+        <div class="servicebox text-center">
+          <div class="service-icon">
+            <div class="dm-icon-effect-1" data-effect="slide-bottom">
+              <a href="#" class=""> <i class="active dm-icon fa fa-laptop fa-3x"></i> </a>
+            </div>
+            <div class="servicetitle">
+               <h4> <a href="{% url 'register_Psychology' %}"> ثبت نام مشاوران </a> </h4>
+              <hr>
+            </div>
+            <p>با ثبت نام در این اپلیکشن به عنوان مشاور و روانشناس می توانید پرونده هایی درخواست شده را بررسی کرده و از طریق همین نرم افزار برای والدین فرزندان دستور کار ارائه دهید</p>
+          </div>
+          <!-- service-icon -->
+        </div>
+        <!-- servicebox -->
+      </div>
+      <!-- large-4 -->
+
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="servicebox text-center">
+          <div class="service-icon">
+            <div class="dm-icon-effect-1" data-effect="slide-right">
+              <a href="#" class=""> <i class="active dm-icon fa fa-registered fa-3x"></i> </a>
+            </div>
+            <div class="servicetitle">
+                <h4>      <a href="{% url 'register_Parents' %}"> ثبت نام والد </a> </h4>
+              <hr>
+            </div>
+            <p> با ثبت نام در این بخش شما می توانید مدیریت و عملکرد فرزندان خود را داشته باشید و در صورت نیاز با مشاورها رفتارهای فرزند را بررسی کنید</p>
+          </div>
+          <!-- service-icon -->
+        </div>
+        <!-- servicebox -->
+
+      </div>
+      <!-- large-4 -->
+
+    </div>
+    <!-- end container -->
+  </section>
+  <!-- end section -->
+{
+
+  <!-- end section2 -->
+
+  <!-- end section1 -->
+
+
+
+
+
+
+
+{% endblock content %}

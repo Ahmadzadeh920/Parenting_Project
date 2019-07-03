@@ -3,6 +3,9 @@ from django.conf import settings
 import django.contrib.auth.views as auth_views
 from rest_framework import routers
 import Farzand_Parvari_app.views as views
+from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView, RedirectView
+
 from rest_auth.views import (
     LoginView, LogoutView, UserDetailsView,
     PasswordChangeView,
@@ -80,47 +83,65 @@ from .View_API import (TestAuthView,
                     List_Create_Helper_file_number,
                     Retrieve_delete_Helper_file_number
                        )
+
+from .forms import loginForm
 urlpatterns = [
+    url(r'^$',TemplateView.as_view(template_name="index.html") ,name='Index'),
     url(r'check_member/$',views.check_member),
     url(r'^Register_Admin/$', views.Create_admin_site, name='register_Admin'),
     url(r'^Register_Parents/$', views.register_parents, name='register_Parents'),
     url(r'^Register_Psychology/$', views.register_psychology, name='register_Psychology'),
     url(r'^Register_Helper/$', views.register_helper, name='register_helper'),
-    # Profile
-    url(r'^Profile_Parents_Create/$', Profile_Parents_view.as_view()),
-    url(r'^Profile_Psychology_Create/$', Profile_Psychology_view.as_view()),
-    url(r'^Profile_Parents_Update/$', Retrive_Update_Profile_Parents.as_view()),
-    url(r'^Profile_Psychology_Update/$', Retrive_Update_Profile_Psy.as_view()),
+    # Profile Parents
+    url(r'^render_Profile_Parents/$',views.render_html_profile_parents, name='render_Profile_Parents'),
+    url(r'^Profile_Parents_Create/$',Profile_Parents_view.as_view(), name='Profile_Parents_Create'),
+    url(r'^Profile_Parents_Update/$', Retrive_Update_Profile_Parents.as_view() ,  name='Profile_Parents_Update'),
+    ##########Profile Psychology
+    url(r'^render_Profile_Psy/$',views.render_html_profile_psychology, name='render_Profile_Psy'),
+    url(r'^Profile_Psychology_Create/$', Profile_Psychology_view.as_view() , name='Profile_Psychology_Create'),
+    url(r'^Profile_Psychology_Update/$', Retrive_Update_Profile_Psy.as_view(),name='Profile_Psychology_Update'),
 
     # User authentications
-    url('logout/', LogoutViewEx.as_view(), name='rest_logout', ),# that overrides the rest-auth REST logout-view (
-    url('login/', LoginView.as_view(), name='rest_login', ), #  the rest-auth REST login-view
+    url(r'^logout/$', LogoutViewEx.as_view(), name='rest_logout', ),# that overrides the rest-auth REST logout-view (
+
+    #url(r'^login/', TemplateView.as_view(template_name="login.html"),name='login' ), #  the rest-auth REST login-view
+    url(r'^accounts/login/', TemplateView.as_view(template_name="login.html"),name='login' ), #  the rest-auth REST login-view
+    url(r'^rest_login/$', LoginView.as_view(), name='rest_login', ), #  the rest-auth REST login-view
     url(r'^password/reset/$', PasswordResetView.as_view(),name='rest_password_reset'),
     url(r'^password/reset/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', PasswordResetConfirmView.as_view(),name='password_reset_confirm'),
     url(r'^user/$', UserDetailsView.as_view(), name='rest_user_details'),
-    url(r'^password/change/$', PasswordChangeView.as_view(),name='rest_password_change'),
+    url(r'^passwordChange/', login_required(TemplateView.as_view(template_name='password_change.html')),name='change_password'),
+    url(r'^rest_password_change/$', PasswordChangeView.as_view(),name='rest_password_change'),
     # children
+    url(r'^Chidren/$',views.render_html_List_create_children,name='Chidren'),
+    url(r'^Chidren/(?P<file_number>\d+)$',views.render_html_List_update_children,name='Update_Chidren'),
     url(r'^Children_Create/$', Children_Create.as_view(),name='Create_Chidren'),
     url(r'^Children_List/$', Children_List.as_view(),name='List_Chidren'),
     url(r'^Children_Retrive_Update/(?P<file_number>\d{8})/$', Children_Update.as_view(),name='Update_Retrive_Chidren'),
     # List all of the Steps of Training
+    url(r'^render_file_number/(?P<file_number>\d+)$', views.render_select_file_number,name='render_file_number'),
     url(r'^Steps_Training_List/$', Steps_Training_List.as_view(),name='Steps_training_List'),
     #List all of the Excrecise
     url(r'^Steps_Exercise_List/(?P<training_id>\d+)/$', Steps_Exercise_List.as_view(),name='Steps_Exercise_List'),
     # Comments on Training Steps
+    url(r'^render_Comments_training/(?P<file_number>\d+)/(?P<step_id>\d+)/$', views.render_comments_training,name='render_Comments_training'),
     url(r'^Create_Comments_Steps/(?P<file_number>\d{8})/(?P<step_id>\d+)/$', Create_Comments_steps.as_view(),name='Create_Comments_Chidren'),
     url(r'^Update_Comments_Steps/(?P<file_number>\d{8})/(?P<step_id>\d+)/$',Update_Retrive_Comments_steps.as_view(),name='Update_Retrive_Comments'),
     # Answer to Exercise
-    url(r'^Create_Answer_exer/(?P<file_number>\d{8})/(?P<exercise_id>\d+)/$', Create_Answer_Exercise.as_view(),name='Create_Comments_Answer'),
+    url(r'^render_answer_Exe/(?P<file_number>\d+)/(?P<exercise_id>\d+)/$',views.render_answer_Exercise,name='render_answer_Exe'),
+    url(r'^Create_Answer_exer/(?P<file_number>\d{8})/(?P<exercise_id>\d+)/$', Create_Answer_Exercise.as_view(),name='Create_Answer_exer'),
     url(r'^List_Answer_exer/(?P<file_number>\d{8})/$', List_answer_exer.as_view(),name='Liste_Eercise_Answer'),
     url(r'^Update_Answer_exer/(?P<file_number>\d{8})/(?P<exercise_id>\d+)/$',Update_Retrive_Answer_Exercise.as_view(),name='Update_Retrive_Answer'),
     # Behavior
     url(r'^Create_bahavior/(?P<file_number>\d{8})/$', Create_bahavior.as_view(),name='Create_behavior'),
     url(r'^List_bahavior/(?P<file_number>\d{8})/$', List_bahavior.as_view(),name='List_behavior'),
     url(r'^Update_Retrieve_bahavior/(?P<file_number>\d{8})/(?P<id_behavior>\d+)/$', Update_Retrive_Behavior.as_view(),name='Update_Retrive_Behavior'),
+    # render behavior html file
+    url(r'^render_behavior/(?P<file_number>\d+)/(?P<behavior_id>\d+)/$',views.render_behavior_html,name='render_behavior'),
     # Descrip_Bahaviors
     url(r'^Create_descript/(?P<file_number>\d{8})/(?P<behavior_id>\d+)/$', Create_descriptions.as_view(),name='Create_Description'),
     url(r'^List_descript/(?P<file_number>\d{8})/(?P<behavior_id>\d+)/$', List_descripttions.as_view(),name='List_Description'),
+    url(r'^render_Update_descript/(?P<file_number>\d+)/(?P<behavior_id>\d+)/(?P<descript_id>\d+)/$',views.render_Update_descript_behaviors_step_1,name='render_Update_descript_behaviors_step_1'),
     url(r'^Update_descript/(?P<file_number>\d{8})/(?P<behavior_id>\d+)/(?P<descript_id>\d+)/$',Update_Retrive_descriptions.as_view(),name='Update_Retrieve_Description'),
     # Record behavior weekly
     url(r'^Create_record_weekly/(?P<file_number>\d{8})/(?P<behavior_id>\d+)/$', Create_record_weekly.as_view(),name='Create_behaviors_weekly'),
@@ -140,13 +161,13 @@ urlpatterns = [
     url(r'^List_Reward_behavior/(?P<file_number>\d{8})/(?P<behavior_id>\d+)/$',List_Reward_behavior.as_view(),name='List_Reward_behavior'),
     url(r'^Update_Reward_behavior/(?P<file_number>\d{8})/(?P<behavior_id>\d+)/(?P<Reward_id>\d+)/$',Update_Retrive_Reward_behavior.as_view(),name='Update_Retrieve_Reward_behavior'),
     # Rule of Rewards
-    url(r'^Create_Rule_Rewards/(?P<file_number>\d{8})/(?P<behavior_id>\d+)/(?P<reward_id>\d+)/$', Create_Rule_Rewards.as_view(),name='Create_Rule_Rewards'),
-    url(r'^List_Rule_Reward/(?P<file_number>\d{8})/(?P<behavior_id>\d+)/(?P<reward_id>\d+)/$', List_Rule_Reward.as_view(),name='List_Rule_Rewards'),
-    url(r'^Update_Retrieve_Rule_Reward/(?P<file_number>\d{8})/(?P<behavior_id>\d+)/(?P<reward_id>\d+)/(?P<rule_id>\d+)/$',Update_Retrive_Rule_Reward.as_view(),name='Update_Retrive_Rule_Reward'),
+    url(r'^Create_Rule_Rewards/(?P<file_number>\d{8})/(?P<behavior_id>\d+)/$', Create_Rule_Rewards.as_view(),name='Create_Rule_Rewards'),
+    url(r'^List_Rule_Reward/(?P<file_number>\d{8})/(?P<behavior_id>\d+)/$', List_Rule_Reward.as_view(),name='List_Rule_Rewards'),
+    url(r'^Update_Retrieve_Rule_Reward/(?P<file_number>\d{8})/(?P<behavior_id>\d+)/(?P<rule_id>\d+)/$',Update_Retrive_Rule_Reward.as_view(),name='Update_Retrive_Rule_Reward'),
     #Star_table
-    url(r'^Create_Star_Table/(?P<file_number>\d{8})/(?P<behavior_id>\d+)/(?P<reward_id>\d+)/(?P<rule_id>\d+)/$', Create_Star_Table.as_view(),name='Creat_Star_Table'),
+    url(r'^Create_Star_Table/(?P<file_number>\d{8})/(?P<behavior_id>\d+)/$', Create_Star_Table.as_view(),name='Creat_Star_Table'),
     url(r'^List_Star_Table/(?P<file_number>\d{8})/(?P<behavior_id>\d+)/(?P<reward_id>\d+)/(?P<rule_id>\d+)/$',List_Star_Table.as_view(), name='List_Star_Table'),
-    url(r'^Update_Retrieve_Star_Table/(?P<file_number>\d{8})/(?P<behavior_id>\d+)/(?P<reward_id>\d+)/(?P<rule_id>\d+)/(?P<id>\d+)/$',Update_Retrive_Table_Star.as_view(),name='Update_Retrive_Rule_Reward'),
+    url(r'^Update_Retrieve_Star_Table/(?P<file_number>\d{8})/(?P<behavior_id>\d+)/(?P<id>\d+)/$',Update_Retrive_Table_Star.as_view(),name='Update_Retrive_Rule_Reward'),
     # Surprise Table
     url(r'^Create_Surprise_Table/(?P<file_number>\d{8})/(?P<behavior_id>\d+)/$', Create_Surprise_Table.as_view(),name='Create_Surprise_Table'),
     url(r'^List_Surprise_Table/(?P<file_number>\d{8})/(?P<behavior_id>\d+)/$', List_surprise_table.as_view(),name='List_Star_Table'),
@@ -165,11 +186,12 @@ urlpatterns = [
     url(r'^List_Request_file_number/(?P<file_number>\d{8})/$', List_request_psy.as_view(),name='List_request_psy'),
     url(r'^Update_Retrieve_Request_psy/(?P<file_number>\d{8})/(?P<id_request>\d+)/$',Update_Retrive_request_psy.as_view(),name='Update_Retrive_request_psy'),
     # Agenda
+    url(r'^render_agenda/(?P<file_number>\d+)/$', views.render_agenda_file_number,name='render_agenda_file_number'), # just Psychology
     url(r'^Create_Agenda/(?P<file_number>\d{8})/$', Create_Agenda_File_Number.as_view(),name='Create_Agenda_File_Number'), # just Psychology
     url(r'^List_Agenda/(?P<file_number>\d{8})/$', List_Agenda.as_view(),name='List_Agenda'),
     url(r'^Update_Retrieve_Agenda/(?P<file_number>\d{8})/(?P<id_agenda>\d+)/$',Update_Retrive_Agenda.as_view(),name='Update_Retrive_Agenda'),
     #____________________________________________________Psychology
-
+    url(r'^render_psy/$',views.render_psy,name='render_psy'),
     #new request:
     url(r'^List_new_request/$', List_new_request.as_view(),name='List_new_request'),
     url(r'^View_FileNumber_Psy/(?P<file_number>\d{8})/$', View_file_number_psy.as_view(),name='View_file_number_psy'),
@@ -177,6 +199,7 @@ urlpatterns = [
     url(r'^Change_status_request/(?P<id_request>\d+)/$', Change_status_request.as_view(),name='Change_status_request'),
     # Set time cost for request
     #if user is parents can visit retrive of instance of models and user is psychology can create and retrieve
+    url(r'^render_cost_time/(?P<id_request>\d+)$', views.render_cost_time,name='render_cost_time'),
     url(r'^Create_time_cost_request/(?P<id_request>\d+)/$', List_Create_time_cost.as_view(),name='List_Create_time_cost'),
     #if user is parents can visit retrive of instance of models and user is psychology can update and retrieve
     url(r'^Update_Retrieve_time_cost_request/(?P<request_id>\d+)/$', Retrieve_update_time_cost.as_view(),name='Retrieve_update_time_cost'),
@@ -187,15 +210,17 @@ urlpatterns = [
     url(r'^Update_Retrieve_Answer/(?P<id_request>\d+)/(?P<id>\d+)/$', Update_Retrieve_Answer_request.as_view(),name='Retrieve_update_time_cost'),
     url(r'^List_ongoing_request/$', List_ongoing_request.as_view(),name='List_ongoing_request'),
     # Noting_fileNumber
+    url(r'^render_noting/(?P<file_number>\d+)/$', views.render_noting_file_number,name='render_noting_file_number'),
     url(r'^List_create_noting_fileNumber/(?P<file_number>\d{8})/$', List_Create_noting_fileNumber.as_view(),name='List_Create_noting_fileNumber'),
     url(r'^Retrieve_update_noting_fileNumber/(?P<file_number>\d{8})/(?P<id>\d+)/$', Retrieve_update_noting_file_number.as_view(),name='Retrieve_update_noting_file_number'),
     # general  Noting
     url(r'^List_create_general_nothing/$', List_Create_general_noting.as_view(),name='List_Create_general_noting'),
     url(r'^Retrieve_update_general_noting/(?P<id>\d+)/$', Retrieve_update_general_noting.as_view(),name='Retrieve_update_general_noting'),
     # Helper_File_number
+    url(r'^render_helper/$', views.render_helper ,name='render_helper'),
     url(r'^List_create_helper_fileNumber/(?P<file_number>\d{8})/$', List_Create_Helper_file_number.as_view(),name='List_Create_Helper_file_number'),
     url(r'^Retrieve_delete_helper_fileNumber/(?P<file_number>\d{8})/(?P<id>\d+)/$', Retrieve_delete_Helper_file_number.as_view(),name='Retrieve_update_Helper_file_number'),
     #add role helper to request user
     url(r'^active_role_helper/$', views.active_role_helper,name='active_role_helper'),
-
 ]
+

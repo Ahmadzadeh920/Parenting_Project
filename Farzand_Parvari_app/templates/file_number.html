@@ -1,0 +1,352 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% load custom_tags %}
+
+
+
+        <input type="hidden" value="{{ file_number.file_number }}" id="hidden_file_number_html">
+        <div class="tabbable servicetab tabs-left">
+          <ul class="nav nav-tabs">
+          {% if request.user|has_group:"Parents" %}
+              <li><a href="#chat_online_tab" data-toggle="tab"><i class="fa fa-steam-square"></i> چت آنلاین </a></li>
+              <li><a href="#Agenda_tab" data-toggle="tab"><i class="fa fa-steam-square"></i> دستور کار </a></li>
+              <li id="add_helper_tab"><a href="#add_helper" data-toggle="tab"><i class="fa fa-headphones"></i> همیار افزودن  </a></li>
+              <li id="request_consultant_parent_tab" ><a href="#request_consultant" data-toggle="tab"><i class="fa fa-headphones"></i> درخواست مشاور </a></li>
+          {% endif %}
+             <li id="List_behavior_tab"><a  href="#behavior_child_tab" data-toggle="tab"><i class="fa fa-bell-o"></i> تعریف رفتار کودک </a></li>
+
+                <li ><a id="training_tab" href="#training" data-toggle="tab"><i class="fa fa-book"></i> گام های آموزش </a></li>
+                <li  class="active"><a  href="#file_number_tab" data-toggle="tab"><i class="fa fa-book"></i> مشخصات پرونده </a></li>
+
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="file_number_tab"><br/>
+                  <h5 class="title"><i class="fa fa-laptop"></i> مشخصات پرونده انتخاب شده  </h5>
+
+                   <div >
+                        <table class="table table-striped " >
+                            <thead>
+                                <tr>
+                                     <td>شماره پرونده </td>
+                                    <td>نام فرزند </td>
+                                    <td>نام خانوادگی فرزند </td>
+                                    <td>تاریخ تولد </td>
+                                    <td>مشکلات ذهنی</td>
+                                    <td>مشکلات جسمی</td>
+
+                                </tr>
+                            </thead>
+                          <tbody>
+                                    <td>{{ file_number.file_number }} </td>
+                                    <td>{{ file_number.name }}  </td>
+                                    <td>{{ file_number.family }}</td>
+                                    <td>{{ file_number.date_birthday }} </td>
+                                    <td>{{ file_number.mental_problems }}</td>
+                                    <td>{{ file_number.Physical_problems }}</td>
+
+
+                                 </tbody>
+            </table></div>
+          <!-- contact_details -->
+
+            </div>
+          <!-- end of features of file_number -->
+
+
+
+
+            <div class="tab-pane" id="training"><br/>
+                <h5 class="title"><i class="fa fa-laptop"></i> گام های آموزشی </h5>
+                <ul class="nav" id="list_step_training">
+                          <li><a href="#" data-toggle="tab" id="training_step_1"><i class="fa fa-steam-square"></i> مرحله اول آموزش  </a></li>
+                          <li><a href="#" data-toggle="tab" id="training_step_1"><i class="fa fa-steam-square"></i> مرحله دوم آموزش  </a></li>
+                         <li><a href="#" data-toggle="tab" id="training_step_1"><i class="fa fa-steam-square"></i> مرحله سوم آموزش  </a></li>
+                        <li><a href="#" data-toggle="tab" id="training_step_1"><i class="fa fa-steam-square"></i> مرحله چهارم آموزش  </a></li>
+                        <li><a href="#" data-toggle="tab" id="training_step_1"><i class="fa fa-steam-square"></i> مرحله پنجم آموزش  </a></li>
+                        <li><a href="#" data-toggle="tab" id="training_step_1"><i class="fa fa-steam-square"></i> مرحله ششم آموزش  </a></li>
+                 </ul>
+                    <input type="hidden" id="id_Steps_training" > </input>
+                  <strong class="fa-bold"> نام مرحله آموزشی </strong><p id="name_Steps"> </p>
+                  <strong class="fa-bold">  آموزش  </strong><p id="text_Training_steps"></p>
+                  <strong class="fa-bold"> مثال های مرحله آموزشی   </strong><p id="example_Training_steps"></p>
+                   <strong class="fa-bold"> سوال های متداول در مرحله آموزشی </strong><p id="question_common_Training_steps"></p>
+                    {% if request.user|has_group:"Parents" %}
+                    <p><strong> <a class="fa-link" id="Link_comments_Training_steps" href="#">یادداشت برداری از مرحله آموزشی </a> </strong></p>
+                    {% endif %}
+
+                   <p> <strong> <a class="fa-link" id="Link_Excercise_Training_steps" href="#">مجموعه تمرینات این مرحله آموزشی </a> </strong></p>
+
+                        <p>
+                            <ul class="nav" id="list_exercise">
+
+                                </li>
+
+                            </ul>
+                        </p>
+
+            </div>
+
+              <!-- end of tab-pan-->
+              <div class="tab-pane" id="behavior_child_tab"><br/>
+                  <h5 class="title"><i class="fa fa-laptop"></i> رفتار کودک {{ file_number.name }} </h5>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                   {% if request.user|has_group:"Parents" %}
+                   <form role="form" id="form_create_behaviors" method="POST" >
+                 {%  csrf_token %}
+
+                    <div class="form-group">
+                     <label>رفتار کودک </label> <input type="text" id="behavior_name_form" name="Behavior_name" class="form-control" id="contact-name" placeholder="نام رفتار" data-rule="minlen:3" data-msg="لطفا نام رفتار فرزند را صحیح وارد نمایید" >
+                      <div class="validate"></div>
+                    </div>
+                    <div class="loading"></div>
+                     <div class="error-message"></div>
+                    <div class="sent-message" id="result_create_behavior"><a href="#"></a> </div>
+
+                    <div class="form-send">
+                        <button type="submit" class="btn btn-large btn-primary">ایجاد رفتار جدید</button>
+                     </div>
+
+                   </form>{% endif %}</div>
+                   <div class="col-lg-6 col-md-6 col-sm-6">
+                        <table class="table table-striped " >
+                            <thead>
+                                <tr>
+
+                                </tr>
+                            </thead>
+                          <tbody id="list_bahavior_tbody">
+
+
+                                 </tbody>
+            </table></div>
+          <!-- contact_details -->
+
+            </div>
+        <!-- end of behaviors -->
+          {% if request.user|has_group:"Parents" %}
+              <div class="tab-pane" id="request_consultant"><br/>
+                  <h5 class="title"><i class="fa fa-laptop"></i> درخواست مشاور برای   {{ file_number.name }} </h5>
+                   <div class="">
+                       <h5 class="title"><i class="fa fa-laptop"></i> مجموعه درخواست ها برای مشاور در این پرونده </h5>
+                        <table class="table table-striped " >
+                            <thead>
+                                <tr>
+                                    <td>ردیف </td>
+                                    <td>تاریخ درخواست </td>
+                                    <td>وضعیت درخواست </td>
+                                    <td>زمان فعالسازی </td>
+                                     <td>نام مشاور </td>
+                                    <td>هزینه و زمان اعلام شده  </td>
+                                </tr>
+                            </thead>
+                          <tbody id="list_request_tbody">
+
+
+                                 </tbody>
+            </table></div>
+                  <div class="">
+                      {% if obj_all_psy %}
+                       <h5 class="title"><i class="fa fa-laptop"></i> لیست مشاورها </h5>
+                        <table class="table table-striped " >
+                            <thead>
+                                <tr>
+                                    <td>ردیف </td>
+                                    <td>نام  </td>
+                                    <td>مدرک تحصیلی </td>
+                                    <td>تخصص در زمینه های کاری </td>
+                                    <td>بیوگرافی </td>
+                                    <td>هزینه هر جلسه براساس تومان </td>
+                                    <td>مدت زمان هر جلسه </td>
+                                    <td>کدسازمانی </td>
+
+                                </tr>
+                            </thead>
+                          <tbody id="list_psy_tbody">
+                            {% for psy in obj_all_psy %}
+                                <tr>
+                                    <td>{{ psy.id }} </td>
+                                    <td>{{ psy.user.get_full_name }}</td>
+                                    <td>{{ psy.education_degree }}</td>
+
+                                    <td>{{ psy.Specialist_in_Field_work }}</td>
+                                    <td>{{ psy.biography }}</td>
+                                    <td>{{ psy.price }}</td>
+                                    <td>{{ psy.during_session }}</td>
+                                    <td>{{ psy.Code_organization }}</td>
+                                    <td><a href="#" class="select_psy_link">درخواست مشاوره<input type="hidden" value="{{ psy.user_id }}" /> </a> </td>
+                                </tr>
+                          {% endfor %}
+
+                          </tbody>
+            </table></div>
+                  {% endif %}
+
+
+          <!-- contact_details -->
+
+            </div>
+        <!-- end of request consultant -->
+
+
+          <div class="tab-pane" id="add_helper"><br/>
+                  <h5 class="title"><i class="fa fa-laptop"></i> افزودن همیار برای تکمیل پرونده    {{ file_number.name }} </h5>
+                   <div class="">
+                       <div class="sent-message" id="result_add_helper_behavior"><a href="#"></a> </div>
+                        <table class="table table-striped " >
+                            <thead>
+                                <tr>
+                                    <td>ردیف </td>
+                                    <td>نام هیار  </td>
+                                     <td>ایمیل همیار </td>
+                                </tr>
+                            </thead>
+                          <tbody id="list_add_helper">
+
+
+                                 </tbody>
+            </table></div>
+                  <div class="">
+                      {% if helper_obj %}
+                       <h5 class="title"><i class="fa fa-laptop"></i> لیست همیارها  </h5>
+                        <table class="table table-striped " >
+                            <thead>
+                                <tr>
+                                    <td>ردیف </td>
+                                    <td>نام  </td>
+                                    <td>ایمیل</td>
+
+                                </tr>
+                            </thead>
+                          <tbody id="list_psy_tbody">
+                            {% for helper in helper_obj %}
+                                <tr>
+                                    <td> </td>
+                                     <td>{{ helper.get_full_name }} </td>
+                                    <td>{{ helper.email }} </td>
+                                      <td><a href="#" class="select_helper_link">افزودن همیار<input type="hidden" value="{{ helper.email }}" /> </a> </td>
+                                </tr>
+                          {% endfor %}
+
+                          </tbody>{% endif %}
+            </table></div>
+
+
+
+          <!-- contact_details -->
+
+
+
+          </div>
+        <!-- end of add helper -->
+         <div class="tab-pane" id="Agenda_tab"><br/>
+                  <h5 class="title"><i class="fa fa-laptop"></i> رفتار کودک {{ file_number.name }} </h5>
+                  <div class="">
+
+
+                   <div class="">
+                        <table class="table table-striped " >
+                            <thead>
+                                <tr>
+                                    <td>نام دستور کار</td>
+                                    <td>توضیحات</td>
+                                    <td>تاریخ</td>
+                                </tr>
+                            </thead>
+                          <tbody >
+                          {% for agenda in Agenda_obj %}
+                              <tr>
+                                <td>{{ agenda.name }}</td>
+                              <td>{{ agenda.descript }}</td>
+                              <td>{{ agenda.date_Agenda }}</td>
+                              </tr>
+                          {% endfor %}
+                          </tbody>
+            </table></div>
+          <!-- contact_details -->
+
+                  </div></div>
+        <!-- end of Agenda -->
+        <div class="tab-pane" id="chat_online_tab"><br/>
+                  <h5 class="title"><i class="fa fa-laptop"></i> چت آنلاین </h5>
+                    {% include "errors_and_messages.html" %}
+
+                <div class="col-xs-9 col-sm-8 text-left pre-scrollable" id="all_messages">
+                <div class="hidden" id="last_message_id">{{ massage_chat.content.first_message_id }}</div>
+                    {% if first_message_id > 0 %}
+                        <div class="text-center"><button id="load_old_messages" class="btn btn-success">بارگذاری متون </button></div>
+                    {% endif %}
+                <ul class="list-group" id="chat">
+
+                    {% for message in chat_messages %}
+                        <li class="list-group-item">
+                        <strong>{{ message.user.get_full_name }} : </strong>
+                        {{ message.message_html|safe }}
+                        </li>
+                    {% empty %}
+                    <div id="no_messages">هنوز هیچ پیامی ارسال نشده است</div>
+                    {% endfor %}
+                </ul>
+                </div>
+                    <div class="row">
+                <form id="chatform" autocomplete="off" method="post" role="form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-text-width"></i></span>
+                        <textarea id="message"  class="form-control" placeholder="پیام خود را وارد نمایید" required> </textarea>
+                    </div>
+                    </div>
+                <div class="form-group">
+                    <div class="input-group">
+                <div class="col-xs-2 col-sm-1">
+                    <button id="go" type="submit" class="btn btn-primary input-lg btn-large" >ارسال پیام </button>
+                </div></div></div>
+            </form>
+        </div>
+
+
+
+          <!-- contact_details -->
+
+            </div>
+          <!-- end of chat online -->
+
+{% endif %}
+
+
+
+        </div>
+
+        <div class="clearfix"></div>
+
+
+
+
+      </div>
+      <!-- end content -->
+    </div>
+    <!-- end container -->
+  </section>
+  <!-- end section -->
+
+  <section class="section3">
+    <div class="container withpadding">
+      <div class="message">
+        <div class="col-lg-9 col-md-9 col-sm-9">
+          <h3>Grab the attention of your customers!</h3>
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry"s standard dummy text ever since the 1500s..</p>
+        </div>
+
+      </div>
+      <!-- end message -->
+    </div>
+    <!-- end container -->
+  </section>
+  <!-- end section3 -->
+
+
+  <!-- Template Main Javascript File -->
+
+
+{% endblock %}

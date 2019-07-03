@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+  <section class="section1">
+    <div class="container clearfix">
+
+      <div class="content col-lg-12 col-md-12 col-sm-12 clearfix">
+        <div class="col-lg-6 col-md-6 col-sm-6" style="float: right">
+          <h4 class="title">ویرایش پروفایل </h4>
+          <div id="message"></div>
+           {% if profile == None %}
+          <form role="form" id="form_create_profile_psy" method="POST"  enctype="multipart/form-data">
+          {% else %}
+           <form role="form" id="form_update_profile_psy"  action="#" method="POST" enctype="multipart/form-data">
+           {% endif %}
+            {%  csrf_token %}
+
+            <div class="form-group">
+              <input type="number" id="during_session_psy_form" name="during_session" class="form-control" id="contact-name" min='0' max='120' placeholder="مدت زمان هر جلسه براساس دقیقه" data-rule="minlen:2" data-msg="مدت زمان ر جلس براساس دقیقه وارد شود." required>
+              <div class="validate"></div>
+            </div>
+            <div class="form-group">
+              <input type="number" id="price_psy_form" name="price" class="form-control" id="contact-name" min='1000' max='90000' placeholder="هزینه  هر جلسه براساس تومان" data-rule="minlen:2" data-msg="هزینه هر جلسه براساس تومان" required>
+              <div class="validate"></div>
+            </div>
+            <div class="form-group">
+              <input type="text" id="Code_organization_psy_form" name="Code_organization" class="form-control" id="contact-name"  placeholder="کد سازمانی خود را وارد نمایید " data-rule="minlen:4" data-msg="کد سازمانی خور را وارد نمایید."  required>
+              <div class="validate"></div>
+            </div>
+
+            <div class="form-group">
+
+                <textarea name="Specialist_in_Field_work"  class="form-control" id="Specialist_in_Field_work_psy_form" placeholder="در چه زمینه هایی تخصص دارید" data-rule="textarea" data-msg="لیست از تخصص ها وارد شود  " required>
+                    لیستی از تخصص ای خود را وارد نمایید
+                </textarea>
+              <div class="validate"></div>
+            </div>
+
+
+            <div class="form-group">
+              <select name="education_degree"  class="form-control" id="education_degree_psy_form" placeholder="میزان تحصیلات " data-rule="select" data-msg="میزان تحصیلات را وارد نمایید  ">
+                            <option value="لیسانس">لیسانس </option>
+                            <option value="فوق لیسانس">فوق لیسانس </option>
+                            <option value="دکترا">دکترا و فوق دکترا </option>
+              </select>
+              <div class="validate"></div>
+            </div>
+            <div class="form-group">
+
+                <textarea name="biography"  class="form-control" id="biography_psy_form" placeholder="بیوگرافی" data-rule="textarea" data-msg="بیوگرافی وارد شود  " required>
+                    بیوگرافی خود را وارد نمایید
+                </textarea>
+              <div class="validate"></div>
+            </div>
+            <div class="loading"></div>
+            <div class="error-message"></div>
+            <div class="sent-message" id="result_create_profile_parents"><a href="#"></a> </div>
+
+            <div class="form-send">
+              <button type="submit" class="btn btn-large btn-primary">ارسال </button>
+            </div>
+
+          </form>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <h4 class="title">پروفایل {{ user.username }}<span style="padding-left: 290px"><a href="#" >پروفایل </a></span></h4>
+
+          <ul class="contact_details">
+
+              <li><i class="fa fa-times-circle"></i> مدت زمان هر جلسه <span id="during_session_psy">{{ profile.during_session }}</span></li>
+              <li><i class="fa fa-bitcoin"></i>  هزینه هر جلس براساس تومان <span id="price_psy">{{ profile.price }}</span></li>
+              <li><i class="fa fa-code"></i>:  کد سازمانی <span id="Code_organization_psy">{{ profile.Code_organization }}</span></li>
+              <li><i class="fa fa-address-book-o"></i>:  تخصص ها <span id="Specialist_in_Field_work_psy">{{ profile.Specialist_in_Field_work }}</span></li>
+              <li><i class="fa fa-address-book-o"></i>:  میزان تحصیلات  <span id="education_degree_psy">{{ profile.education_degree }}</span></li>
+              <li><i class="fa fa-history"></i>:  بیوگرافی <span id="biography_psy">{{ profile.biography }}</span></li>
+
+          </ul>
+          <!-- contact_details -->
+        </div>
+
+
+
+      <!-- end content -->
+    </div>
+    <!-- end container -->
+  </section>
+  <!-- end section -->
+{% endblock %}
+

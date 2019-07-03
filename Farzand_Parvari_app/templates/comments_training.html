@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+  <section class="section1">
+    <div class="container clearfix">
+      <div class="content col-lg-12 col-md-12 col-sm-12 clearfix">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+          <h4 class="title">یادادشت برداری برای گام آموزشی  {{ obj_training.name_Steps }} </h4>
+
+
+          <div id="message"></div>
+           {% if obj_comments == None %}
+          <form role="form" id="form_create_comments_training" method="POST" action="#">
+          {% else %}
+           <form role="form" id="form_update_comments_training"  method="POST" action="#">
+           {% endif %}
+                 {%  csrf_token %}
+            <input type="hidden" id="hidden_id_step_in_comments_training_html" value="{{obj_training.id }}">
+            <input type="hidden" id="hidden_file_number_comments_training_html" value="{{ obj_file_number.file_number }}">
+            <div class="form-group">
+                <textarea  id="textarea_comments_training" name="Answer" class="form-control" placeholder="یاداشت برداری " data-msg="لطفا متن یادداشت وارد شود" ></textarea>
+
+            </div>
+
+            <div class="form-send">
+              <button type="submit" class="btn btn-large btn-primary">
+                        ارسال یادداشت
+              </button>
+            </div>
+
+          </form>
+            <div class="validate" id="result_comments_training"></div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <h4 class="title">یادداشت برای این مرحله آموزشی </span></h4>
+          <ul class="contact_details">
+              <li><strong class="fa fa-address-book-o">یادداشت</strong><p class="text" id="comments">{{ obj_comments.Comments }}</p></li>
+              {% if obj_comments %}
+                  <input type="hidden" id="hidden_answer_id_answer_html" value="{{ obj_comments.id }}"/>
+              {% endif %}
+
+          </ul>
+          <!-- contact_details -->
+        </div>
+
+
+
+      <!-- end content -->
+    </div>
+    <!-- end container -->
+  </section>
+
+  <!-- end section -->
+{% endblock %}
+
