@@ -42,10 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Chat_app',# for online chat
-    'channels',
+    #'Chat_app',# for online chat
+    #'channels',
     'widget_tweaks',
-    'channels_presence',
+    #'channels_presence',
     'celery',
     'django_celery_beat',
 
@@ -192,14 +192,14 @@ LOGIN_REDIRECT_URL = 'index.html'
 #_______________________________Chat online
 from django.urls import reverse
 
-redis_host = os.environ.get('REDIS_HOST', 'localhost')
+#redis_host = os.environ.get('REDIS_HOST', 'localhost')
 
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "asgi_redis.RedisChannelLayer",
-        "CONFIG": {
-             "hosts": [(redis_host, 6379)],
-        },
-        "ROUTING": "Chat_app.routing.channel_routing",
-    },
-}
+#CHANNEL_LAYERS = {
+    #"default": {
+        #"BACKEND": "asgi_redis.RedisChannelLayer",
+        #"CONFIG": {
+             #"hosts": [(redis_host, 6379)],
+        #},
+        #"ROUTING": "Chat_app.routing.channel_routing",
+   # },
+#}

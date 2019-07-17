@@ -489,6 +489,7 @@ body.nobg .section1 {
   padding: 0;
   margin: 0 0 20px 0;
   font-size: 42px;
+
 }
 
 #intro p {
@@ -497,6 +498,7 @@ body.nobg .section1 {
   line-height: 28px;
   padding: 0;
   margin: 0;
+
 }
 
 @media (max-width: 768px) {
@@ -707,7 +709,7 @@ body.nobg .section1 {
   background: #ffffff;
   display: block;
   border-bottom: 1px solid #DCDBD7;
-  position: relative;
+  /*position: relative;*/
   z-index: 99;
 }
 

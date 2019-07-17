@@ -108,10 +108,10 @@ $(document).ready(function() {
                 type:"POST",
                 "method": "POST",
                 dataType: 'html',
-                 url: "../logout/",
+                 url: $(this).attr('data-href-template'),
                 contentType: "application/json; charset=utf-8", // this
                 success: function (msg) {
-                        $(window.location).attr('href','../');
+                        document.location.href="/";
                          },
 
                  headers: {
@@ -237,6 +237,7 @@ $("#form_create_profile_parents").submit(function (e) {
                 ),
                 contentType: "application/json; charset=utf-8", // this
                 success: function (msg) {
+
                         $('#jobs_Parents').html(msg.jobs);
                         $('#matrial_status').html(msg.matrial_status);
                         $('#birth_data_Parents').html(msg.Birth_date);
@@ -266,8 +267,8 @@ $("#form_create_profile_parents").submit(function (e) {
         // if date_birthday is empty
 
             $.ajax({
-                type:"PUT",
-                "method": "PUT",
+                type:"POST",
+                "method": "POST",
                 dataType: 'json',
                 enctype: 'multipart/form-data',
                 processData: false,  // Importa
@@ -353,6 +354,7 @@ $("#form_create_profile_parents").submit(function (e) {
                     if (status){
                         $('#result_create_profile_parents').css('color','red'),
                         $('#result_create_profile_parents').html('تمامی فیلدها الزامی است')
+                        console.log(jq)
 
                         }
                     },
@@ -387,8 +389,12 @@ $("#form_create_child").submit(function (e) {
                 ),
                 contentType: "application/json; charset=utf-8", // this
                 success: function (msg) {
-                        $('#file_number_child').html(msg.file_number);
-                        $('#name_child').html(msg.name);
+                         var html_now= $('#list_children_tbody').html()+"<tr>";
+                         var file_number = "<td>"+msg.file_number+"</td>"
+                         var name =  "<td>"+msg.name+"</td>";
+                         var link_update = "<td> <a href="+msg.file_number+">بروزرسانی پروفایل فرزند</a></td>" ;
+                         var select ="<td> <a href=../render_file_number/"+msg.file_number+">انتخاب پرونده</a></td>" ;
+                         $('#list_children_tbody').html(html_now+file_number+name+link_update+select+"</tr>");
                         $('#result_create_profile_parents').css('color','green');
                         $('#result_create_profile_parents').html('پروند فرزند تشکیل شد');
                          },
@@ -1146,7 +1152,7 @@ $("#form_create_comments_training").submit(function (e) {
                 error: function(jq,status,message) {
                     if (status){
                         $('#result_create_descript').css('color','red'),
-                        $('#result_create_descript').html(' مجدد سعی شود');
+                        $('#result_create_descript').html(' مجدد سعی شود . پر کردن تمامی فیلد ها الزامی است');
 
                         }
                     },

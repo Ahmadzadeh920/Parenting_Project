@@ -709,7 +709,7 @@ body.nobg .section1 {
   background: #ffffff;
   display: block;
   border-bottom: 1px solid #DCDBD7;
-  position: relative;
+  /*position: relative;*/
   z-index: 99;
 }
 

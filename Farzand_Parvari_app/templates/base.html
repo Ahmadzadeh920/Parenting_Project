@@ -43,15 +43,21 @@
   <script src="{% static "lib/animate-enhanced/animate-enhanced.min.js" %}"></script>
   <script src="{% static "lib/jigowatt/jigowatt.js" %}"></script>
   <script src="{% static "lib/easypiechart/easypiechart.min.js" %}"></script>
-  <script type="text/javascript" src='{% static "chatdemo/reconnecting-websocket.min.js" %}'></script>
-  <script type="text/javascript" src='{% static "chatdemo/realtime.js" %}'></script>
-  <script type="text/javascript" src='{% static "chatdemo/loadhistory.js" %}'></script>
+  <!--<script type="text/javascript" src="chatdemo/reconnecting-websocket.min.js" ></script>
+  <!--<script type="text/javascript" src="chatdemo/realtime.js"></script> -->
+  <!--<script type="text/javascript" src="chatdemo/loadhistory.js"></script> -->
   <!-- Template Main Javascript File -->
   <script src="{% static "js/main.js" %}"></script>
     <!-- Manage Request  -->
     <script src="{% static "request/Ajax.js" %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+   $(".menutitle").css("display", "none");
 
+})
+
+</script>
 
 
   <!-- =======================================================
@@ -84,20 +90,28 @@
 
   <header class="header">
     <div class="container">
-      <div class="site-header clearfix">
+      <div class="site-header clearfix" style="text-align: center; float: inherit">
         <div class="col-lg-3 col-md-3 col-sm-12 title-area">
           <div class="site-title" id="title">
             <a href="{% url 'Index' %}" title="" >
-              <span><img src="{% static "img/logo.jpg" %}" width="70px" /></span>
+              <span><img src="{% static "img/logo.jpg" %}" width="100px" /></span>
             </a>
           </div>
         </div>
         <!-- title area -->
-        <div class="col-lg-9 col-md-12 col-sm-12">
-          <div id="nav" class="right">
+        <div class="col-lg-9 col-md-12 col-sm-12" >
+          <div id="nav" class="right" >
             <div class="container clearfix" >
-              <ul id="jetmenu" class="jetmenu blue">
-                {% if user.is_authenticated %}
+              <ul id="jetmenu" class="jetmenu blue" >
+
+
+
+
+                <li ><a href="{% url 'Index' %}">صفحه اصلی </a></li>
+                <li><a href="#">خدمات ما </a></li>
+                <li><a href="#">درباره ما </a></li>
+                  <li ><a href="#">تماس با ما  </a></li>
+                  {% if user.is_authenticated %}
                     {% if request.user|has_group:"Parents" %}
                         <li><a href="{% url 'Chidren' %}">انتخاب فرزند </a></li>
                         <li><a href="{% url 'render_Profile_Parents' %}">مدیریت پروفایل </a></li>
@@ -111,12 +125,6 @@
 
                      {% endif %}
                  {% endif %}
-                <li><a href="#">درباره ما </a>
-                <li><a href="#">معرفی اپلیکشن</a>
-                <li ><a href="#">تماس با ما  </a>
-                <li ><a href="{% url 'Index' %}">صفحه اصلی </a>
-                </li>
-
               </ul>
             </div>
           </div>
@@ -132,40 +140,43 @@
 
         {% block content %}{% endblock content %}
 
-<footer class="footer">
-    <div class="container">
-      <div class="widget col-lg-3 col-md-3 col-sm-12">
-        <h4 class="title">درباره ما </h4>
-        <p></p>
+<footer class="footer" >
+    <div class="container" >
+      <div class="widget col-lg-4 col-md-3 col-sm-8">
+        <h4 class="title">مجوز ها  </h4>
+         <ul class="">
+          <li><a href="#">دانشگاه </a></li>
+          <li><a href="#">اسناد </a></li>
+          <li><a href="#">سازماندهی</a></li>
+        </ul>
+
 
       </div>
       <!-- end widget -->
-      <div class="widget col-lg-3 col-md-3 col-sm-12">
-        <h4 class="title">پروژهای اخیر </h4>
-        <ul class="recent_posts">
-          <li></li>
+
+         <div class="widget col-lg-4 col-md-3 col-sm-12" >
+        <h4 class="title">لینک های مرتبط</h4>
+        <ul class="">
+          <li><a href="https://mums.ac.ir/">دانشگاه علوم پزشکی مشهد</a></li>
+          <li><a href="http://behdasht.gov.ir/">وزارت بهداشت </a></li>
+          <li><a href="http://healthtech.mums.ac.ir">مرکز رشد سلامت دانشگاه علوم پزشکی</a></li>
         </ul>
-        <!-- recent posts -->
       </div>
       <!-- end widget -->
-      <div class="widget col-lg-3 col-md-3 col-sm-12">
+      <div class="widget col-lg-4 col-md-3 col-sm-12">
         <h4 class="title">تماس با ما </h4>
         <ul class="contact_details">
+          <li><i class="fa fa-home"></i> خراسان رضوی - مشهد مقدس - خیابان ابن سینا - مقابل سه راه ادبیات - نبش ابن سینا 2/3 - ساختمان 46 - بلوک 1 - طبقه 3- واحد 11  </li>
+          <li><i class="fa fa-phone-square"></i> +98 5138481070</li>
           <li><i class="fa fa-envelope-o"></i> info@farzand-parvari.ir</li>
-          <li><i class="fa fa-phone-square"></i> +98 000 000 00</li>
-          <li><i class="fa fa-home"></i> مشهد - سناباد ... </li>
+
+
 
         </ul>
         <!-- contact_details -->
       </div>
       <!-- end widget -->
-      <div class="widget col-lg-3 col-md-3 col-sm-12">
-        <h4 class="title">لینک های مرتبط</h4>
-        <ul class="fa-link">
-          <li><a href="#">دانشگاه علوم پزشکی مشهد</a></li>
-          <li><a href="#">وزارت بهداشت </a></li>
-        </ul>
-      </div>
+
       <!-- end widget -->
     </div>
     <!-- end container -->
@@ -178,15 +189,7 @@
         </div>
         <!-- end widget -->
         <div class="col-lg-6 col-md-6 col-sm-12 columns text-right">
-          <div class="footer-menu right">
-            <ul class="menu">
-              <li><a href="{% url 'Index' %}">Home</a></li>
-              <li><a href="#">About</a></li>
-              <li><a href="#">Sitemap</a></li>
-              <li><a href="#">Site Terms</a></li>
-              <li><a href="#">Contact</a></li>
-            </ul>
-          </div>
+
         </div>
         <!-- end large-6 -->
       </div>
@@ -195,7 +198,7 @@
     <!-- end copyrights -->
   </footer>
   <!-- end footer -->
-  <div class="dmtop">Scroll to Top</div>
+  <div class="dmtop"></div>
 
   <!-- JavaScript Libraries -->
 
@@ -205,8 +208,3 @@
 
 
 
-
-
-
-</body>
-</html>

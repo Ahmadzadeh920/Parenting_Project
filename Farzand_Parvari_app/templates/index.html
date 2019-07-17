@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-  <section id="intro">
+  <section id="intro" style="height: 550px ; padding-top: 20px">
     <div class="container">
       <div class="ror">
         <div class="col-md-8 col-md-offset-2">
-          <h1>اپلیکشن فرزند پروری </h1>
-          <p>مدیریت عملکرد و رفتار فرزند براساس الگو PMT</p>
+          <h1> </h1>
+          <p></p>
         </div>
       </div>
     </div>
@@ -22,7 +22,9 @@
 
             <div class="dm-icon-effect-1" data-effect="slide-left">
 
-              <a href="#" class=""> <i class="active dm-icon fa fa-key fa-3x"></i> </a>
+              <a href="#" class=""> <i class="active fa fa-3x" >
+                  <img src="{% static 'img/helper.jpeg' %}" />
+              </i> </a>
             </div>
 
             <div class="servicetitle">
@@ -42,7 +44,7 @@
         <div class="servicebox text-center">
           <div class="service-icon">
             <div class="dm-icon-effect-1" data-effect="slide-bottom">
-              <a href="#" class=""> <i class="active dm-icon fa fa-laptop fa-3x"></i> </a>
+              <a href="#" class=""> <i class="active fa  fa-3x"><img src="{% static 'img/psy.jpeg' %}" /></i> </a>
             </div>
             <div class="servicetitle">
                <h4> <a href="{% url 'register_Psychology' %}"> ثبت نام مشاوران </a> </h4>
@@ -60,7 +62,7 @@
         <div class="servicebox text-center">
           <div class="service-icon">
             <div class="dm-icon-effect-1" data-effect="slide-right">
-              <a href="#" class=""> <i class="active dm-icon fa fa-registered fa-3x"></i> </a>
+              <a href="#" class=""> <i class="active  fa  fa-3x"><img src="{% static 'img/parent.jpg' %}" /></i> </a>
             </div>
             <div class="servicetitle">
                 <h4>      <a href="{% url 'register_Parents' %}"> ثبت نام والد </a> </h4>
@@ -79,15 +81,10 @@
     <!-- end container -->
   </section>
   <!-- end section -->
-{
 
   <!-- end section2 -->
 
   <!-- end section1 -->
-
-
-
-
 
 
 

@@ -7,10 +7,12 @@
 	position: relative;
 	list-style: none;
 	background: #ffffff;
+	text-align: center;
 }
 .jetmenu li{
 	display: inline-block;
-	float: left;
+	float: right;
+	text-align: center;
 }
 
 .jetmenu a{
@@ -100,6 +102,7 @@
 	top: 0;
 	font-size: 11px;
 	left: 10px;
+	text-align: center;
 }
 
 .jetmenu p {
@@ -137,7 +140,7 @@
 /* megamenu list */
 .jetmenu li > .megamenu ul{
 	margin: 0 0 20px 0;
-	float: left;
+	float: right;
 	padding: 0;
 	display: block;
 	position: relative;
@@ -284,7 +287,7 @@
 	display: block;
 	width: 100%;
 	min-height: 20px;
-	float: left;
+	float: right;
 	margin-left: 2.127659574468085%;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;

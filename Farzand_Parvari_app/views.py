@@ -18,7 +18,7 @@ from rest_framework.decorators import api_view,authentication_classes
 from rest_framework import generics
 from rest_framework.exceptions import APIException,PermissionDenied,ValidationError
 from rest_framework.permissions import IsAdminUser,IsAuthenticated
-import Chat_app.views as views_chat_online
+#import Chat_app.views as views_chat_online
 from django.contrib.auth.models import Group
 
 
@@ -438,9 +438,9 @@ def render_select_file_number(request ,file_number):
         if file_number_auth.exists() or request_auth.exists() or helper_auth :
             if obj.exists():
                 obj_all_psy = ProfilePsy.objects.all()
-                massage_data = views_chat_online.get_chat_fun()
-                chat_messages = massage_data[0]
-                first_message_id = massage_data[1]
+                #massage_data = views_chat_online.get_chat_fun()
+                #chat_messages = massage_data[0]
+                #first_message_id = massage_data[1]
                 helper_obj = User.objects.filter(groups__name='Helper').all();
                 file_number_obj = Children.objects.filter(file_number= file_number)
                 Agenda_obj= Agenda_fileNumber.objects.filter(file_number__file_number=file_number)
@@ -448,8 +448,10 @@ def render_select_file_number(request ,file_number):
                                             'step_training':obj ,
                                             'file_number':file_number_obj.get() ,
                                             'obj_all_psy':obj_all_psy,
-                                            'chat_messages':chat_messages ,
-                                            'first_message_id':first_message_id,
+                                            #'chat_messages':chat_messages ,
+                                            #'first_message_id':first_message_id,
+                                            'chat_messages': None,
+                                            'first_message_id':None,
                                             'helper_obj':helper_obj,
                                             'Agenda_obj':Agenda_obj,
                                         } )
@@ -564,15 +566,17 @@ def render_psy(request):
     if request.user.is_authenticated() and is_member(request.user,'Psychology') :
         new_request_obj = request_consultant.objects.filter(user_psy=request.user , activ_req=1 ).all()
         active_request_obj = request_consultant.objects.filter(user_psy=request.user, activ_req=2).all()
-        massage_data = views_chat_online.get_chat_fun()
-        chat_messages = massage_data[0]
-        first_message_id = massage_data[1]
+        #massage_data = views_chat_online.get_chat_fun()
+        #chat_messages = massage_data[0]
+        #first_message_id = massage_data[1]
         general_noting_obj= general_noting.objects.filter(consultant= request.user)
         return render(request, 'psy.html', {
             'new_request_obj':new_request_obj,
             'active_request_obj':active_request_obj,
-            'chat_messages':chat_messages,
-            'first_message_id':first_message_id,
+            #'chat_messages':chat_messages,
+            #'first_message_id':first_message_id,
+            'chat_messages': None,
+            'first_message_id':None,
             'general_noting_obj':general_noting_obj,
         })
 
