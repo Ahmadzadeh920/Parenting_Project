@@ -3,62 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8dcaa1c5-9f3a-4986-9402-a10959a1e813" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Farazan_Parvari_Project/asgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/Farazan_Parvari_Project/asgi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Farazan_Parvari_Project/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Farazan_Parvari_Project/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Farazan_Parvari_Project/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Farazan_Parvari_Project/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Farzand_Parvari_app/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/Farzand_Parvari_app/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Farzand_Parvari_app/static/img/intro-bg.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Farzand_Parvari_app/static/img/intro-bg.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Farzand_Parvari_app/static/lib/jetmenu/jetmenu.css" beforeDir="false" afterPath="$PROJECT_DIR$/Farzand_Parvari_app/static/lib/jetmenu/jetmenu.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Farzand_Parvari_app/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/Farzand_Parvari_app/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Farzand_Parvari_app/templates/behavior.html" beforeDir="false" afterPath="$PROJECT_DIR$/Farzand_Parvari_app/templates/behavior.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Farzand_Parvari_app/templates/file_number.html" beforeDir="false" afterPath="$PROJECT_DIR$/Farzand_Parvari_app/templates/file_number.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Farzand_Parvari_app/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Farzand_Parvari_app/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Farzand_Parvari_app/templates/psy.html" beforeDir="false" afterPath="$PROJECT_DIR$/Farzand_Parvari_app/templates/psy.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Farzand_Parvari_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Farzand_Parvari_app/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/flickr_01.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/flickr_02.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/flickr_03.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/flickr_04.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/flickr_05.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/flickr_06.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/flickr_07.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/flickr_08.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/intro-bg.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/static/img/intro-bg.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/market_01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/market_02.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/market_03.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/market_04.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/market_05.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/market_06.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/market_alone.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/market_single_01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/portfolio_01.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/portfolio_02.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/portfolio_03.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/portfolio_04.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/portfolio_05.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/portfolio_06.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/portfolio_07.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/portfolio_08.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/portfolio_09.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/portfolio_10.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/recent_post_01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/recent_post_02.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/slider_01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/slider_02.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/slides_01.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/slides_02.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/slides_03.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/support.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/team_01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/team_02.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/team_03.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/team_04.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/team_05.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/team_06.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/lib/jetmenu/jetmenu.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/lib/jetmenu/jetmenu.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/request/Ajax.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/request/Ajax.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Farzand_Parvari_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Farzand_Parvari_app/urls.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -94,23 +40,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Farazan_Parvari_Project/settings.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="204" column="1" selection-start-line="204" selection-start-column="1" selection-end-line="204" selection-end-column="1" />
-              <folding>
-                <element signature="e#326#335#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="base.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="126" column="28" selection-start-line="126" selection-start-column="28" selection-end-line="126" selection-end-column="28" />
+            <state relative-caret-position="85">
+              <caret line="111" column="40" lean-forward="true" selection-start-line="111" selection-start-column="40" selection-end-line="111" selection-end-column="40" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -118,11 +52,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="behavior.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/behavior.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="11237">
+              <caret line="661" lean-forward="true" selection-start-line="661" selection-end-line="661" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1989">
-              <caret line="117" column="41" selection-start-line="117" selection-start-column="31" selection-end-line="117" selection-end-column="46" />
+            <state relative-caret-position="136">
+              <caret line="90" column="18" selection-start-line="90" selection-start-column="18" selection-end-line="90" selection-end-column="18" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -130,37 +73,47 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/views.py">
+      <file leaf-file-name="about.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/about.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-53">
-              <caret line="573" column="31" lean-forward="true" selection-start-line="573" selection-start-column="31" selection-end-line="573" selection-end-column="31" />
+            <state relative-caret-position="102">
+              <caret line="6" column="58" selection-start-line="6" selection-start-column="58" selection-end-line="6" selection-end-column="58" />
               <folding>
-                <element signature="e#24#63#0" expanded="true" />
+                <element signature="e#213#237#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="psy.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/psy.html">
+      <file leaf-file-name="service.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/service.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="23" column="57" selection-start-line="23" selection-start-column="57" selection-end-line="23" selection-end-column="57" />
+            <state relative-caret-position="102">
+              <caret line="6" column="58" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="58" />
+              <folding>
+                <element signature="e#213#237#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/static/js/main.js">
-          <provider selected="true" editor-type-id="text-editor" />
+      <file leaf-file-name="register.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/register.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="313">
+              <caret line="63" column="12" lean-forward="true" selection-start-line="63" selection-start-column="12" selection-end-line="63" selection-end-column="12" />
+            </state>
+          </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Farazan_Parvari_Project/urls.py">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
-              <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+            <state relative-caret-position="205">
+              <caret line="30" column="82" lean-forward="true" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="82" />
+              <folding>
+                <element signature="n#style#0;n#section#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -196,9 +149,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
-        <option value="HTML File" />
         <option value="JavaScript File" />
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -217,23 +170,21 @@
       <find />
       <find>s</find>
       <find>.fa-key</find>
-      <find />
       <find>Menu</find>
       <find>.showhide</find>
       <find>MENU</find>
       <find>menu</find>
       <find>menutitle</find>
       <find>showhide</find>
-      <find />
       <find>Chat_app</find>
       <find>views_chat_online</find>
-      <find />
       <find>header</find>
       <find>left</find>
       <find>ri</find>
       <find>right</find>
-      <find />
       <find>.jetmenu{</find>
+      <find>site-header clearfix</find>
+      <find>section</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -252,8 +203,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Farzand_Parvari_app/templates/password_change.html" />
-        <option value="$PROJECT_DIR$/Farzand_Parvari_app/static/request/jquery.cookie.js" />
         <option value="$PROJECT_DIR$/requirements.txt.txt" />
         <option value="$PROJECT_DIR$/static/request/Ajax.js" />
         <option value="$PROJECT_DIR$/Farzand_Parvari_app/templates/Create_profile_parents.html" />
@@ -285,7 +234,6 @@
         <option value="$PROJECT_DIR$/Farzand_Parvari_app/templates/login.html" />
         <option value="$PROJECT_DIR$/Farzand_Parvari_app/templates/register.html" />
         <option value="$PROJECT_DIR$/Farzand_Parvari_app/templates/testimonials.html" />
-        <option value="$PROJECT_DIR$/Farzand_Parvari_app/urls.py" />
         <option value="$PROJECT_DIR$/Farzand_Parvari_app/templates/List_Create_Children.html" />
         <option value="$PROJECT_DIR$/Farzand_Parvari_app/templates/List_Update_Children.html" />
         <option value="$PROJECT_DIR$/Farzand_Parvari_app/templates/comments_training.html" />
@@ -302,7 +250,10 @@
         <option value="$PROJECT_DIR$/Farzand_Parvari_app/views.py" />
         <option value="$PROJECT_DIR$/Farzand_Parvari_app/static/css/style.css" />
         <option value="$PROJECT_DIR$/Farzand_Parvari_app/static/lib/jetmenu/jetmenu.css" />
+        <option value="$PROJECT_DIR$/Farzand_Parvari_app/urls.py" />
         <option value="$PROJECT_DIR$/Farzand_Parvari_app/templates/base.html" />
+        <option value="$PROJECT_DIR$/Farzand_Parvari_app/templates/service.html" />
+        <option value="$PROJECT_DIR$/Farzand_Parvari_app/templates/about.html" />
       </list>
     </option>
   </component>
@@ -344,39 +295,7 @@
               <item name="Farazan_Parvari_Project" type="b2602c69:ProjectViewProjectNode" />
               <item name="Farazan_Parvari_Project" type="462c0819:PsiDirectoryNode" />
               <item name="Farzand_Parvari_app" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Farazan_Parvari_Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Farazan_Parvari_Project" type="462c0819:PsiDirectoryNode" />
-              <item name="Farzand_Parvari_app" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Farazan_Parvari_Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Farazan_Parvari_Project" type="462c0819:PsiDirectoryNode" />
-              <item name="Farzand_Parvari_app" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="jetmenu" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Farazan_Parvari_Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Farazan_Parvari_Project" type="462c0819:PsiDirectoryNode" />
-              <item name="Farzand_Parvari_app" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Farazan_Parvari_Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Farazan_Parvari_Project" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Farazan_Parvari_Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Farazan_Parvari_Project" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -397,13 +316,13 @@
     <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ArvandPcCenter.ir\Envs\Farzand_Parvar\Farazan_Parvari_Project\Farzand_Parvari_app\templates" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\ArvandPcCenter.ir\Envs\Farzand_Parvar\Farazan_Parvari_Project\Farzand_Parvari_app\templates" />
       <recent name="C:\Users\ArvandPcCenter.ir\Envs\Farzand_Parvar\Farazan_Parvari_Project\Farzand_Parvari_app\templates\registration" />
       <recent name="C:\Users\ArvandPcCenter.ir\Desktop" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\ArvandPcCenter.ir\Envs\Farzand_Parvar\Farazan_Parvari_Project\Farzand_Parvari_app\templates" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -560,45 +479,61 @@
       <window_info anchor="bottom" id="Python Console" order="7" sideWeight="0.49621785" weight="0.32876712" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32876712" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.6323752" visible="true" weight="0.29545453" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49878347" visible="true" weight="0.29016393" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49878347" visible="true" weight="0.28114754" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="4" weight="0.32980332" />
       <window_info anchor="right" id="SciView" order="3" weight="0.32980332" />
       <window_info id="Structure" order="1" sideWeight="0.50121653" side_tool="true" weight="0.16263238" />
       <window_info id="Favorites" order="2" sideWeight="0.50121653" side_tool="true" weight="0.16263238" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="DB Execution Console" order="7" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49878347" visible="true" weight="0.29016393" />
+      <window_info anchor="right" id="SciView" order="3" weight="0.32980332" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32876712" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49924356" weight="0.32876712" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32876712" />
+      <window_info id="DB Browser" order="2" weight="0.32980332" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info id="Structure" order="1" sideWeight="0.50121653" side_tool="true" weight="0.16263238" />
+      <window_info anchor="right" id="Database" order="4" weight="0.32980332" />
       <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.36762482" side_tool="true" weight="0.29623288" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info id="Favorites" order="2" sideWeight="0.50121653" side_tool="true" weight="0.16263238" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32876712" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.6323752" visible="true" weight="0.29545453" />
+      <window_info anchor="bottom" id="Python Console" order="7" sideWeight="0.49621785" weight="0.32876712" />
     </layout>
     <layout-to-restore>
       <window_info anchor="bottom" id="DB Execution Console" order="9" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32876712" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info id="Favorites" order="3" sideWeight="0.50121653" side_tool="true" weight="0.16263238" />
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49878347" visible="true" weight="0.16944024" />
       <window_info id="Structure" order="1" sideWeight="0.50121653" side_tool="true" weight="0.16263238" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32876712" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49924356" weight="0.32876712" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32876712" />
       <window_info id="DB Browser" order="2" weight="0.32980332" />
-      <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.49621785" weight="0.32876712" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32876712" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.6323752" visible="true" weight="0.29623288" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.36762482" side_tool="true" visible="true" weight="0.29623288" />
       <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.49924356" weight="0.32876712" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" weight="0.32980332" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" id="Database" order="4" weight="0.32980332" />
-      <window_info id="Favorites" order="3" sideWeight="0.50121653" side_tool="true" weight="0.16263238" />
+      <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.49621785" weight="0.32876712" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -629,21 +564,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/Cost_Time_Psy.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="23" column="62" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/register.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="502">
-          <caret line="63" column="12" lean-forward="true" selection-start-line="63" selection-start-column="12" selection-end-line="63" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/left-sidebar.html" />
     <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/masonry-grid-portfolio.html" />
     <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/portfolio-2.html" />
     <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/portfolio-3.html" />
@@ -779,30 +699,15 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Chat_app/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/Chat_app/consumers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/Farazan_Parvari_Project/asgi.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="6" column="13" selection-start-line="6" selection-end-line="6" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -810,9 +715,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="15" column="3" selection-start-line="15" selection-end-line="15" selection-end-column="11" />
-          <folding>
-            <element signature="e#240#249#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -831,13 +733,6 @@
         <state relative-caret-position="-27" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="56" selection-start-line="3" selection-start-column="56" selection-end-line="3" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -849,13 +744,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="118">
           <caret line="332" selection-start-line="332" selection-end-line="332" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/behavior.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="669" selection-start-line="669" selection-end-line="669" />
         </state>
       </provider>
     </entry>
@@ -880,16 +768,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="142">
           <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1989">
-          <caret line="117" column="41" selection-start-line="117" selection-start-column="31" selection-end-line="117" selection-end-column="46" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -925,12 +803,66 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/register.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="63" column="12" lean-forward="true" selection-start-line="63" selection-start-column="12" selection-end-line="63" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="90" column="18" selection-start-line="90" selection-start-column="18" selection-end-line="90" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="126" column="28" selection-start-line="126" selection-start-column="28" selection-end-line="126" selection-end-column="28" />
+        <state relative-caret-position="85">
+          <caret line="111" column="40" lean-forward="true" selection-start-line="111" selection-start-column="40" selection-end-line="111" selection-end-column="40" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#header#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/behavior.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11237">
+          <caret line="661" lean-forward="true" selection-start-line="661" selection-end-line="661" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="30" column="82" lean-forward="true" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="82" />
+          <folding>
+            <element signature="n#style#0;n#section#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/service.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="58" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="58" />
+          <folding>
+            <element signature="e#213#237#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/about.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="58" selection-start-line="6" selection-start-column="58" selection-end-line="6" selection-end-column="58" />
+          <folding>
+            <element signature="e#213#237#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -108,8 +108,8 @@ $(document).ready(function () {
 
 
                 <li ><a href="{% url 'Index' %}">صفحه اصلی </a></li>
-                <li><a href="#">خدمات ما </a></li>
-                <li><a href="#">درباره ما </a></li>
+                <li><a href="{% url 'service' %}">خدمات ما </a></li>
+                <li><a href="{% url 'about' %}"">درباره ما </a></li>
                   <li ><a href="#">تماس با ما  </a></li>
                   {% if user.is_authenticated %}
                     {% if request.user|has_group:"Parents" %}

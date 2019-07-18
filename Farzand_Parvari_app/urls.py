@@ -87,6 +87,8 @@ from .View_API import (TestAuthView,
 from .forms import loginForm
 urlpatterns = [
     url(r'^$',TemplateView.as_view(template_name="index.html") ,name='Index'),
+    url(r'^service/$',TemplateView.as_view(template_name="service.html") ,name='service'),
+    url(r'^about/$',TemplateView.as_view(template_name="about.html") ,name='about'),
     url(r'check_member/$',views.check_member),
     url(r'^Register_Admin/$', views.Create_admin_site, name='register_Admin'),
     url(r'^Register_Parents/$', views.register_parents, name='register_Parents'),
