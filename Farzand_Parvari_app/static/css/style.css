@@ -432,7 +432,7 @@ body.nobg {
   margin: 0;
   overflow: hidden;
   width: 100%;
-  background: url("../img/404.png") no-repeat top right #ffffff;
+
   min-height: 400px;
 }
 
@@ -815,7 +815,7 @@ body.nobg .section1 {
 
 .footer-menu li {
   line-height: 12px;
-  float: left;
+  float: right;
   padding: 0 7px;
 }
 
@@ -1049,7 +1049,7 @@ body.nobg .section1 {
 
 .theme_overviews .icon-container {
   display: block;
-  float: left;
+  float: right;
   left: 0;
   top: 20px;
   overflow: hidden;
@@ -2423,7 +2423,7 @@ div.google-map {
 }
 
 #post-tags a, #sidebar .tagcloud a {
-  float: left;
+  float: right;
   display: block;
   margin-bottom: 4px;
   margin-right: 4px;

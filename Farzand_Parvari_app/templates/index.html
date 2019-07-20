@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-  <section id="intro" style="height: 550px ; padding-top: 20px">
+  <section id="intro" style="height: 350px ">
     <div class="container">
       <div class="ror">
         <div class="col-md-8 col-md-offset-2">
@@ -15,8 +15,51 @@
 
   <section class="section1">
     <div class="container">
+        <div class="col-lg-4 col-md-4 col-sm-4"  style="float: right">
+        <div class="servicebox text-center">
+          <div class="service-icon">
+            <div class="dm-icon-effect-1" data-effect="slide-right">
+              <a href="#" class=""> <i class="active  fa  fa-3x"><img src="{% static 'img/parent.jpg' %}" /></i> </a>
+            </div>
+            <div class="servicetitle">
+                <h4>      <a href="{% url 'register_Parents' %}"> ثبت نام والد </a> </h4>
+              <hr>
+            </div>
+            <p> با ثبت نام در این بخش شما می توانید مدیریت و عملکرد فرزندان خود را داشته باشید و در صورت نیاز با مشاورها رفتارهای فرزند را بررسی کنید</p>
+          </div>
+          <!-- service-icon -->
+        </div>
+        <!-- servicebox -->
 
-      <div class="col-lg-4 col-md-4 col-sm-4">
+      </div>
+      <!-- large-4 -->
+
+
+        <div class="col-lg-4 col-md-4 col-sm-4"  style="float: right">
+
+        <div class="servicebox text-center">
+          <div class="service-icon">
+            <div class="dm-icon-effect-1" data-effect="slide-bottom">
+              <a href="#" class=""> <i class="active fa  fa-3x"><img src="{% static 'img/psy.jpeg' %}" /></i> </a>
+            </div>
+            <div class="servicetitle">
+               <h4> <a href="{% url 'register_Psychology' %}"> ثبت نام مشاوران </a> </h4>
+              <hr>
+            </div>
+            <p>با ثبت نام در این اپلیکشن به عنوان مشاور و روانشناس می توانید پرونده هایی درخواست شده را بررسی کرده و از طریق همین نرم افزار برای والدین فرزندان دستور کار ارائه دهید</p>
+          </div>
+          <!-- service-icon -->
+        </div>
+        <!-- servicebox -->
+      </div>
+
+
+
+
+      <!-- large-4 -->
+
+
+        <div class="col-lg-4 col-md-4 col-sm-4" style="float: right">
         <div class="servicebox text-center">
           <div class="service-icon">
 
@@ -39,44 +82,6 @@
       </div>
       <!-- large-4 -->
 
-      <div class="col-lg-4 col-md-4 col-sm-4">
-
-        <div class="servicebox text-center">
-          <div class="service-icon">
-            <div class="dm-icon-effect-1" data-effect="slide-bottom">
-              <a href="#" class=""> <i class="active fa  fa-3x"><img src="{% static 'img/psy.jpeg' %}" /></i> </a>
-            </div>
-            <div class="servicetitle">
-               <h4> <a href="{% url 'register_Psychology' %}"> ثبت نام مشاوران </a> </h4>
-              <hr>
-            </div>
-            <p>با ثبت نام در این اپلیکشن به عنوان مشاور و روانشناس می توانید پرونده هایی درخواست شده را بررسی کرده و از طریق همین نرم افزار برای والدین فرزندان دستور کار ارائه دهید</p>
-          </div>
-          <!-- service-icon -->
-        </div>
-        <!-- servicebox -->
-      </div>
-      <!-- large-4 -->
-
-      <div class="col-lg-4 col-md-4 col-sm-4">
-        <div class="servicebox text-center">
-          <div class="service-icon">
-            <div class="dm-icon-effect-1" data-effect="slide-right">
-              <a href="#" class=""> <i class="active  fa  fa-3x"><img src="{% static 'img/parent.jpg' %}" /></i> </a>
-            </div>
-            <div class="servicetitle">
-                <h4>      <a href="{% url 'register_Parents' %}"> ثبت نام والد </a> </h4>
-              <hr>
-            </div>
-            <p> با ثبت نام در این بخش شما می توانید مدیریت و عملکرد فرزندان خود را داشته باشید و در صورت نیاز با مشاورها رفتارهای فرزند را بررسی کنید</p>
-          </div>
-          <!-- service-icon -->
-        </div>
-        <!-- servicebox -->
-
-      </div>
-      <!-- large-4 -->
-
     </div>
     <!-- end container -->
   </section>
@@ -85,7 +90,34 @@
   <!-- end section2 -->
 
   <!-- end section1 -->
+<section class="section1">
+        <div class="container author_box" >
+            <h4> <a href="#"> درباره ما  </a> </h4>
+            <p  style="line-height: 3em">
 
+                آموزش اصول فرزند پروری صحیح بسیار مهم و ارزشمند هستند چرا که بسیاری از اختلالات روانپزشکی، مشکلات در روابط بین فردی و حتی اعتیاد، ناشی از فرزندپروری نادرست است که با دادن دانش و مهارت لازم در این زمینه و آموزش مهارتها به والدین میتوان از این معضلات پیشگیری کرد و میتوان گفت این امر مهمترین اصل در زمینه پیشگیری است.
+
+                <a href="{% url 'about' %}" class="">ادامه مطلب</a>
+
+
+
+            </p>
+        </div>
+    </section>
+
+    <section class="section1">
+        <div class="container author_box">
+            <h4> <a href="#"> خدمات ما   </a> </h4>
+            <p  style="line-height: 3em">
+               هدف از این پروژه آموزش همگانی به عموم جامعه (والدین) جهت پرورش فرزندان می باشد. با توجه به روشهای نوین فرزندپروری در دنیا که PMT (Parent Management Training) هم اکنون جزو پرکاربردترین روش می باشد این ایده شکل گرفت. این ایده برمبنای یادگیری اجتماعی است و روشی برای شکل گیری و تغییر رفتار افراد در زندگی روزمره می باشد.
+
+                <a href="{% url 'service' %}" class="">ادامه مطلب</a>
+
+
+
+            </p>
+        </div>
+    </section>
 
 
 {% endblock content %}
