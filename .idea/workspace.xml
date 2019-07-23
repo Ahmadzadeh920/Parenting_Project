@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8dcaa1c5-9f3a-4986-9402-a10959a1e813" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Farazan_Parvari_Project/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Farazan_Parvari_Project/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Farzand_Parvari_app/static/img/intro-bg-1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Farzand_Parvari_app/static/img/intro-bg-1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Farzand_Parvari_app/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/Farzand_Parvari_app/templates/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Farzand_Parvari_app/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Farzand_Parvari_app/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Farzand_Parvari_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Farzand_Parvari_app/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/intro-bg-1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/static/img/intro-bg-1.jpg" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -105,9 +99,8 @@
         <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="51">
-              <caret line="3" column="42" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="42" />
+              <caret line="3" column="39" selection-start-line="3" selection-start-column="39" selection-end-line="3" selection-end-column="39" />
               <folding>
-                <element signature="n#style#0;n#section#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#section#1;n#!!top" expanded="true" />
               </folding>
             </state>
@@ -173,7 +166,7 @@
       <find>ri</find>
       <find>right</find>
       <find>.jetmenu{</find>
-      <find />
+      <find>site-header clearfix</find>
       <find>section</find>
       <find>.jp</find>
       <find>parents</find>
@@ -182,7 +175,7 @@
       <find>conso</find>
       <find>put</find>
       <find>404</find>
-      <find />
+      <find>float: le</find>
       <find>550</find>
       <find>service</find>
     </findStrings>
@@ -266,7 +259,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="40" />
     <option name="width" value="1280" />
     <option name="height" value="688" />
@@ -821,9 +814,8 @@
     <entry file="file://$PROJECT_DIR$/Farzand_Parvari_app/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
-          <caret line="3" column="42" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="42" />
+          <caret line="3" column="39" selection-start-line="3" selection-start-column="39" selection-end-line="3" selection-end-column="39" />
           <folding>
-            <element signature="n#style#0;n#section#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#section#1;n#!!top" expanded="true" />
           </folding>
         </state>
