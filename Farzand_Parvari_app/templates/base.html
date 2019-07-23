@@ -4,10 +4,12 @@
 <html lang="ar" >
 <head>
   <meta charset="utf-8">
-  <title>MaxiBiz Bootstrap Business Template</title>
+  <title>74Z7C9C</title>
+  <meta name="samandehi" content="603949029" >
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
+   <meta name="samandehi" content="603949029" >
 
   <!-- Favicons -->
   <link href="{% static "img/favicon.png" %}" rel="icon">
@@ -103,14 +105,10 @@ $(document).ready(function () {
           <div id="nav" class="right" >
             <div class="container clearfix" >
               <ul id="jetmenu" class="jetmenu blue" >
-
-
-
-
                 <li ><a href="{% url 'Index' %}">صفحه اصلی </a></li>
                 <li><a href="{% url 'service' %}">خدمات ما </a></li>
                 <li><a href="{% url 'about' %}"">درباره ما </a></li>
-                  <li ><a href="#">تماس با ما  </a></li>
+
                   {% if user.is_authenticated %}
                     {% if request.user|has_group:"Parents" %}
                         <li><a href="{% url 'Chidren' %}">انتخاب فرزند </a></li>
@@ -146,7 +144,7 @@ $(document).ready(function () {
         <h4 class="title">تماس با ما </h4>
         <ul class="contact_details">
           <li><i class="fa fa-home"></i> خراسان رضوی - مشهد مقدس - خیابان ابن سینا - مقابل سه راه ادبیات - نبش ابن سینا 2/3 - ساختمان 46 - بلوک 1 - طبقه 3- واحد 11  </li>
-          <li><i class="fa fa-phone-square"></i> +98 5138481070</li>
+          <li><i class="fa fa-phone-square"></i> +985138481070</li>
           <li><i class="fa fa-envelope-o"></i> info@farzand-parvari.ir</li>
 
         </ul>

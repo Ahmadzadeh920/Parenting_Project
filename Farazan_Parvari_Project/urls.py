@@ -28,4 +28,5 @@ admin.site.site_header = "Farzand Parvari Admin"
 admin.site.site_title = "Farzand Parvari Admin Portal"
 admin.site.index_title = "Welcome to Farzand Parvari Researcher Portal"
 handler404 = 'Farzand_Parvari_app.views.handler404'
-handler500 = 'Farzand_Parvari_app.views.handler500'
+handler401 = 'Farzand_Parvari_app.views.handler500'
+handler403 = 'Farzand_Parvari_app.views.handler500'

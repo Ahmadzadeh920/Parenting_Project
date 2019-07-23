@@ -224,5 +224,6 @@ urlpatterns = [
     url(r'^Retrieve_delete_helper_fileNumber/(?P<file_number>\d{8})/(?P<id>\d+)/$', Retrieve_delete_Helper_file_number.as_view(),name='Retrieve_update_Helper_file_number'),
     #add role helper to request user
     url(r'^active_role_helper/$', views.active_role_helper,name='active_role_helper'),
+    url(r'^603948.txt$', TemplateView.as_view(template_name="603948.txt"),name='603948.txt' ),
 ]
 
