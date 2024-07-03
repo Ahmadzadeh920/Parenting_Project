@@ -1,7 +1,8 @@
 # Farazan_Parvari_Project
-# Launched : September 2016
+ Launched : September 2016
 Farazan company has been a long-time client, since before they launch this project.  I have helped them update and/or develop new projects before, and this project is only one case which allowed me to share with our costomers. I was glad to help this company.
-Why this application is formed :
+
+#Why this application is formed :
 1.	Lack of a comprehensive and coordinated online system for teaching, practicing and implementing parenting topics based on the current methods of the world
 2.	Lack of regular and coordinated communication between children, parents, educators and psycologist to create desirable behavior
 3.	Lack of tools to evaluate and check behavior changes
@@ -9,7 +10,7 @@ Why this application is formed :
 5.	Failure to follow up and review cases and training provided in counseling sessions or case studies of parents
 6.	lack of access to auxiliary tools to provide and track behavioral problems online and real-time and quantitative reports
 
-Available alternatives:
+#Available alternatives:
 Holding scattered and uncoordinated psychological sessions across the country with limited parental access
 value proposition
 1.	The purpose of this program is to prevent the occurrence of behavioral, developmental, and emotional disorders in children by raising the level of knowledge, skills, and confidence of parents.
