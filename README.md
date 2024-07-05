@@ -40,3 +40,12 @@ Used Platfrom :
 •	Python/Django/REST Framework
 
 
+# Structure Database
+<img src="data_structure.png" alt="Data_structure">
+
+# License
+MIT.
+
+
+# Bugs
+Feel free to let me know if something needs to be fixed. or even any features seems to be needed in this repo.
