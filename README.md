@@ -43,6 +43,12 @@ Used Platfrom :
 # Structure Database
 <img src="data_structure.png" alt="Data_structure">
 
+# Clone the repo
+Clone this repo anywhere you want and move into the directory:
+```bash
+git clone https://github.com/Ahmadzadeh920/Farazan_Parvari_Project.git
+```
+
 # License
 MIT.
 
