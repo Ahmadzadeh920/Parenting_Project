@@ -1,5 +1,5 @@
 <div align="center">
-<h1 align="center">Farazan_Parvari_Project</h1>
+<h1 align="center">Parenting_Projectt</h1>
 <h3 align="center">Sample Project with base usage and deployment</h3>
 </div>
 <p align="center">
@@ -46,7 +46,7 @@ Used Platfrom :
 # Clone the repo
 Clone this repo anywhere you want and move into the directory:
 ```bash
-git clone https://github.com/Ahmadzadeh920/Farazan_Parvari_Project.git
+git clone https://github.com/Ahmadzadeh920/Parenting_Project.git
 ```
 
 # License
