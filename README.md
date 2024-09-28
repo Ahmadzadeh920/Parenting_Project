@@ -34,13 +34,13 @@ value proposition
 1.	The purpose of this program is to prevent the occurrence of behavioral, developmental, and emotional disorders in children by raising the level of knowledge, skills, and confidence of parents.
 2.	It is a comprehensive and innovative system at the international level (system and applications) for training, practice and practical implementation of parenting topics by parents and the participation of all effective people in stabilizing specific behavior in children and adolescents based on the current PMT method.
 3.	Detailed statistical reports to the responsible organizations on the type of problematic behaviors in different ages of the society for planning and applied studies as well as evaluating and guiding parents in a scientific and coordinated manner.
-Used Platfrom :
+# Requirements:
 •	HTML/CSS/ Bootstrap Template
 •	Javascript/Jquery
 •	Python/Django/REST Framework
 
 
-# Structure Database
+# Some parts of Structure Database
 <img src="data_structure.png" alt="Data_structure">
 
 # Clone the repo
