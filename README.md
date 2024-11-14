@@ -1,5 +1,5 @@
 <div align="center">
-<h1 align="center">Parenting_Project</h1>
+<h1 align="center">Child Behavior Intervention Network (CBIN</h1>
 <h3 align="center">Sample Project with base usage and deployment</h3>
 </div>
 <p align="center">
@@ -13,7 +13,7 @@
 
 
 
-# Parenting_Project
+# Child Behavior Intervention Network (CBIN
  Launched : September 2016
  
 FaraIT company has been a long-time client, since before they launch this project.  I have helped them update and/or develop new projects before, and this project is only one case which allowed me to share with our costomers. I was glad to help this company.
